@@ -83,9 +83,3 @@ El proyecto utiliza las siguientes dependencias:
 
 Para ejecutar la aplicación, simplemente ejecuta la clase `MsSecurityApplication` como una aplicación Spring Boot. La aplicación se iniciará en el puerto predeterminado (generalmente el puerto 8080).
 
-## Contribución
-
-Si deseas contribuir a este proyecto, siéntete libre de enviar pull requests con tus mejoras, correcciones de errores o nuevas funcionalidades.
-
-¡Gracias por tu interés en este proyecto!
-
