@@ -1,6 +1,6 @@
 package com.ucaldas.mssecurity.Services;
 
-import com.ucaldas.mssecurity.Models.User;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.http.HttpEntity;
-import org.springframework.http.MediaType;
-
 
 @Service
 public class NotificationService {
+
+    @Value("${notifications.baseurl}")
+    private String emailServiceUrl;
+
     public void sendPasswordResetEmail(String email, String resetToken) {
         // Construir el contenido del correo electrónico con el enlace al formulario de restablecimiento de contraseña, incluyendo el token en el enlace
         Map<String, Object> emailContent = new HashMap<>();
@@ -39,11 +40,8 @@ public class NotificationService {
         // Crear la entidad HTTP con los datos del correo electrónico y las cabeceras
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(emailContent, headers);
 
-        // URL del servicio de envío de correo electrónico
-        String url = "http://localhost:5000/send_email";
-
         // Enviar la solicitud POST al servicio de envío de correo electrónico
-        restTemplate.postForObject(url, entity, String.class);
+        restTemplate.postForObject(emailServiceUrl, entity, String.class);
     }
 
 }

@@ -12,7 +12,7 @@ def send_email():
     correo = request.get_json()
     print(correo)
     try:
-        connection_string = os.environ.get("CONNECTION_STRING")
+        connection_string = os.environ.get("CONECTION_STRING")
         client = EmailClient.from_connection_string(connection_string)
 
         message = {
