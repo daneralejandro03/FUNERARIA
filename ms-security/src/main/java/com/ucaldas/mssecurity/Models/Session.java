@@ -1,10 +1,17 @@
 package com.ucaldas.mssecurity.Models;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.Date;
 
 public class Session {
+
+    @DBRef
+    private User user;
+
+    public Session() {
+    }
 
     @Id
     private String _id;
@@ -47,5 +54,14 @@ public class Session {
 
     public void setEndAt(Date endAt) {
         this.endAt = endAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+
     }
 }
