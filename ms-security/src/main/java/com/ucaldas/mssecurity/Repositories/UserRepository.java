@@ -8,4 +8,7 @@ public interface UserRepository extends MongoRepository <User, String> {
 
     @Query ("{'email': ?0}")
     public User getUsersByEmail(String email);
+
+    @Query ("{'_id': ?0}")
+    public User getUsersById(String idUser);
 }
