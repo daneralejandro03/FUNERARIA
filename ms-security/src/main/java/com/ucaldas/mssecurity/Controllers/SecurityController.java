@@ -1,9 +1,7 @@
 package com.ucaldas.mssecurity.Controllers;
 
 import com.ucaldas.mssecurity.Models.Session;
-import com.ucaldas.mssecurity.Models.Session;
 import com.ucaldas.mssecurity.Models.User;
-import com.ucaldas.mssecurity.Repositories.SessionRepository;
 import com.ucaldas.mssecurity.Repositories.SessionRepository;
 import com.ucaldas.mssecurity.Repositories.UserRepository;
 import com.ucaldas.mssecurity.Services.EncryptionService;
@@ -13,10 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
+
 
 @CrossOrigin
 @RestController
@@ -44,48 +40,11 @@ public class SecurityController {
         User actualUser = theUserRepository.getUsersByEmail(theUser.getEmail());
 
         if (actualUser != null && actualUser.getPassword().equals(theEncryptionService.convertSHA256(theUser.getPassword()))) {
-            token = generateAndSend2FA(actualUser);
+            token = theNotificationService.generateAndSend2FA(actualUser);
         }
 
         return token;
     }
-
-    private String generateAndSend2FA(User user) {
-        Session theSession = createSession(user);
-
-        if (theSession != null) {
-            send2FAEmail(user, theSession);
-            return theSession.getToken();
-        } else {
-            return "";
-        }
-    }
-
-    private Session createSession(User user) {
-        Session theSession = new Session();
-        Random rand = new Random();
-        int token2FA = rand.nextInt(9000) + 1000;
-        Date startAt = new Date();
-        long ONE_HOUR_IN_MILLIS = 60 * 60 * 1000;
-        Date endAt = new Date(startAt.getTime() + ONE_HOUR_IN_MILLIS);
-
-        theSession.setToken2FA(token2FA);
-        theSession.setStartAt(startAt);
-        theSession.setEndAt(endAt);
-        theSession.setUser(user);
-
-        return theSessionRepository.save(theSession);
-    }
-
-    private void send2FAEmail(User user, Session session) {
-        Map<String, Object> emailContent = new HashMap<>();
-        emailContent.put("address", user.getEmail());
-        emailContent.put("subject", "Su token de 2FA");
-        emailContent.put("plainText", "Su token es: " + session.getToken2FA());
-
-        theNotificationService.sendEmail(emailContent);
-    }
-
 
     @PostMapping("login/2FA/{idUser}")
     public String login2FA(@RequestBody Session theSession, @PathVariable String idUser) {

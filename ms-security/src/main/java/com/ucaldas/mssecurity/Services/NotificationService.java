@@ -1,5 +1,8 @@
 package com.ucaldas.mssecurity.Services;
 
+import com.ucaldas.mssecurity.Models.Session;
+import com.ucaldas.mssecurity.Models.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,8 +16,20 @@ import java.util.Map;
 @Service
 public class NotificationService {
 
+    @Autowired
+    private SessionService theSessionService;
+
     @Value("${notifications.baseurl}")
     private String emailServiceUrl;
+
+    public void send2FAEmail(User user, Session session) {
+        Map<String, Object> emailContent = new HashMap<>();
+        emailContent.put("address", user.getEmail());
+        emailContent.put("subject", "Su token de 2FA");
+        emailContent.put("plainText", "Su token es: " + session.getToken2FA());
+
+        sendEmail(emailContent);
+    }
 
     public void sendPasswordResetEmail(String email, String resetToken) {
         // Construir el contenido del correo electrónico con el enlace al formulario de restablecimiento de contraseña, incluyendo el token en el enlace
@@ -42,6 +57,17 @@ public class NotificationService {
 
         // Enviar la solicitud POST al servicio de envío de correo electrónico
         restTemplate.postForObject(emailServiceUrl, entity, String.class);
+    }
+
+    public String generateAndSend2FA(User user) {
+        Session theSession = theSessionService.createSession(user);
+
+        if (theSession != null) {
+            send2FAEmail(user, theSession);
+            return theSession.getToken();
+        } else {
+            return "";
+        }
     }
 
 }
