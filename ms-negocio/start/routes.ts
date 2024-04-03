@@ -31,3 +31,11 @@ import "./routes/employee";
 import "./routes/administrator";
 
 import "./routes/customers";
+
+import "./routes/permission";
+
+import "./routes/role";
+
+import "./routes/rolepermission";
+
+import "./routes/service";
