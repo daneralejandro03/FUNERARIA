@@ -1,10 +1,7 @@
 package com.ucaldas.mssecurity.Services;
 
 import com.ucaldas.mssecurity.Models.User;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,10 +28,25 @@ public class JwtService {
         try {
             Jwts.parserBuilder().setSigningKey(getSecretKey()).build().parseClaimsJws(token);
             return true;
+        } catch (ExpiredJwtException e) {
+            // El token ha expirado
+            System.out.println("El token ha expirado: " + e.getMessage());
+            return false;
+        } catch (MalformedJwtException e) {
+            // El token no tiene el formato correcto
+            System.out.println("El token no tiene el formato correcto: " + e.getMessage());
+            return false;
+        } catch (SignatureException e) {
+            // La firma del token es inválida
+            System.out.println("La firma del token es inválida: " + e.getMessage());
+            return false;
         } catch (Exception e) {
+            // Otra excepción no prevista
+            e.printStackTrace();
             return false;
         }
     }
+
 
     // Método para extraer y retornar el ID de usuario incrustado en el token JWT
     public static String getUserIdFromPasswordResetToken(String token) {
@@ -112,25 +124,31 @@ public class JwtService {
 
     // Método para generar un token de restablecimiento de contraseña
     public String generatePasswordResetToken(User user) {
-        // Clave secreta utilizada para firmar el token
-        Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        try {
+            // Utilizar la misma clave secreta para firmar el token
+            SecretKey secretKey = getSecretKey();
 
-        // Fecha y hora actual
-        Date now = new Date();
+            // Fecha y hora actual
+            Date now = new Date();
 
-        // Fecha y hora de expiración del token (1 hora desde ahora)
-        Date expiryDate = new Date(now.getTime() + 3600000); // 1 hora en milisegundos
+            // Fecha y hora de expiración del token (1 hora desde ahora)
+            Date expiryDate = new Date(now.getTime() + 3600000); // 1 hora en milisegundos
 
-        // Construir el token JWT con la información del usuario y la fecha de expiración
-        String token = Jwts.builder()
-                .setSubject(user.getEmail()) // Establecer el correo electrónico del usuario como sujeto del token
-                .setIssuedAt(now) // Establecer la fecha y hora de emisión del token
-                .setExpiration(expiryDate) // Establecer la fecha y hora de expiración del token
-                .signWith(secretKey) // Firmar el token con la clave secreta
-                .compact(); // Compactar el token en una cadena
+            // Construir el token JWT con la información del usuario y la fecha de expiración
+            String token = Jwts.builder()
+                    .setSubject(user.getEmail()) // Establecer el correo electrónico del usuario como sujeto del token
+                    .setIssuedAt(now) // Establecer la fecha y hora de emisión del token
+                    .setExpiration(expiryDate) // Establecer la fecha y hora de expiración del token
+                    .signWith(secretKey) // Firmar el token con la clave secreta
+                    .compact(); // Compactar el token en una cadena
 
-        // Retornar el token generado
-        return token;
+            // Retornar el token generado
+            return token;
+        } catch (Exception e) {
+            // Manejar cualquier excepción que ocurra durante la generación del token
+            System.out.println("Error al generar el token de restablecimiento de contraseña: " + e.getMessage());
+            return null;
+        }
     }
 
 }

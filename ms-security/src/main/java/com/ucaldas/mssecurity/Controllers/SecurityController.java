@@ -89,13 +89,23 @@ public class SecurityController {
     public void resetPassword(@RequestBody Map<String, String> requestBody) {
         String resetToken = requestBody.get("token");
         String newPassword = requestBody.get("newPassword");
+        System.out.println("Token recibido: "+ resetToken);
+        try{
         if (thejwtService.validatePasswordResetToken(resetToken)) {
-            String userId = thejwtService.getUserIdFromPasswordResetToken(resetToken);
-            User user = theUserRepository.findById(userId).orElse(null);
+            System.out.println("Token válido: "+ resetToken);
+            String userEmail = thejwtService.getUserIdFromPasswordResetToken(resetToken);
+            System.out.println("ID de usuario: "+ userEmail);
+            User user = theUserRepository.getUsersByEmail(userEmail);
             if (user != null) {
                 user.setPassword(theEncryptionService.convertSHA256(newPassword));
                 theUserRepository.save(user);
+                System.out.println("Contraseña cambiada para el usuario con ID: " + userEmail);
             }
+        } else {
+            System.out.println("Token inválido: "+ resetToken);
+        }
+        }catch (Exception e){
+            System.out.println("Error al validar el token:: "+ e);
         }
     }
 
