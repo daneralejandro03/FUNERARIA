@@ -7,10 +7,14 @@ import com.ucaldas.mssecurity.Repositories.UserRepository;
 import com.ucaldas.mssecurity.Services.EncryptionService;
 import com.ucaldas.mssecurity.Services.JwtService;
 import com.ucaldas.mssecurity.Services.NotificationService;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.io.IOException;
 import java.util.Map;
 
 
@@ -29,18 +33,24 @@ public class SecurityController {
     private SessionRepository theSessionRepository;
 
     @Autowired
-    private JwtService jwtService;
+    private JwtService thejwtService;
 
     @Autowired
     private NotificationService theNotificationService;
 
     @PostMapping("login")
-    public String login(@RequestBody User theUser) {
+    public String login(@RequestBody User theUser, final HttpServletResponse response) throws IOException {
         String token = "";
+
         User actualUser = theUserRepository.getUsersByEmail(theUser.getEmail());
 
         if (actualUser != null && actualUser.getPassword().equals(theEncryptionService.convertSHA256(theUser.getPassword()))) {
-            token = theNotificationService.generateAndSend2FA(actualUser);
+
+            token = this.thejwtService.generateToken(actualUser);
+            theNotificationService.generateAndSend2FA(actualUser, token);
+
+        } else {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
 
         return token;
@@ -69,7 +79,7 @@ public class SecurityController {
         User user = theUserRepository.getUsersByEmail(email);
         if (user != null) {
             // Generar token de restablecimiento de contraseña
-            String resetToken = jwtService.generatePasswordResetToken(user);
+            String resetToken = thejwtService.generatePasswordResetToken(user);
             // Enviar correo electrónico con el token
             theNotificationService.sendPasswordResetEmail(user.getEmail(), resetToken);
         }
@@ -79,8 +89,8 @@ public class SecurityController {
     public void resetPassword(@RequestBody Map<String, String> requestBody) {
         String resetToken = requestBody.get("token");
         String newPassword = requestBody.get("newPassword");
-        if (jwtService.validatePasswordResetToken(resetToken)) {
-            String userId = jwtService.getUserIdFromPasswordResetToken(resetToken);
+        if (thejwtService.validatePasswordResetToken(resetToken)) {
+            String userId = thejwtService.getUserIdFromPasswordResetToken(resetToken);
             User user = theUserRepository.findById(userId).orElse(null);
             if (user != null) {
                 user.setPassword(theEncryptionService.convertSHA256(newPassword));

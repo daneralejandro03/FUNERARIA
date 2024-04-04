@@ -16,7 +16,7 @@ def send_email():
         client = EmailClient.from_connection_string(connection_string)
 
         message = {
-            "senderAddress": os.environ.get("SENDER_ADDRESS"),
+            "senderAddress": os.environ.get("SENDER_ADRESS"),
             "recipients": {
                 "to": [{"address": correo["address"]}],
             },

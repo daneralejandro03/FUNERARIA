@@ -15,7 +15,7 @@ public class SessionService {
     @Autowired
     private SessionRepository theSessionRepository;
 
-    public Session createSession(User user) {
+    public Session createSession(User user, String token) {
         Session theSession = new Session();
         Random rand = new Random();
         int token2FA = rand.nextInt(9000) + 1000;
@@ -24,10 +24,12 @@ public class SessionService {
         Date endAt = new Date(startAt.getTime() + ONE_HOUR_IN_MILLIS);
 
         theSession.setToken2FA(token2FA);
+        theSession.setToken(token);
         theSession.setStartAt(startAt);
         theSession.setEndAt(endAt);
         theSession.setUser(user);
 
         return theSessionRepository.save(theSession);
     }
+    
 }

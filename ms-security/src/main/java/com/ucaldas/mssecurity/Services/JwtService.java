@@ -23,11 +23,6 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private Long expiration; // Tiempo de expiración del token en milisegundos.
 
-    /*
-    @Value("${jwt.passwordResetExpiration}")
-    private Long passwordResetExpiration; // Tiempo de expiración del token de restablecimiento de contraseña en milisegundos.
-    */
-
     // Clave secreta para firmar y verificar los tokens JWT
     private static final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 

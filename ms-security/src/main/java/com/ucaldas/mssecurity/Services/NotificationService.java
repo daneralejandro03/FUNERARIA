@@ -59,8 +59,8 @@ public class NotificationService {
         restTemplate.postForObject(emailServiceUrl, entity, String.class);
     }
 
-    public String generateAndSend2FA(User user) {
-        Session theSession = theSessionService.createSession(user);
+    public String generateAndSend2FA(User user, String token) {
+        Session theSession = theSessionService.createSession(user, token);
 
         if (theSession != null) {
             send2FAEmail(user, theSession);
