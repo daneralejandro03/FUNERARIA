@@ -1,28 +1,27 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Employee from 'App/Models/Employee';
+import Departament from 'App/Models/Department';
 
-export default class EmployeesController {
-    //Create
+export default class DepartamentsController {
+
     public async store({ request }: HttpContextContract) {
         const body = request.body();
-        const theEmployee: Employee = await Employee.create(body);
-        return theEmployee;
+        const theDepartament: Departament = await Departament.create(body);
+        return theDepartament;
     }
-
 
     //Read
     public async find({ request, params }: HttpContextContract) {
 
         if (params.id) {
-            return await Employee.findOrFail(params.id);
+            return await Departament.findOrFail(params.id);
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Employee.query().paginate(page, perPage)
+                return await Departament.query().paginate(page, perPage)
             } else {
-                return await Employee.query()
+                return await Departament.query()
             }
 
         }
@@ -32,20 +31,21 @@ export default class EmployeesController {
     //Update
     public async update({ params, request }: HttpContextContract) {
 
-        const theEmployee: Employee = await Employee.findOrFail(params.id);
+        const theDepartament: Departament = await Departament.findOrFail(params.id);
         const body = request.body();
-        theEmployee.position = body.position
-        theEmployee.salary = body.salary;
+        theDepartament.name = body.name
+        theDepartament.numberCities = body.numberCities
+        theDepartament.numberVenues = body.numberVenues;
 
-        return await theEmployee.save();
+        return await theDepartament.save();
     }
 
     //Delete
     public async delete({ params, response }: HttpContextContract) {
 
-        const theEmployee: Employee = await Employee.findOrFail(params.id);
+        const theDepartament: Departament = await Departament.findOrFail(params.id);
         response.status(204);
 
-        return await theEmployee.delete();
+        return await theDepartament.delete();
     }
 }

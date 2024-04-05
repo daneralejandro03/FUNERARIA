@@ -24,7 +24,7 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-import "./routes/user";
+import "./routes/users";
 
 import "./routes/employee";
 
@@ -39,3 +39,11 @@ import "./routes/role";
 import "./routes/rolepermission";
 
 import "./routes/service";
+
+import "./routes/departaments";
+
+import "./routes/cities"
+
+import "./routes/sites"
+
+import "./routes/wakerooms"
