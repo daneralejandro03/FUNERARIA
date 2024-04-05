@@ -93,13 +93,13 @@ public class SecurityController {
         try{
         if (thejwtService.validatePasswordResetToken(resetToken)) {
             System.out.println("Token válido: "+ resetToken);
-            String userEmail = thejwtService.getUserIdFromPasswordResetToken(resetToken);
-            System.out.println("ID de usuario: "+ userEmail);
+            String userEmail = thejwtService.getUserIdEmailFromPasswordResetToken(resetToken);
+            System.out.println("Email del de usuario: "+ userEmail);
             User user = theUserRepository.getUsersByEmail(userEmail);
             if (user != null) {
                 user.setPassword(theEncryptionService.convertSHA256(newPassword));
                 theUserRepository.save(user);
-                System.out.println("Contraseña cambiada para el usuario con ID: " + userEmail);
+                System.out.println("Contraseña cambiada para el usuario con Correo: " + userEmail);
             }
         } else {
             System.out.println("Token inválido: "+ resetToken);

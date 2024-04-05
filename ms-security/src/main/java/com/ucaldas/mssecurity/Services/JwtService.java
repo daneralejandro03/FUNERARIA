@@ -48,8 +48,8 @@ public class JwtService {
     }
 
 
-    // Método para extraer y retornar el ID de usuario incrustado en el token JWT
-    public static String getUserIdFromPasswordResetToken(String token) {
+    // Método para extraer y retornar el Email de usuario incrustado en el token JWT
+    public static String getUserIdEmailFromPasswordResetToken(String token) {
         Claims claims = Jwts.parserBuilder().setSigningKey(getSecretKey()).build().parseClaimsJws(token).getBody();
         return claims.getSubject();
     }
