@@ -20,9 +20,19 @@ El proyecto está estructurado de la siguiente manera:
 ## Funcionalidades principales
 
 - **Autenticación y autorización:** Los usuarios pueden autenticarse en la aplicación mediante el endpoint `/api/public/security/login`, que devuelve un token JWT válido para realizar solicitudes autenticadas.
-- **Gestión de usuarios:** Permite la creación, recuperación, actualización y eliminación de usuarios.
-- **Gestión de roles y permisos:** Permite la creación, recuperación y eliminación de roles y permisos, así como la asignación de permisos a roles.
+
 - **Validación de roles y permisos:** Implementa un interceptor de seguridad que valida los roles y permisos de los usuarios para cada solicitud HTTP.
+  
+- **Autenticación y autorización:** Los usuarios pueden autenticarse en la aplicación mediante el endpoint `/api/public/security/login`, el cual devuelve un token JWT válido para realizar solicitudes autenticadas. Este token es necesario para acceder a recursos protegidos por el sistema.
+
+- **Gestión de usuarios:** El sistema permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los usuarios. Esto incluye la creación de nuevos usuarios, recuperación de información de usuarios existentes, actualización de datos de usuarios y eliminación de usuarios del sistema.
+
+- **Gestión de sesiones:** Ofrece la capacidad de iniciar sesión y gestionar sesiones de usuario, incluyendo autenticación de dos factores (2FA) mediante el endpoint `/api/public/security/login/2FA/{idUser}`.
+
+- **Restablecimiento de contraseña:** Permite a los usuarios solicitar un restablecimiento de contraseña mediante el endpoint `/api/public/security/forgot-password`. Se genera un token de restablecimiento de contraseña y se envía por correo electrónico al usuario para permitirle cambiar su contraseña.
+
+- **Cambio de contraseña:** Permite a los usuarios cambiar su contraseña utilizando un token de restablecimiento de contraseña mediante el endpoint `/api/public/security/reset-password`.
+
 
 ## Configuración
 
