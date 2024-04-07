@@ -47,3 +47,7 @@ import "./routes/cities"
 import "./routes/sites"
 
 import "./routes/wakerooms"
+
+import "./routes/owner"
+
+import "./routes/beneficiaries"
