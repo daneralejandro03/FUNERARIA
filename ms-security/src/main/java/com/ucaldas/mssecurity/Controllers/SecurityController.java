@@ -47,6 +47,7 @@ public class SecurityController {
         if (actualUser != null && actualUser.getPassword().equals(theEncryptionService.convertSHA256(theUser.getPassword()))) {
 
             token = this.thejwtService.generateToken(actualUser);
+            verifySession(actualUser);
             theNotificationService.generateAndSend2FA(actualUser, token);
 
         } else {
@@ -122,6 +123,14 @@ public class SecurityController {
             return ResponseEntity.ok("Contraseña cambiada exitosamente");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+        }
+    }
+
+    public void verifySession(User user){
+        Session theSession = this.theSessionRepository.getSessionByUser(user.get_id());
+
+        if (theSession != null){
+            this.theSessionRepository.delete(theSession);
         }
     }
 }
