@@ -59,6 +59,7 @@ public class JwtService {
         byte[] keyBytes = secretKey.getEncoded();
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
     public String generateToken(User theUser) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + expiration);

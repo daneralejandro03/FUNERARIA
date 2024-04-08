@@ -7,6 +7,7 @@ import com.ucaldas.mssecurity.Repositories.UserRepository;
 import com.ucaldas.mssecurity.Services.EncryptionService;
 import com.ucaldas.mssecurity.Services.JwtService;
 import com.ucaldas.mssecurity.Services.NotificationService;
+import com.ucaldas.mssecurity.Services.SessionService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class SecurityController {
     private JwtService thejwtService;
 
     @Autowired
+    private SessionService theSessionService;
+
+    @Autowired
     private NotificationService theNotificationService;
 
     @PostMapping("login")
@@ -47,7 +51,7 @@ public class SecurityController {
         if (actualUser != null && actualUser.getPassword().equals(theEncryptionService.convertSHA256(theUser.getPassword()))) {
 
             token = this.thejwtService.generateToken(actualUser);
-            verifySession(actualUser);
+            theSessionService.verifySession(actualUser);
             theNotificationService.generateAndSend2FA(actualUser, token);
 
         } else {
@@ -123,14 +127,6 @@ public class SecurityController {
             return ResponseEntity.ok("Contraseña cambiada exitosamente");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
-        }
-    }
-
-    public void verifySession(User user){
-        Session theSession = this.theSessionRepository.getSessionByUser(user.get_id());
-
-        if (theSession != null){
-            this.theSessionRepository.delete(theSession);
         }
     }
 }

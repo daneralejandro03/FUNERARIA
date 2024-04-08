@@ -31,5 +31,13 @@ public class SessionService {
 
         return theSessionRepository.save(theSession);
     }
+
+    public void verifySession(User user){
+        Session theSession = this.theSessionRepository.getSessionByUser(user.get_id());
+
+        if (theSession != null){
+            this.theSessionRepository.delete(theSession);
+        }
+    }
     
 }
