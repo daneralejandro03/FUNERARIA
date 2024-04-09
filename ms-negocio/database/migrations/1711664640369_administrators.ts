@@ -8,7 +8,6 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('privileges')
       table.string('responsabilities')
-      table.integer("users_id").unsigned().references('users.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

@@ -9,7 +9,6 @@ export default class extends BaseSchema {
       table.string("name")
       table.string("location")
       table.string("email")
-      table.integer("cities_id").unsigned().references('cities.id').onDelete("CASCADE")
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
