@@ -35,6 +35,7 @@ export default class CustomersController {
             const theCustomer: Customer = await Customer.findOrFail(params.id);
             const body = request.body();
             theCustomer.address = body.address
+            theCustomer.users_id = body.users_id;
 
             return await theCustomer.save();
         }

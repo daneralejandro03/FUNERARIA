@@ -36,6 +36,7 @@ export default class AdministratorsController {
             const body = request.body();
             theAdministrator.privileges = body.privileges
             theAdministrator.responsabilities = body.responsibilities;
+            theAdministrator.users_id = body.users_id;
 
             return await theAdministrator.save();
         }

@@ -8,6 +8,9 @@ export default class Customer extends BaseModel {
   @column()
   public address: string
 
+  @column()
+  public users_id: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

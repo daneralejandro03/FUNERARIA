@@ -36,6 +36,7 @@ export default class EmployeesController {
         const body = request.body();
         theEmployee.position = body.position
         theEmployee.salary = body.salary;
+        theEmployee.users_id = body.users_id;
 
         return await theEmployee.save();
     }
