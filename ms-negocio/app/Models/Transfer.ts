@@ -1,15 +1,21 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Pay extends BaseModel {
+export default class Transfer extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public pay_day: DateTime
+  public location: string
 
   @column()
-  public amount: number
+  public state: string
+
+  @column()
+  public departure_time: DateTime
+
+  @column()
+  public arrival_time: DateTime
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

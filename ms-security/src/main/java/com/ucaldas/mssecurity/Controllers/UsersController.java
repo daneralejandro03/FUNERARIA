@@ -1,14 +1,17 @@
 package com.ucaldas.mssecurity.Controllers;
 
 import com.ucaldas.mssecurity.Models.Role;
+import com.ucaldas.mssecurity.Models.Statistic;
 import com.ucaldas.mssecurity.Models.User;
 import com.ucaldas.mssecurity.Repositories.RoleRepository;
+import com.ucaldas.mssecurity.Repositories.StatisticRepository;
 import com.ucaldas.mssecurity.Repositories.UserRepository;
 import com.ucaldas.mssecurity.Services.EncryptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedList;
 import java.util.List;
 
 @CrossOrigin
@@ -22,6 +25,8 @@ public class UsersController {
     private RoleRepository theRoleRepository;
     @Autowired
     private EncryptionService theEncryptionService;
+    @Autowired
+    private StatisticRepository theStatisticRepository;
 
     @GetMapping("")
     public List<User> findAll(){
@@ -103,6 +108,30 @@ public class UsersController {
         } else {
             return null;
         }
+    }
+
+    @GetMapping("/errores")
+    public User usuarioConMasErrores(){
+        User response = null;
+        int validaciones = Integer.MIN_VALUE;
+        int autorizaciones = Integer.MIN_VALUE;
+        int mayor = Integer.MIN_VALUE;
+
+        Statistic theStatistic = null;
+
+        for (User userActual : this.theUserRepository.findAll()){
+            theStatistic = theStatisticRepository.getStatisticByIdUser(userActual.get_id());
+            validaciones = theStatistic.getNumberErrorsValidation();
+            autorizaciones = theStatistic.getNumberErrorsAuthorization();
+
+            if ((validaciones+autorizaciones)>mayor){
+                mayor = (validaciones+autorizaciones);
+                response = userActual;
+            }
+        }
+
+        System.out.println(response.getName());
+        return response;
     }
 
 }

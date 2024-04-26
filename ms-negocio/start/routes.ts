@@ -33,10 +33,28 @@ import "./routes/customers";
 
 import "./routes/service";
 
-import "./routes/sites"
+import "./routes/sites";
 
-import "./routes/wakerooms"
+import "./routes/wakerooms";
 
-import "./routes/owner"
+import "./routes/owner";
 
-import "./routes/beneficiaries"
+import "./routes/beneficiaries";
+
+import "./routes/headline";
+
+import "./routes/plan";
+
+import "./routes/subscription";
+
+import "./routes/pay";
+
+import "./routes/notification";
+
+import "./routes/transfer"
+
+import "./routes/burial";
+
+import "./routes/cremation";
+
+import "./routes/serviceplan";

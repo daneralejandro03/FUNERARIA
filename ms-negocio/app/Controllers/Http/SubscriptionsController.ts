@@ -35,7 +35,7 @@ export default class SubscriptionsController {
 
         const theSubscription: Subscription = await Subscription.findOrFail(params.id);
         const body = request.body();
-        theSubscription.subscriptionType = body.subscriptionType;
+        theSubscription.subscription_type = body.subscription_type;
         theSubscription.startDate = body.startDate;
         theSubscription.endDate = body.endDate;
         theSubscription.state = body.state;

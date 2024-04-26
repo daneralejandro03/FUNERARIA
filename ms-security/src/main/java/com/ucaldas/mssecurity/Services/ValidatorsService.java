@@ -3,6 +3,7 @@ package com.ucaldas.mssecurity.Services;
 import com.ucaldas.mssecurity.Models.*;
 import com.ucaldas.mssecurity.Repositories.PermissionRepository;
 import com.ucaldas.mssecurity.Repositories.RolePermissionRepository;
+import com.ucaldas.mssecurity.Repositories.StatisticRepository;
 import com.ucaldas.mssecurity.Repositories.UserRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,8 @@ public class ValidatorsService {
     private UserRepository theUserRepository;
     @Autowired
     private RolePermissionRepository theRolePermissionRepository;
+    @Autowired
+    private StatisticRepository theStatisticRepository;
     private static final String BEARER_PREFIX = "Bearer ";
     public boolean validationRolePermission(HttpServletRequest request,String url,String method){
         boolean success=false;
@@ -40,10 +43,30 @@ public class ValidatorsService {
                 }
             }else{
                 success=false;
+
+                erroresDeValidacion(theUser);
+
             }
         }
         return success;
     }
+
+    public void erroresDeValidacion(User theUser){
+        Statistic statistic = this.theStatisticRepository.getStatisticByIdUser(theUser.get_id());
+
+        if (statistic != null){
+            int erroresDeValidacion = statistic.getNumberErrorsValidation();
+            erroresDeValidacion += 1;
+            statistic.setNumberErrorsValidation(erroresDeValidacion);
+            this.theStatisticRepository.save(statistic);
+
+        }else{
+            Statistic statisticNuevo = new Statistic(1,0);
+            statisticNuevo.setUser(theUser);
+            this.theStatisticRepository.save(statisticNuevo);
+        }
+    }
+
     public User getUser(final HttpServletRequest request) {
         User theUser=null;
         String authorizationHeader = request.getHeader("Authorization");

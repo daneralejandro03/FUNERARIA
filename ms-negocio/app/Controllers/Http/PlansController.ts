@@ -36,7 +36,7 @@ export default class PlansController {
         const thePlan: Plan = await Plan.findOrFail(params.id);
         const body = request.body();
         thePlan.message = body.message;
-        thePlan.sendDate = body.sendDate;
+        thePlan.send_date = body.send_date;
 
         return await thePlan.save();
     }

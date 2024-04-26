@@ -6,7 +6,7 @@ export default class Subscription extends BaseModel {
   public id: number
 
   @column()
-  public subscriptionType: string
+  public subscription_type: string
 
   @column()
   public startDate: DateTime

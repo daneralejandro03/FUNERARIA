@@ -1,13 +1,14 @@
 package com.ucaldas.mssecurity.Controllers;
 
+import com.ucaldas.mssecurity.Models.Permission;
 import com.ucaldas.mssecurity.Models.Session;
+import com.ucaldas.mssecurity.Models.Statistic;
 import com.ucaldas.mssecurity.Models.User;
 import com.ucaldas.mssecurity.Repositories.SessionRepository;
+import com.ucaldas.mssecurity.Repositories.StatisticRepository;
 import com.ucaldas.mssecurity.Repositories.UserRepository;
-import com.ucaldas.mssecurity.Services.EncryptionService;
-import com.ucaldas.mssecurity.Services.JwtService;
-import com.ucaldas.mssecurity.Services.NotificationService;
-import com.ucaldas.mssecurity.Services.SessionService;
+import com.ucaldas.mssecurity.Services.*;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class SecurityController {
     private SessionRepository theSessionRepository;
 
     @Autowired
+    private StatisticRepository theStatisticRepository;
+
+    @Autowired
     private JwtService thejwtService;
 
     @Autowired
@@ -42,8 +46,11 @@ public class SecurityController {
     @Autowired
     private NotificationService theNotificationService;
 
+    @Autowired
+    private ValidatorsService theValidatorService;
+
     @PostMapping("login")
-    public String login(@RequestBody User theUser, final HttpServletResponse response) throws IOException {
+    public void login(@RequestBody User theUser, final HttpServletResponse response) throws IOException {
         String token = "";
 
         User actualUser = theUserRepository.getUsersByEmail(theUser.getEmail());
@@ -54,11 +61,13 @@ public class SecurityController {
             theSessionService.verifySession(actualUser);
             theNotificationService.generateAndSend2FA(actualUser, token);
 
-        } else {
+        }
+        else if (actualUser!= null && !actualUser.getPassword().equals(theEncryptionService.convertSHA256(theUser.getPassword()))){
+            erroresDeAutorizacion(actualUser);
+        }
+        else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
-
-        return token;
     }
 
     @PostMapping("login/2FA/{idUser}")
@@ -67,15 +76,34 @@ public class SecurityController {
 
         Session actualSession = theSessionRepository.getSessionByUser(idUser);
 
+        User actualUser = theUserRepository.getUsersById(idUser);
+
         if (actualSession != null) {
             if (actualSession.getToken2FA() == theSession.getToken2FA()) {
-                response = "Conceder acceso.";
+                response = actualSession.getToken();
             } else {
                 response = "No permitir entrar.";
+                erroresDeAutorizacion(actualUser);
             }
         }
 
         return response;
+    }
+
+    public void erroresDeAutorizacion(User theUser){
+        Statistic statistic = this.theStatisticRepository.getStatisticByIdUser(theUser.get_id());
+
+        if (statistic != null){
+            int erroresDeAutorizacion = statistic.getNumberErrorsAuthorization();
+            erroresDeAutorizacion += 1;
+            statistic.setNumberErrorsAuthorization(erroresDeAutorizacion);
+            this.theStatisticRepository.save(statistic);
+
+        }else{
+            Statistic statisticNuevo = new Statistic(0,1);
+            statisticNuevo.setUser(theUser);
+            this.theStatisticRepository.save(statisticNuevo);
+        }
     }
 
     @PostMapping("/forgot-password")
@@ -128,5 +156,12 @@ public class SecurityController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
         }
+    }
+
+    @PostMapping("permissions-validation")
+    public  boolean permissionsValidation(final HttpServletRequest request, @RequestBody Permission thePermission){
+        boolean success = this.theValidatorService.validationRolePermission(request, thePermission.getUrl(), thePermission.getMethod());
+        return success;
+
     }
 }

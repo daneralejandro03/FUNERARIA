@@ -1,14 +1,13 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'services'
+  protected tableName = 'notifications'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('type').notNullable()
-      table.dateTime('start_date').notNullable()
-      table.dateTime('end_date').notNullable()
+      table.string('message')
+      table.dateTime('date_shipped')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

@@ -6,4 +6,4 @@ Route.group(() => {
     Route.get('/administrators/:id', 'AdministratorsController.find');
     Route.put('/administrators/:id', 'AdministratorsController.update');
     Route.delete('/administrators/:id', 'AdministratorsController.delete');
-})
+}).middleware(["security"])

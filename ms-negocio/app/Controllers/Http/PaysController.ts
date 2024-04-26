@@ -35,7 +35,7 @@ export default class PaysController {
 
         const thePay: Pay = await Pay.findOrFail(params.id);
         const body = request.body();
-        thePay.payDay = body.payDay;
+        thePay.pay_day = body.pay_day;
         thePay.amount = body.amount;
 
 

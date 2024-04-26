@@ -36,8 +36,8 @@ export default class ServicesController {
         const theService: Service = await Service.findOrFail(params.id);
         const body = request.body();
         theService.type = body.type;
-        theService.startDate = body.startDate;
-        theService.endDate = body.endDate;
+        theService.start_date = body.start_date;
+        theService.end_date = body.end_date;
 
         return await theService.save();
     }
