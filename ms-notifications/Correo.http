@@ -1,0 +1,6 @@
+POST http://127.0.0.1:5000/send_email
+Content-Type: application/json
+    "address": "daneralejandr03@gmail.com",
+    "subject": "SOY BATMAN",
+    "plainText": "Este es el contenido del correo en texto plano."
+
