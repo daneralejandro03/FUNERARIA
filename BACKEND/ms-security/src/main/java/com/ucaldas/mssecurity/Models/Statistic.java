@@ -16,7 +16,8 @@ public class Statistic {
     @DBRef
     private User user;
 
-    public  Statistic(){}
+    public Statistic() {
+    }
 
     public Statistic(int numberErrorsValidation, int numberErrorsAuthorization) {
         this.numberErrorsValidation = numberErrorsValidation;
