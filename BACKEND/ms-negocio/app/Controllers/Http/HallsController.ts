@@ -1,47 +1,46 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Transfer from 'App/Models/Transfer'
+import Hall from 'App/Models/Hall'
 
-export default class TransfersController {
+export default class HallsController {
   //Create
   public async store({ request }: HttpContextContract) {
     const body = request.body()
-    const theTransfer: Transfer = await Transfer.create(body)
-    return theTransfer
+    const theHall: Hall = await Hall.create(body)
+    return theHall
   }
 
   //Read
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      return await Transfer.findOrFail(params.id)
+      return await Hall.findOrFail(params.id)
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
         const page = request.input('page', 1)
         const perPage = request.input('per_page', 20)
-        return await Transfer.query().paginate(page, perPage)
+        return await Hall.query().paginate(page, perPage)
       } else {
-        return await Transfer.query()
+        return await Hall.query()
       }
     }
   }
 
   //Update
   public async update({ params, request }: HttpContextContract) {
-    const theTransfer: Transfer = await Transfer.findOrFail(params.id)
+    const theHall: Hall = await Hall.findOrFail(params.id)
     const body = request.body()
-    theTransfer.placeOrigin = body.placeOrigin
-    theTransfer.destination = body.destination
-    theTransfer.distance = body.distance
-    theTransfer.typeVehicle = body.typeVehicle
+    theHall.name = body.name
+    theHall.capacity = body.capacity
+    theHall.availability = body.availability
 
-    return await theTransfer.save()
+    return await theHall.save()
   }
 
   //Delete
   public async delete({ params, response }: HttpContextContract) {
-    const theTransfer: Transfer = await Transfer.findOrFail(params.id)
+    const theHall: Hall = await Hall.findOrFail(params.id)
     response.status(204)
 
-    return await theTransfer.delete()
+    return await theHall.delete()
   }
 }

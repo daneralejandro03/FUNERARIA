@@ -62,4 +62,8 @@ import './routes/comment'
 
 import './routes/chat'
 
-import './kernel/message'
+import './routes/message'
+
+import './routes/executionservice'
+
+import './routes/grave'
