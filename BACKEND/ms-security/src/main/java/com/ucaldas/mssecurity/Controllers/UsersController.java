@@ -41,6 +41,7 @@ public class UsersController {
 
     @GetMapping("{id}")
     public User findById(@PathVariable String id) {
+        System.out.println("IMPRIMEME ALGO");
         User theUser = this.theUserRepository
                 .findById(id)
                 .orElse(null);

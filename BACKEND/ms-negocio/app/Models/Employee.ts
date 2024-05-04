@@ -12,7 +12,7 @@ export default class Employee extends BaseModel {
   public salary: number
 
   @column()
-  public users_id: number
+  public user_id: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

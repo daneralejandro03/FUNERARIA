@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('position', 60).notNullable()
       table.double('salary')
+      table.string('user_id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

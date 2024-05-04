@@ -162,6 +162,6 @@ public class SecurityController {
     public  boolean permissionsValidation(final HttpServletRequest request, @RequestBody Permission thePermission){
         boolean success = this.theValidatorService.validationRolePermission(request, thePermission.getUrl(), thePermission.getMethod());
         return success;
-
     }
+
 }
