@@ -12,6 +12,7 @@ public class User {
     @Id
     private String _id;
     private String name;
+    private String identificationCard;
     private String email;
     private String password;
 
@@ -21,8 +22,9 @@ public class User {
     public User (){
 
     }
-    public User(String name, String email, String password) {
+    public User(String name, String identificationCard, String email, String password) {
         this.name = name;
+        this.identificationCard = identificationCard;
         this.email = email;
         this.password = password;
     }
@@ -39,6 +41,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIdentificationCard() {
+        return identificationCard;
+    }
+
+    public void setIdentificationCard(String identificationCard) {
+        this.identificationCard = identificationCard;
     }
 
     public String getEmail() {

@@ -33,6 +33,7 @@ public class UsersController {
         return this.theUserRepository.findAll();
     }
     @ResponseStatus(HttpStatus.CREATED)
+
     @PostMapping
     public User create(@RequestBody User theNewUser){
         theNewUser.setPassword(this.theEncryptionService.convertSHA256(theNewUser.getPassword()));
@@ -55,6 +56,7 @@ public class UsersController {
                 .orElse(null);
         if (theActualUser != null) {
             theActualUser.setName(theNewUser.getName());
+            theActualUser.setIdentificationCard(theNewUser.getIdentificationCard());
             theActualUser.setEmail(theNewUser.getEmail());
             theActualUser.setPassword(this.theEncryptionService.convertSHA256(theNewUser.getPassword()));
             return this.theUserRepository.save(theActualUser);

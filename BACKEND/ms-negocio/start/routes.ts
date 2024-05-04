@@ -24,37 +24,42 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
+import './routes/employee'
 
-import "./routes/employee";
+import './routes/administrator'
 
-import "./routes/administrator";
+import './routes/customer'
 
-import "./routes/customers";
+import './routes/service'
 
-import "./routes/service";
+import './routes/site'
 
-import "./routes/sites";
+import './routes/wakeroom'
 
-import "./routes/wakerooms";
+import './routes/owner'
 
-import "./routes/owner";
+import './routes/beneficiarie'
 
-import "./routes/beneficiaries";
+import './routes/headline'
 
-import "./routes/headline";
+import './routes/plan'
 
-import "./routes/plan";
+import './routes/subscription'
 
-import "./routes/subscription";
+import './routes/pay'
 
-import "./routes/pay";
+import './routes/notification'
 
-import "./routes/notification";
+import './routes/transfer'
 
-import "./routes/transfer"
+import './routes/burial'
 
-import "./routes/burial";
+import './routes/cremation'
 
-import "./routes/cremation";
+import './routes/serviceplan'
 
-import "./routes/serviceplan";
+import './routes/comment'
+
+import './routes/chat'
+
+import './kernel/message'

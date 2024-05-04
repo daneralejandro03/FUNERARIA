@@ -66,6 +66,7 @@ public class JwtService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("_id", theUser.get_id());
         claims.put("name", theUser.getName());
+        claims.put("identificationCard", theUser.getIdentificationCard());
         claims.put("email", theUser.getEmail());
         claims.put("role", theUser.getRole());
 
@@ -115,6 +116,7 @@ public class JwtService {
             User user = new User();
             user.set_id((String) claims.get("_id"));
             user.setName((String) claims.get("name"));
+            user.setIdentificationCard((String) claims.get("identificationCard"));
             user.setEmail((String) claims.get("email"));
             return user;
         } catch (Exception e) {
