@@ -12,7 +12,7 @@ export default class Administrator extends BaseModel {
   public responsabilities: string
 
   @column()
-  public users_id: number
+  public user_id: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

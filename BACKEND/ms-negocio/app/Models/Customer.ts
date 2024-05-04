@@ -9,7 +9,10 @@ export default class Customer extends BaseModel {
   public address: string
 
   @column()
-  public users_id: number
+  public phone_number: string
+
+  @column()
+  public user_id: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
