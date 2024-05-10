@@ -38,7 +38,7 @@ import './routes/wakeroom'
 
 import './routes/owner'
 
-import './routes/beneficiarie'
+import './routes/beneficiary'
 
 import './routes/headline'
 
@@ -63,3 +63,7 @@ import './routes/comment'
 import './routes/chat'
 
 import './routes/message'
+
+import './routes/executionservice'
+
+import './routes/grave'

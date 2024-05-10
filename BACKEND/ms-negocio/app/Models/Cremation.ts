@@ -6,10 +6,10 @@ export default class Cremation extends BaseModel {
   public id: number
 
   @column()
-  public cremation_date: DateTime
+  public urnType: string
 
   @column()
-  public state: string
+  public destinyAshes: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -1,21 +1,18 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Transfer extends BaseModel {
+export default class Hall extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public placeOrigin: string
+  public name: string
 
   @column()
-  public destination: string
+  public capacity: number
 
   @column()
-  public distance: number
-
-  @column()
-  public typeVehicle: string
+  public availability: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

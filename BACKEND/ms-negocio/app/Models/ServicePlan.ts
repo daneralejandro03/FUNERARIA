@@ -8,7 +8,13 @@ export default class ServicePlan extends BaseModel {
   public id: number
 
   @column()
-  public price: number
+  public statusHiring: boolean
+
+  @column()
+  public dateHiring: DateTime
+
+  @column()
+  public dateExpiration: DateTime
 
   @column()
   public service_id: number
@@ -23,11 +29,8 @@ export default class ServicePlan extends BaseModel {
   public updatedAt: DateTime
 
   @belongsTo(() => Service, { foreignKey: 'service_id' })
-
   public service: BelongsTo<typeof Service>
 
   @belongsTo(() => Plan, { foreignKey: 'plan_id' })
-
   public plan: BelongsTo<typeof Plan>
-
 }
