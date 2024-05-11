@@ -1,11 +1,11 @@
 import os
 from dotenv import load_dotenv
 from azure.communication.email import EmailClient
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')  # Especifica la carpeta de plantillas
 
 def validate_email_data(data):
     if "address" not in data or "subject" not in data or "plainText" not in data:
@@ -30,7 +30,7 @@ def send_email():
             },
             "content": {
                 "subject": correo["subject"],
-                "plainText": correo["plainText"],
+                "html": render_template('html.html', subject=correo["subject"], plainText=correo["plainText"]),
             }
         }
 

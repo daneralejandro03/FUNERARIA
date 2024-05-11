@@ -37,7 +37,7 @@ public class NotificationService {
         emailContent.put("address", email);
         emailContent.put("subject", "Restablecimiento de contraseña");
         emailContent.put("plainText", "Hemos recibido una solicitud para restablecer tu contraseña. Por favor, copia el siguiente TOKEN para restablecer su contraseña:\n\n"
-                + "TOKEN = " + resetToken + "\n\n"
+                + "TOKEN = ( " + resetToken + " )\n\n"
                 + "Si no solicitaste un restablecimiento de contraseña, puedes ignorar este mensaje.\n\n"
                 + "Saludos,\n"
                 + "Equipo de Soporte");
