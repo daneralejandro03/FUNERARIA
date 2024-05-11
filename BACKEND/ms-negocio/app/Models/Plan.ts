@@ -19,8 +19,7 @@ export default class Plan extends BaseModel {
   public updatedAt: DateTime
 
   @hasMany(() => ServicePlan, {
-    foreignKey: 'plan_id'
+    foreignKey: 'plan_id',
   })
-
-  public servicesplans: HasMany<typeof ServicePlan>
+  public servicesplan: HasMany<typeof ServicePlan>
 }

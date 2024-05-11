@@ -9,6 +9,8 @@ export default class extends BaseSchema {
 
       table.string('typeGrave')
       table.string('cemetery')
+      table.integer('hall_id').unsigned().references('halls.id').onDelete('CASCADE')
+      table.integer('service_id').unsigned().references('services.id').onDelete('CASCADE')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

@@ -12,7 +12,10 @@ export default class HallsController {
   //Read
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      return await Hall.findOrFail(params.id)
+      let theHall: Hall = await Hall.findOrFail(params.id)
+      await theHall.load('grave')
+      await theHall.load('cremation')
+      return theHall
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
@@ -32,6 +35,7 @@ export default class HallsController {
     theHall.name = body.name
     theHall.capacity = body.capacity
     theHall.availability = body.availability
+    theHall.site_id = body.site_id
 
     return await theHall.save()
   }
@@ -39,8 +43,15 @@ export default class HallsController {
   //Delete
   public async delete({ params, response }: HttpContextContract) {
     const theHall: Hall = await Hall.findOrFail(params.id)
-    response.status(204)
 
+    if (theHall.grave || theHall.cremation) {
+      response.status(400)
+      return { error: 'No se puede eliminar ya que tiene una sepultura o cremación asociada' }
+    } else {
+      response.status(204)
+    }
+
+    response.status(204)
     return await theHall.delete()
   }
 }

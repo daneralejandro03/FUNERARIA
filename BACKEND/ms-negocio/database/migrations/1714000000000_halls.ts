@@ -10,6 +10,7 @@ export default class extends BaseSchema {
       table.string('name').notNullable()
       table.integer('capacity').notNullable()
       table.boolean('availability').notNullable()
+      table.integer('site_id').unsigned().references('sites.id').onDelete('CASCADE')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
        */

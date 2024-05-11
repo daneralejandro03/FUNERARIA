@@ -31,6 +31,8 @@ export default class GravesController {
     const body = request.body()
     theGrave.typeGrave = body.typeGrave
     theGrave.cementery = body.cementery
+    theGrave.hall_id = body.hall_id
+    theGrave.service_id = body.service_id
 
     return await theGrave.save()
   }
