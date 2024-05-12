@@ -25,7 +25,7 @@ export default class Burial extends BaseModel {
   @belongsTo(() => WakeRoom, {
     foreignKey: 'wakeRoom_id',
   })
-  public WakeRoom: BelongsTo<typeof WakeRoom>
+  public wakeRoom: BelongsTo<typeof WakeRoom>
 
   @belongsTo(() => Service, {
     foreignKey: 'service_id',

@@ -7,12 +7,15 @@ export default class ExecutionServicesController {
     const body = request.body()
     const theExecutionService: ExecutionService = await ExecutionService.create(body)
     return theExecutionService
-  }
+  } 
 
   //Read
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      return await ExecutionService.findOrFail(params.id)
+      const theExecutionService = await ExecutionService.findOrFail(params.id);
+      await theExecutionService.load('comments');
+      await theExecutionService.load("chat")
+      return theExecutionService
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
@@ -32,7 +35,8 @@ export default class ExecutionServicesController {
     theExecutionService.cost = body.cost
     theExecutionService.duration = body.duration
     theExecutionService.state = body.state
-
+    theExecutionService.plan = body.plan_id;
+    theExecutionService.service = body.service_id
     return await theExecutionService.save()
   }
 

@@ -9,10 +9,8 @@ export default class extends BaseSchema {
       table.boolean('statusHiring')
       table.dateTime('dateHiring')
       table.dateTime('dateExpiration')
-
       table.integer('service_id').unsigned().references('services.id')
       table.integer('plan_id').unsigned().references('plans.id')
-
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.dateTime('pay_day')
       table.integer('amount')
+      table.integer('subscription_id').unsigned().references('subscription.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

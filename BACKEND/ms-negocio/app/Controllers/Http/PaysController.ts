@@ -15,7 +15,9 @@ export default class PaysController {
     public async find({ request, params }: HttpContextContract) {
 
         if (params.id) {
-            return await Pay.findOrFail(params.id);
+            let thePay:Pay = await Pay.findOrFail(params.id);
+            await thePay.load("subscription")
+            return thePay;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
@@ -37,7 +39,7 @@ export default class PaysController {
         const body = request.body();
         thePay.pay_day = body.pay_day;
         thePay.amount = body.amount;
-
+        thePay.subscription = body.subscription
 
         return await thePay.save();
     }

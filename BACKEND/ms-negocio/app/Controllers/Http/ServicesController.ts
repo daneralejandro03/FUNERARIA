@@ -13,7 +13,7 @@ export default class ServicesController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theService: Service = await Service.findOrFail(params.id)
-      await theService.load('grave')
+      await theService.load('burial')
       await theService.load('cremation')
       await theService.load('notification')
       await theService.load('transfer')
@@ -47,7 +47,7 @@ export default class ServicesController {
     const theService: Service = await Service.findOrFail(params.id)
 
     if (
-      theService.grave ||
+      theService.burial ||
       theService.cremation ||
       theService.notification ||
       theService.transfer ||

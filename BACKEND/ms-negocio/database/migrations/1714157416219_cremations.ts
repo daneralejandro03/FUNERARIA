@@ -9,9 +9,8 @@ export default class extends BaseSchema {
 
       table.string('urnType')
       table.string('destinyAshes')
-      table.integer('hall_id').unsigned().references('halls.id').onDelete('CASCADE')
+      table.integer('wakeRoom_id').unsigned().references('wakeRoom.id').onDelete('CASCADE')
       table.integer('service_id').unsigned().references('services.id').onDelete('CASCADE')
-
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

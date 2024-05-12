@@ -10,6 +10,8 @@ export default class extends BaseSchema {
       table.dateTime('start_date')
       table.dateTime('end_date')
       table.boolean('state')
+      table.integer('plan_id').unsigned().references('plan.id')
+      table.integer('customer_id').unsigned().references('customer.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

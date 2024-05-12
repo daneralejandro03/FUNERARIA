@@ -13,7 +13,7 @@ export default class SitesController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theSite: Site = await Site.findOrFail(params.id)
-      await theSite.load('hall')
+      await theSite.load('wakeRoom')
       return theSite
     } else {
       const data = request.all()
@@ -42,7 +42,7 @@ export default class SitesController {
   public async delete({ params, response }: HttpContextContract) {
     const theSite: Site = await Site.findOrFail(params.id)
 
-    if (theSite.hall) {
+    if (theSite.wakeRoom) {
       response.status(400)
       return { error: 'No se puede eliminar ya que tiene una sala asociada' }
     } else {

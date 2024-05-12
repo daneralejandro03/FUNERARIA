@@ -4,6 +4,7 @@ import ServicePlan from './ServicePlan'
 import Cremation from './Cremation'
 import Notification from './Notification'
 import Transfer from './Transfer'
+import Burial from './Burial'
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
@@ -43,4 +44,9 @@ export default class Service extends BaseModel {
     foreignKey: 'service_id',
   })
   public servicesplan: HasMany<typeof ServicePlan>
+
+  @hasMany(() => Burial, {
+    foreignKey: 'service_id',
+  })
+  public burial: HasMany<typeof Burial>
 }

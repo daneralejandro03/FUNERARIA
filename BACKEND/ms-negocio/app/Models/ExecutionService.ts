@@ -1,5 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, HasMany, HasOne, belongsTo, column, hasMany, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import Plan from './Plan'
+import Service from './Service'
+import Comment from './Comment'
+import Chat from './Chat'
 
 export default class ExecutionService extends BaseModel {
   @column({ isPrimary: true })
@@ -19,4 +23,26 @@ export default class ExecutionService extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @belongsTo(() => Plan, {
+    foreignKey: 'plan_id'
+  })
+  public plan: BelongsTo<typeof Plan>
+
+  @belongsTo(() => Service, {
+    foreignKey: 'service_id'
+  })
+  public service: BelongsTo<typeof Service>
+
+  @hasMany(() => Comment, {
+    foreignKey : 'executionService_id'
+  })
+
+  public comments: HasMany<typeof Comment>
+
+  @hasOne(() => Chat, {
+    foreignKey : 'executionService_id'
+  })
+
+  public chat: HasOne<typeof Chat>
 }
