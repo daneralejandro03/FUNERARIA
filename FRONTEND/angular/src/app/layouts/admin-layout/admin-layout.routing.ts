@@ -12,10 +12,20 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'tables',         component: TablesComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
-    { path: 'owners',
+    { 
+      path: 'owners',
       loadChildren: () => import('src/app/pages/owners/owners.module').then(m => m.OwnersModule)
     },
-    { path: 'beneficiaries',
+    {
+      path: 'beneficiaries',
       loadChildren: () => import('src/app/pages/beneficiaries/beneficiaries.module').then(m => m.BeneficiariesModule)
+    },
+    {
+      path: 'customers',
+      loadChildren: () => import('src/app/pages/customers/customers.module').then(m => m.CustomersModule)
+    },
+    {
+      path: 'subscriptions',
+      loadChildren: () => import('src/app/pages/subscriptions/subscriptions.module').then(m => m.SubscriptionsModule)
     }
 ];

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Beneficiary } from 'src/app/models/beneficiary.model';
-import { BeneficiaryService } from 'src/app/services/beneficiary.service';
+import { Subscription } from 'src/app/models/subscription.model';
+import { SubscriptionService } from 'src/app/services/subscription.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,25 +13,23 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
 
   mode:number; //1->View, 2->Create, 3->Update 
-  beneficiary:Beneficiary;
+  subscription:Subscription;
   theFormGroup: FormGroup;
   trySend:boolean;
 
   constructor(private activateRoute: ActivatedRoute,
-    private service: BeneficiaryService,
+    private service: SubscriptionService,
     private router: Router,
     private theFormBuilder: FormBuilder) { 
     
       this.trySend = false;
       this.mode = 1;
-      this.beneficiary={
+      this.subscription={
         id: 0,
-        identificationCard: "",
-        address: "",
-        phone_number: "",
-        name: "",
-        beneficiary_status: "",
-        email: "",
+        subscription_type: "",
+        startDate: null,
+        endDate: null,
+        state: null,
       }
 
       this.configFormGroup();
@@ -68,15 +66,15 @@ ngOnInit(): void {
   }
 
   if(this.activateRoute.snapshot.params.id){
-  this.beneficiary.id = this.activateRoute.snapshot.params.id;
-  this.getBeneficiary(this.beneficiary.id);
+  this.subscription.id = this.activateRoute.snapshot.params.id;
+  this.getSubscription(this.subscription.id);
   }
 }
 
-getBeneficiary(id:number){
+getSubscription(id:number){
   this.service.view(id).subscribe(data=>{
-    this.beneficiary = data;
-    console.log("Beneficiary: " + JSON.stringify(this.beneficiary))
+    this.subscription = data;
+    console.log("Subscription: " + JSON.stringify(this.subscription))
   })    
 }
 
@@ -86,7 +84,7 @@ create(){
     Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
     return;
   }
-  this.service.create(this.beneficiary).subscribe(data=>{
+  this.service.create(this.subscription).subscribe(data=>{
     Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
     this.router.navigate(["beneficiaries/list"]);
   });
@@ -98,10 +96,9 @@ update(){
     Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
     return;
   }
-  this.service.update(this.beneficiary).subscribe(data=>{
+  this.service.update(this.subscription).subscribe(data=>{
     Swal.fire("Actualización Exitosa", "Se ha actualizado un nuevo registro", "success");
     this.router.navigate(["beneficiaries/list"]);
   });
-}
-
+ }
 }

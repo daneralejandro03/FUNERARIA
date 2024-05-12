@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Owner } from 'src/app/models/owner.model';
-import { OwnerService } from 'src/app/services/owner.service';
+import { Customer } from 'src/app/models/customer.model';
+import { CustomerService } from 'src/app/services/customer.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,29 +13,29 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
 
   mode:number; //1->View, 2->Create, 3->Update 
-  owner:Owner;
+  customer:Customer;
   theFormGroup: FormGroup;
   trySend:boolean;
 
   constructor(private activateRoute: ActivatedRoute,
-              private service: OwnerService,
+              private service: CustomerService,
               private router: Router,
               private theFormBuilder: FormBuilder) { 
-              
+
                 this.trySend = false;
                 this.mode = 1;
-                this.owner={
+                this.customer={
                   id: 0,
                   identificationCard: "",
                   address: "",
                   phone_number: "",
                   name: "",
-                  contract_status: "",
                   email: "",
                 }
 
                 this.configFormGroup();
-  }
+
+              }
 
   configFormGroup(){
     this.theFormGroup = this.theFormBuilder.group({
@@ -68,15 +68,15 @@ export class ManageComponent implements OnInit {
     }
     
     if(this.activateRoute.snapshot.params.id){
-      this.owner.id = this.activateRoute.snapshot.params.id;
-      this.getOwner(this.owner.id);
+      this.customer.id = this.activateRoute.snapshot.params.id;
+      this.getCustomer(this.customer.id);
     }
   }
 
-  getOwner(id:number){
+  getCustomer(id:number){
     this.service.view(id).subscribe(data=>{
-      this.owner = data;
-      console.log("Owner: " + JSON.stringify(this.owner))
+      this.customer = data;
+      console.log("Owner: " + JSON.stringify(this.customer))
     })    
   }
 
@@ -86,9 +86,9 @@ export class ManageComponent implements OnInit {
       Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
       return;
     }
-    this.service.create(this.owner).subscribe(data=>{
+    this.service.create(this.customer).subscribe(data=>{
       Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
-      this.router.navigate(["owners/list"]);
+      this.router.navigate(["customers/list"]);
     });
   }
 
@@ -98,9 +98,9 @@ export class ManageComponent implements OnInit {
       Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
       return;
     }
-    this.service.update(this.owner).subscribe(data=>{
+    this.service.update(this.customer).subscribe(data=>{
       Swal.fire("Actualización Exitosa", "Se ha actualizado un nuevo registro", "success");
-      this.router.navigate(["owners/list"]);
+      this.router.navigate(["customers/list"]);
     });
   }
 

@@ -61,6 +61,7 @@ export default class CustomersController {
         let customersInfo: CustomerInfo[] = [];
 
         interface CustomerInfo {
+            id: number;
             name: string;
             email: string;
             identificationCard: string;
@@ -83,6 +84,7 @@ export default class CustomersController {
             }
                 
             const customerInfo: CustomerInfo = {
+                id: theData["theCustomer"]["id"],
                 name: theUser["name"],
                 email: theUser["email"],
                 identificationCard: theUser["identificationCard"],
@@ -117,6 +119,7 @@ export default class CustomersController {
                     if(customerActual["user_id"] === userActual["_id"]){
                             
                         const customerInfo: CustomerInfo  = {
+                            id: customerActual["id"],
                             name: userActual["name"],
                             email: userActual["email"],
                             identificationCard: userActual["identificationCard"],

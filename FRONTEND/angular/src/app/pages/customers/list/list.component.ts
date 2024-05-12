@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Owner } from 'src/app/models/owner.model';
-import { OwnerService } from 'src/app/services/owner.service';
+import { Customer } from 'src/app/models/customer.model';
+import { CustomerService } from 'src/app/services/customer.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,10 +11,10 @@ import Swal from 'sweetalert2';
 })
 export class ListComponent implements OnInit {
 
-  owners:Owner[];
+  customers:Customer[];
 
-  constructor(private service:OwnerService, private router:Router) { 
-    this.owners=[];
+  constructor(private service:CustomerService, private router:Router) { 
+    this.customers=[];
   }
 
   ngOnInit(): void {
@@ -23,26 +23,26 @@ export class ListComponent implements OnInit {
 
   list(){
     this.service.list().subscribe(data=>{
-      this.owners = data;
+      this.customers = data;
     });
   }
 
   view(id:number){
-    this.router.navigate(["owners/view/"+id])
+    this.router.navigate(["customers/view/"+id])
   }
 
   create(){
-    this.router.navigate(["owners/create"])
+    this.router.navigate(["customers/create"])
   }
 
   update(id:number){
-    this.router.navigate(["owners/update/"+id])
+    this.router.navigate(["customers/update/"+id])
   }
 
-  listBeneficiaries(id:number){
+  listSubscriptions(id:number){
     console.log(id);
 
-    this.router.navigate(["beneficiaries/list/"], { queryParams: { ownerId: id } })
+    this.router.navigate(["subscriptions/list/"], { queryParams: { customerId: id } })
     
     /*this.service.view(id).subscribe(data=>{
         console.log(data["beneficiaries"]);
@@ -75,5 +75,4 @@ export class ListComponent implements OnInit {
       })
   }
 
-  
 }

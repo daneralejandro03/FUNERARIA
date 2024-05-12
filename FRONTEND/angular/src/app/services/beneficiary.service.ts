@@ -11,7 +11,7 @@ export class BeneficiaryService {
 
   constructor(private http: HttpClient) { }
 
-  private token = 'eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjp7Il9pZCI6IjY1ZTA5NGE3OWQ5ZjM1MGJiY2E0OGFkOSIsIm5hbWUiOiJBZG1pbmlzdHJhZG9yIiwiZGVzY3JpcHRpb24iOiJFc3RhIGVzIHVuYSBkZXNjcmlwY2nDs24ifSwiaWRlbnRpZmljYXRpb25DYXJkIjoiMTA1Mzg2OTY0OSIsIm5hbWUiOiJKYWltZSBBbmRyZXMgQ2FyZG9uYSBEaWF6IiwiX2lkIjoiNjVmN2E3Y2JlN2JkN2I1YmE1ODU0MTc1IiwiZW1haWwiOiJqYWNkOTlAaG90bWFpbC5jb20iLCJzdWIiOiJKYWltZSBBbmRyZXMgQ2FyZG9uYSBEaWF6IiwiaWF0IjoxNzE1NTMzNjUyLCJleHAiOjE3MTU1MzcyNTJ9.7Ssrbxnpj_PF5iFUbqaJOW-H0MnDWAm0o56rvvPvw8grDurhrC2DKnyXOH4LWm6Y7vZB5WMyzTm1MYAVuA_ZmA'
+  private token = environment.token
   
   private headers = new HttpHeaders({
     'Authorization': 'Bearer ' + this.token
