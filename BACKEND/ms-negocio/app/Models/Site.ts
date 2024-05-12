@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Hall from './Hall'
+import WakeRoom from './WakeRoom'
 
 export default class Site extends BaseModel {
   @column({ isPrimary: true })
@@ -15,10 +15,10 @@ export default class Site extends BaseModel {
   @column()
   public email: string
 
-  @hasMany(() => Hall, {
+  @hasMany(() => WakeRoom, {
     foreignKey: 'site_id',
   })
-  public hall: HasMany<typeof Hall>
+  public wakeRoom: HasMany<typeof WakeRoom>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

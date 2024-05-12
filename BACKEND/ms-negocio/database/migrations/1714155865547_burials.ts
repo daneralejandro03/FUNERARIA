@@ -9,6 +9,7 @@ export default class extends BaseSchema {
       table.string('location')
       table.string('burial_type')
       table.dateTime('burial_date')
+      table.dateTime('wakeRoom_id').unsigned().references('wakeRoom.id').onDelete('CASCADE')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

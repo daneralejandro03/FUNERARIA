@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import Hall from './Hall'
+import WakeRoom from './WakeRoom'
 import Service from './Service'
 
 export default class Cremation extends BaseModel {
@@ -19,10 +19,10 @@ export default class Cremation extends BaseModel {
   @column()
   public service_id: number
 
-  @belongsTo(() => Hall, {
-    foreignKey: 'hall_id',
+  @belongsTo(() => WakeRoom, {
+    foreignKey: 'wakeRoom_id',
   })
-  public hall: BelongsTo<typeof Hall>
+  public WakeRoom: BelongsTo<typeof WakeRoom>
 
   @belongsTo(() => Service, {
     foreignKey: 'service_id',

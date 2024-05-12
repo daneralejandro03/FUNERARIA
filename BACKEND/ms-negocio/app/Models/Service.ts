@@ -1,7 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import ServicePlan from './ServicePlan'
-import Grave from './Grave'
 import Cremation from './Cremation'
 import Notification from './Notification'
 import Transfer from './Transfer'
@@ -24,11 +23,6 @@ export default class Service extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-
-  @hasMany(() => Grave, {
-    foreignKey: 'service_id',
-  })
-  public grave: HasMany<typeof Grave>
 
   @hasMany(() => Cremation, {
     foreignKey: 'service_id',
