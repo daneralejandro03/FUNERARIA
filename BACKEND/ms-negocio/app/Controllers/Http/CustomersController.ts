@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Customer from 'App/Models/Customer';
 import axios from 'axios';
 import Env from '@ioc:Adonis/Core/Env'
+import Subscription from 'App/Models/Subscription';
 
 export default class CustomersController {
     //Create
@@ -19,7 +20,7 @@ export default class CustomersController {
         let theData = {}
 
         if (params.id) {
-            let theCustomer:Customer = await Customer.findOrFail(params.id);
+            let theCustomer:Customer = (await Customer.findOrFail(params.id));
             let id = theCustomer["user_id"];
         
             theData = {
@@ -67,6 +68,7 @@ export default class CustomersController {
             identificationCard: string;
             address: string;
             phone_number: string;
+            subscriptions?: Subscription[];
         }
 
         if(theData["case"] == 1){
@@ -82,6 +84,9 @@ export default class CustomersController {
             } catch (error) {
                 console.error('Error al realizar la solicitud GET:', error);
             }
+
+            console.log(theData["theCustomer"]);
+            
                 
             const customerInfo: CustomerInfo = {
                 id: theData["theCustomer"]["id"],
@@ -89,7 +94,8 @@ export default class CustomersController {
                 email: theUser["email"],
                 identificationCard: theUser["identificationCard"],
                 address: theData["theCustomer"]["address"],
-                phone_number: theData["theCustomer"]["phone_number"]
+                phone_number: theData["theCustomer"]["phone_number"],
+                subscriptions: theData["theCustomer"]["subscriptions"]
             }
             return customerInfo;
 

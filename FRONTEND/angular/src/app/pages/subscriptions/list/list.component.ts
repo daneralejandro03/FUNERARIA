@@ -35,6 +35,8 @@ export class ListComponent implements OnInit {
   list(customerId:number){
     this.customerService.view(customerId).subscribe(data=>{
       this.customer = customerId;
+      console.log(data);
+      
       this.subscriptions = data["subscriptions"];
       this.subscriptionsAux = [];
   
