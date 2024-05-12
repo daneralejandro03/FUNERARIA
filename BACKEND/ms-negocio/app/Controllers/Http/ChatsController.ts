@@ -12,7 +12,9 @@ export default class ChatsController {
   //Read
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      return await Chat.findOrFail(params.id)
+      const theChat = await Chat.findOrFail(params.id);
+      await theChat.load('messages');
+      return theChat
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
@@ -29,7 +31,6 @@ export default class ChatsController {
   public async update({ params, request }: HttpContextContract) {
     const theChat: Chat = await Chat.findOrFail(params.id)
     const body = request.body()
-
     theChat.start_date = body.start_date
     theChat.state = body.state
 

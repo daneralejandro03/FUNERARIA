@@ -1,6 +1,10 @@
 import { DateTime } from 'luxon'
 import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import ServicePlan from './ServicePlan'
+import Cremation from './Cremation'
+import Notification from './Notification'
+import Transfer from './Transfer'
+import Burial from './Burial'
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
@@ -21,9 +25,28 @@ export default class Service extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @hasMany(() => ServicePlan, {
-    foreignKey: 'service_id'
+  @hasMany(() => Cremation, {
+    foreignKey: 'service_id',
   })
+  public cremation: HasMany<typeof Cremation>
 
-  public servicesplans: HasMany<typeof ServicePlan>
+  @hasMany(() => Notification, {
+    foreignKey: 'service_id',
+  })
+  public notification: HasMany<typeof Notification>
+
+  @hasMany(() => Transfer, {
+    foreignKey: 'service_id',
+  })
+  public transfer: HasMany<typeof Transfer>
+
+  @hasMany(() => ServicePlan, {
+    foreignKey: 'service_id',
+  })
+  public servicesplan: HasMany<typeof ServicePlan>
+
+  @hasMany(() => Burial, {
+    foreignKey: 'service_id',
+  })
+  public burial: HasMany<typeof Burial>
 }

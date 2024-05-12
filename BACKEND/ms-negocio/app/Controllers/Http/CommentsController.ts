@@ -12,7 +12,9 @@ export default class CommentsController {
   //Read
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      return await Comment.findOrFail(params.id)
+      let theComment:Comment = await Comment.findOrFail(params.id);
+      await theComment.load("executionService")
+      return theComment;
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
@@ -29,10 +31,9 @@ export default class CommentsController {
   public async update({ params, request }: HttpContextContract) {
     const theComment: Comment = await Comment.findOrFail(params.id)
     const body = request.body()
-
     theComment.message = body.message
     theComment.send_date = body.send_date
-
+    theComment.executionService = body.executionService_id
     return await theComment.save()
   }
 

@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import ExecutionService from './ExecutionService'
 
 export default class Comment extends BaseModel {
   @column({ isPrimary: true })
@@ -16,4 +17,10 @@ export default class Comment extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @belongsTo(() => ExecutionService, {
+    foreignKey: 'executionService_id'
+  })
+
+  public executionService: BelongsTo<typeof ExecutionService>
 }

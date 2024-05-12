@@ -14,7 +14,10 @@ export default class BurialsController {
     public async find({ request, params }: HttpContextContract) {
 
         if (params.id) {
-            return await Burial.findOrFail(params.id);
+            const theBurial = await Burial.findOrFail(params.id);
+            await theBurial.load('wakeRoom');
+            await theBurial.load('service');
+            return theBurial;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
@@ -24,9 +27,7 @@ export default class BurialsController {
             } else {
                 return await Burial.query()
             }
-
         }
-
     }
 
     //Update
@@ -37,6 +38,8 @@ export default class BurialsController {
             theBurial.location = body.location;
             theBurial.burial_type = body.burial_type;
             theBurial.burial_date = body.burial_date;
+            theBurial.wakeRoom = body.wakeRoom_id;
+            theBurial.service = body.service_id
 
             return await theBurial.save();
         }

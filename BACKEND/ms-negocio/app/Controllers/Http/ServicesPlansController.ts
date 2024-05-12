@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import ServicePlan from 'App/Models/ServicePlan'
 
 export default class ServicesPlansController {
+  
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theServicePlan: ServicePlan = await ServicePlan.findOrFail(params.id)

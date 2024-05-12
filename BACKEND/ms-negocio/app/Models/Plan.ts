@@ -7,10 +7,13 @@ export default class Plan extends BaseModel {
   public id: number
 
   @column()
-  public message: string
+  public description: string
 
   @column()
-  public send_date: DateTime
+  public price: number
+
+  @column()
+  public duration: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -19,8 +22,7 @@ export default class Plan extends BaseModel {
   public updatedAt: DateTime
 
   @hasMany(() => ServicePlan, {
-    foreignKey: 'plan_id'
+    foreignKey: 'plan_id',
   })
-
-  public servicesplans: HasMany<typeof ServicePlan>
+  public servicesplan: HasMany<typeof ServicePlan>
 }

@@ -33,6 +33,7 @@ export default class TransfersController {
     theTransfer.destination = body.destination
     theTransfer.distance = body.distance
     theTransfer.typeVehicle = body.typeVehicle
+    theTransfer.service_id = body.service_id
 
     return await theTransfer.save()
   }

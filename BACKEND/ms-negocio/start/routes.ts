@@ -40,8 +40,6 @@ import './routes/owner'
 
 import './routes/beneficiary'
 
-import './routes/headline'
-
 import './routes/plan'
 
 import './routes/subscription'
@@ -65,5 +63,3 @@ import './routes/chat'
 import './routes/message'
 
 import './routes/executionservice'
-
-import './routes/grave'

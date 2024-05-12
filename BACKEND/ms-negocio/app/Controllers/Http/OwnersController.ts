@@ -156,7 +156,6 @@ export default class OwnersController {
     }
     
 
-
     //Update
     public async update({ params, request }: HttpContextContract) {
 

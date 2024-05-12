@@ -25,9 +25,7 @@ export default class SubscriptionsController {
             } else {
                 return await Subscription.query()
             }
-
         }
-
     }
 
     //Update
@@ -39,6 +37,8 @@ export default class SubscriptionsController {
         theSubscription.startDate = body.startDate;
         theSubscription.endDate = body.endDate;
         theSubscription.state = body.state;
+        theSubscription.customer = body.customer_id
+        theSubscription.plan = body.plan_id
 
         return await theSubscription.save();
     }
