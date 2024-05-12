@@ -10,8 +10,10 @@ export default class extends BaseSchema {
       table.integer('cost')
       table.dateTime('duration')
       table.boolean('state')
-      table.integer('users_id').unsigned().references('users.id')
+
+      table.integer('users_id').unsigned().references('customers.id')
       table.integer('service_id').unsigned().references('services.id')
+
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
