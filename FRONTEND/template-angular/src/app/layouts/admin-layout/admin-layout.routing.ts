@@ -11,5 +11,11 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'tables',         component: TablesComponent },
     { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent }
+    { path: 'maps',           component: MapsComponent },
+    { path: 'owners',
+      loadChildren: () => import('src/app/pages/owners/owners.module').then(m => m.OwnersModule)
+    },
+    { path: 'beneficiaries',
+      loadChildren: () => import('src/app/pages/beneficiaries/beneficiaries.module').then(m => m.BeneficiariesModule)
+    }
 ];

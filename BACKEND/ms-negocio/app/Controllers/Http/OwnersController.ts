@@ -16,7 +16,10 @@ export default class OwnersController {
     public async find({ request, params }: HttpContextContract) {
         
         const theRequest = request.toJSON()
-        const token = theRequest.headers.authorization.replace("Bearer ", "")
+        let token = '';
+        if (theRequest.headers.authorization) {
+            token = theRequest.headers.authorization.replace("Bearer ", "");
+        }
         let theData = {}
 
         if (params.id) {
@@ -91,7 +94,7 @@ export default class OwnersController {
             const ownerInfo: OwnerInfo = {
                 id: theData["theOwner"]["id"],
                 identificationCard: theUser["identificationCard"],
-                contract_status: theData["contract_status"],
+                contract_status: theData["theOwner"]["contract_status"],
                 address: theData["address"],
                 phone_number: theData["phone_number"],
                 name: theUser["name"],
