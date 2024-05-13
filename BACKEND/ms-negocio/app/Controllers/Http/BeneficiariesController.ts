@@ -3,11 +3,12 @@ import Beneficiary from 'App/Models/Beneficiary';
 import axios from 'axios';
 import Env from '@ioc:Adonis/Core/Env'
 import Customer from 'App/Models/Customer';
+import BeneficiaryValidator from 'App/Validators/BeneficiaryValidator';
 
 export default class BeneficiariesController {
 
     public async store({ request }: HttpContextContract) {
-        const body = request.body();
+        const body = await request.validate(BeneficiaryValidator);
         const theBeneficiary: Beneficiary = await Beneficiary.create(body);
         return theBeneficiary;
     }

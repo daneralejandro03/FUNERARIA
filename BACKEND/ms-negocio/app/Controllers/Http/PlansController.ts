@@ -1,12 +1,13 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Plan from 'App/Models/Plan'
+import PlanValidator from 'App/Validators/PlanValidator'
 
 export default class PlansController {
   //Create
   public async store({ request }: HttpContextContract) {
-    const body = request.body()
-    const thePlan: Plan = await Plan.create(body)
-    return thePlan
+    const body = await request.validate(PlanValidator);
+    const thePlan: Plan = await Plan.create(body);
+    return thePlan;
   }
 
   //Read

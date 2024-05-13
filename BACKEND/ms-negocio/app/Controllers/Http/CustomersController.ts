@@ -3,11 +3,12 @@ import Customer from 'App/Models/Customer';
 import axios from 'axios';
 import Env from '@ioc:Adonis/Core/Env'
 import Subscription from 'App/Models/Subscription';
+import CustomerValidator from 'App/Validators/CustomerValidator';
 
 export default class CustomersController {
     //Create
     public async store({ request }: HttpContextContract) {
-        const body = request.body();
+        const body = await request.validate(CustomerValidator);
         const theCustomer: Customer = await Customer.create(body);
         return theCustomer;
     }

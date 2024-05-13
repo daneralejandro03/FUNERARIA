@@ -2,13 +2,14 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Employee from 'App/Models/Employee';
 import axios from 'axios';
 import Env from '@ioc:Adonis/Core/Env'
+import EmployeeValidator from 'App/Validators/EmployeeValidator';
 
 export default class EmployeesController {
       
 
     //Create
     public async store({ request }: HttpContextContract) {
-        const body = request.body();
+        const body = await request.validate(EmployeeValidator);
         const theEmployee: Employee = await Employee.create(body);
         return theEmployee;
     }

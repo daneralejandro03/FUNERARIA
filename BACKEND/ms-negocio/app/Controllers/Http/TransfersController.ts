@@ -1,10 +1,11 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Transfer from 'App/Models/Transfer'
+import TransferValidator from 'App/Validators/TransferValidator'
 
 export default class TransfersController {
   //Create
   public async store({ request }: HttpContextContract) {
-    const body = request.body()
+    const body = await request.validate(TransferValidator);
     const theTransfer: Transfer = await Transfer.create(body)
     return theTransfer
   }

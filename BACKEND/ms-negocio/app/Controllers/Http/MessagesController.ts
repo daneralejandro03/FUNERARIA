@@ -3,13 +3,14 @@ import ExecutionService from 'App/Models/ExecutionService'
 import Message from 'App/Models/Message'
 import axios from 'axios'
 import Env from '@ioc:Adonis/Core/Env'
+import MessageValidator from 'App/Validators/MessageValidator'
 
 export default class MessagesController {
   //Create
   public async store({ request }: HttpContextContract) {
-    const body = request.body()
-    const theMessage: Message = await Message.create(body)
-    return theMessage
+    const body = await request.validate(MessageValidator);
+    const theMessage: Message = await Message.create(body);
+    return theMessage;
   }
 
   //Read

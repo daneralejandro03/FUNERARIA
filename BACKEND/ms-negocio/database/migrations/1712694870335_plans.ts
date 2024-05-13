@@ -10,7 +10,6 @@ export default class extends BaseSchema {
       table.string('description').notNullable()
       table.float('price').notNullable()
       table.integer('duration').notNullable()
-
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

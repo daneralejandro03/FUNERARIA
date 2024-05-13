@@ -2,11 +2,12 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Administrator from 'App/Models/Administrator';
 import axios from 'axios';
 import Env from '@ioc:Adonis/Core/Env'
+import AdministratorValidator from 'App/Validators/AdministratorValidator';
 
 export default class AdministratorsController {
     //Create
     public async store({ request }: HttpContextContract) {
-        const body = request.body();
+        const body = await request.validate(AdministratorValidator);
         const theAdministrator: Administrator = await Administrator.create(body);
         return theAdministrator;
     }

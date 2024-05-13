@@ -1,10 +1,11 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Burial from 'App/Models/Burial';
+import BurialValidator from 'App/Validators/BurialValidator';
 
 export default class BurialsController {
     //Create
     public async store({ request }: HttpContextContract) {
-        const body = request.body();
+        const body = await request.validate(BurialValidator);
         const theBurial: Burial = await Burial.create(body);
         return theBurial;
     }

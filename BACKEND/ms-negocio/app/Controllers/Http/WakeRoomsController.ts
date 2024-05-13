@@ -1,9 +1,10 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import WakeRoom from 'App/Models/WakeRoom';
+import WakeRoomValidator from 'App/Validators/WakeRoomValidator';
 
 export default class WakeRoomsController {
     public async store({ request }: HttpContextContract) {
-        const body = request.body();
+        const body = await request.validate(WakeRoomValidator);
         const theWakeRoom: WakeRoom = await WakeRoom.create(body);
         return theWakeRoom;
     }
@@ -32,12 +33,10 @@ export default class WakeRoomsController {
 
         const theWakeRoom: WakeRoom = await WakeRoom.findOrFail(params.id);
         const body = request.body();
-        theWakeRoom.name = body.name
-        theWakeRoom.capacity = body.capacity
-        theWakeRoom.availability = body.availability
-        theWakeRoom.sites_id = body.sites_id
-        theWakeRoom.burial_id = body.burial_id;
-        theWakeRoom.cremation_id = body.cremation_id
+        theWakeRoom.name = body.name;
+        theWakeRoom.capacity = body.capacity;
+        theWakeRoom.availability = body.availability;
+        theWakeRoom.sites_id = body.sites_id;
 
         return await theWakeRoom.save();
     }

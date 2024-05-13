@@ -4,10 +4,11 @@ import axios from 'axios';
 import Env from '@ioc:Adonis/Core/Env'
 import Customer from 'App/Models/Customer';
 import Beneficiary from 'App/Models/Beneficiary';
+import OwnerValidator from 'App/Validators/OwnerValidator';
 
 export default class OwnersController {
     public async store({ request }: HttpContextContract) {
-        const body = request.body();
+        const body = await request.validate(OwnerValidator);
         const theOwner: Owner = await Owner.create(body);
         return theOwner;
     }
