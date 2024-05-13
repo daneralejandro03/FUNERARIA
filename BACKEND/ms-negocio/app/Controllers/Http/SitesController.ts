@@ -35,7 +35,7 @@ export default class SitesController {
     theSite.name = body.name
     theSite.location = body.location
     theSite.email = body.email
-
+    theSite.city_id = body.city_id
     return await theSite.save()
   }
 

@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.string('name').notNullable()
       table.string('location').notNullable()
       table.string('email').notNullable()
-
+      table.string('city_id').notNullable()
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
