@@ -11,7 +11,7 @@ export default class Burial extends BaseModel {
   public location: string
 
   @column()
-  public burial_type: string
+  public cementery: string
 
   @column()
   public burial_date: DateTime

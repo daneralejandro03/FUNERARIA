@@ -7,7 +7,7 @@ export default class BurialValidator {
   public schema = schema.create({
     location: schema.string([rules.minLength(2)]),
     burial_type: schema.string([rules.minLength(5)]),
-    burial_date: schema.date(),
+    cementery: schema.string.optional(),
     wakeRoom_id: schema.number([rules.minLength(2)]),
     service_id: schema.number([rules.minLength(2)]),
   })
