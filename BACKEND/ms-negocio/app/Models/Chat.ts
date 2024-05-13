@@ -3,6 +3,7 @@ import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany} from '@ioc:A
 import Message from './Message'
 import ExecutionService from './ExecutionService'
 export default class Chat extends BaseModel {
+  
   @column({ isPrimary: true })
   public id: number
 
@@ -11,6 +12,12 @@ export default class Chat extends BaseModel {
 
   @column()
   public state: boolean
+
+  @column()
+  public message_id: number
+
+  @column()
+  public executionService_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

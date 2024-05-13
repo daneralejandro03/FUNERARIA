@@ -1,12 +1,16 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import ExecutionService from 'App/Models/ExecutionService'
-import axios from 'axios'
-import Env from '@ioc:Adonis/Core/Env'
 
 export default class ExecutionServicesController {
+
   public async find({ request, params }: HttpContextContract) {
+
     if (params.id) {
       let theExecutionServices: ExecutionService = await ExecutionService.findOrFail(params.id)
+      await theExecutionServices.load('chat')
+      await theExecutionServices.load('comments')
+      await theExecutionServices.load('customer')
+      await theExecutionServices.load('service')
       return theExecutionServices
     } else {
       const data = request.all()

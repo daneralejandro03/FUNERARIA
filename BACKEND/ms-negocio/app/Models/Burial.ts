@@ -16,6 +16,12 @@ export default class Burial extends BaseModel {
   @column()
   public burial_date: DateTime
 
+  @column()
+  public wakeRoom_id: number
+
+  @column()
+  public service_id: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

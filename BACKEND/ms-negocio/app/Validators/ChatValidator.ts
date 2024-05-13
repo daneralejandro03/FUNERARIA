@@ -1,4 +1,4 @@
-import { schema, CustomMessages } from '@ioc:Adonis/Core/Validator'
+import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class ChatValidator {
@@ -7,6 +7,7 @@ export default class ChatValidator {
   public schema = schema.create({
     start_date: schema.date(),
     state: schema.boolean(),
+    executionService_id: schema.number([rules.minLength(2)]),
   })
 
   public messages: CustomMessages = {

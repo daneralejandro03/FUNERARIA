@@ -8,7 +8,7 @@ export default class ExecutionServiceValidator {
     cost: schema.number([rules.minLength(6)]),
     duration: schema.date(),
     state: schema.boolean(),
-    user_id: schema.number([rules.minLength(2)]),
+    customer_id: schema.number([rules.minLength(2)]),
     service_id: schema.number([rules.minLength(2)]),
   })
 
@@ -16,7 +16,7 @@ export default class ExecutionServiceValidator {
     'cost.required': 'El costo es requerido',
     'duration.required': 'La duración es requerida',
     'state.required': 'El estado es requerido',
-    'user_id.required': 'El ID del user es requerido',
+    'customer_id.required': 'El ID del cliente es requerido',
     'service_id.required': 'El ID del servicio es requerido',
   }
 }

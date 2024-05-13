@@ -15,7 +15,9 @@ export default class SubscriptionsController {
     public async find({ request, params }: HttpContextContract) {
 
         if (params.id) {
-            return await Subscription.findOrFail(params.id);
+            let theSubscription: Subscription = await Subscription.findOrFail(params.id)
+            await theSubscription.load('pays')
+            return theSubscription
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
@@ -37,8 +39,8 @@ export default class SubscriptionsController {
         theSubscription.startDate = body.startDate;
         theSubscription.endDate = body.endDate;
         theSubscription.state = body.state;
-        theSubscription.customer = body.customer_id
-        theSubscription.plan = body.plan_id
+        theSubscription.customer_id = body.customer_id
+        theSubscription.plan_id = body.plan_id
 
         return await theSubscription.save();
     }
