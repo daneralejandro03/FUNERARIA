@@ -10,9 +10,5 @@ export default class AdministratorValidator {
     user_id: schema.string([rules.required(), rules.minLength(1)])
   })
 
-  public messages: CustomMessages = {
-    'privileges.required': 'Los privilegios son obligatorios.',
-    'responsabilities.required': 'Las responsabilidades son obligatorias.',
-    'user_id.required': 'El ID de usuario es obligatorio.',
-  }
+  public messages: CustomMessages = {}
 }

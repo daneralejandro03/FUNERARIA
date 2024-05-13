@@ -6,13 +6,9 @@ export default class PayValidator {
 
   public schema = schema.create({
     pay_day: schema.date(),
-    amount: schema.number([rules.minLength(3)]),
-    subscription_id: schema.number([rules.minLength(2)]),
+    amount: schema.number([rules.range(1,10)]),
+    subscription_id: schema.number([rules.range(1,20)]),
   })
 
-  public messages: CustomMessages = {
-    'pay_day.required': 'El día de pago es requerido',
-    'amount.required': 'El monto es requerido',
-    'subscription_id.required': 'El ID de la suscripción es requerido',
-  }
+  public messages: CustomMessages = {}
 }

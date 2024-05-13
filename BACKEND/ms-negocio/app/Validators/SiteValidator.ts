@@ -10,9 +10,5 @@ export default class SiteValidator {
     email: schema.string([rules.minLength(10)]),
   })
 
-  public messages: CustomMessages = {
-    'name.required': 'El nombre del sitio es requerido',
-    'location.required': 'La ubicación del sitio es requerida',
-    'email.required': 'El correo electrónico del sitio es requerido',
-  }
+  public messages: CustomMessages = {}
 }

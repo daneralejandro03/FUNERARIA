@@ -7,11 +7,8 @@ export default class ChatValidator {
   public schema = schema.create({
     start_date: schema.date(),
     state: schema.boolean(),
-    executionService_id: schema.number([rules.minLength(2)]),
+    executionService_id: schema.number([rules.range(1,20)]),
   })
 
-  public messages: CustomMessages = {
-    'start_date.required': 'La fecha de inicio es requerida',
-    'state.required': 'El estado del chat es requerido',
-  }
+  public messages: CustomMessages = {}
 }

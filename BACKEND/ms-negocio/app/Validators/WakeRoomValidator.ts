@@ -6,15 +6,10 @@ export default class WakeRoomValidator {
 
   public schema = schema.create({
     name: schema.string([rules.minLength(10)]),
-    capacity: schema.number([rules.minLength(2)]),
+    capacity: schema.number([rules.range(1,100)]),
     availability: schema.boolean(),
-    site_id: schema.number([rules.minLength(2)]),
+    site_id: schema.number([rules.range(1,20)]),
   })
 
-  public messages: CustomMessages = {
-    'name.required': 'El nombre de la sala de velación es requerido',
-    'capacity.required': 'La capacidad de la sala de velación es requerida',
-    'availability.required': 'La disponibilidad de la sala de velación es requerida',
-    'site_id.required': 'El ID del sitio es requerido',
-  }
+  public messages: CustomMessages = {}
 }
