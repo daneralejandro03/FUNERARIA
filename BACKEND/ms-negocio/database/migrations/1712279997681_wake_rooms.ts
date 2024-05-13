@@ -10,7 +10,6 @@ export default class extends BaseSchema {
       table.integer("capacity")
       table.boolean("availability")
       table.integer("sites_id").unsigned().references('sites.id')
-      table.integer("services_id").unsigned().references('services.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

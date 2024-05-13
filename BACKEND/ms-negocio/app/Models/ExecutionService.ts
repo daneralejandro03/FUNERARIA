@@ -26,12 +26,6 @@ export default class ExecutionService extends BaseModel {
   @column()
   public service_id: number
 
-  @column()
-  public chat_id: number
-
-  @column()
-  public comment_id: number
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

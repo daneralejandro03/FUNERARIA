@@ -12,8 +12,6 @@ export default class extends BaseSchema {
       table.boolean('state')
       table.integer('customer_id').unsigned().references('customers.id')
       table.integer('service_id').unsigned().references('services.id')
-      table.integer('comment_id').unsigned().references('comments.id')
-      table.integer('chat_id').unsigned().references('chats.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
