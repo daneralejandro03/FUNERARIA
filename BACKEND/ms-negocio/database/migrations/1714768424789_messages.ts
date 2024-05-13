@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('information', 255)
-      table.string('chat_id').unsigned().references('chats.id')
+      table.integer('chat_id').unsigned().references('chats.id').onDelete('CASCADE')
       table.string('user_id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
@@ -16,5 +16,5 @@ export default class extends BaseSchema {
 
   public async down() {
     this.schema.dropTable(this.tableName)
-  } 
+  }
 }
