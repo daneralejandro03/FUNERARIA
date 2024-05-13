@@ -34,7 +34,6 @@ export default class ChatsController {
     const body = request.body()
     theChat.start_date = body.start_date
     theChat.state = body.state
-    theChat.message_id = body.message_id
     theChat.executionService_id = body.executionService_id
 
     return await theChat.save()

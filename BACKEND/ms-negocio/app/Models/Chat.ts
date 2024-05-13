@@ -14,9 +14,6 @@ export default class Chat extends BaseModel {
   public state: boolean
 
   @column()
-  public message_id: number
-
-  @column()
   public executionService_id: number
 
   @column.dateTime({ autoCreate: true })

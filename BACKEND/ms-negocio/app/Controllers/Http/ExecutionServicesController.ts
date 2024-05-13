@@ -7,7 +7,6 @@ export default class ExecutionServicesController {
 
     if (params.id) {
       let theExecutionServices: ExecutionService = await ExecutionService.findOrFail(params.id)
-      await theExecutionServices.load('chat')
       await theExecutionServices.load('comments')
       await theExecutionServices.load('customer')
       await theExecutionServices.load('service')
