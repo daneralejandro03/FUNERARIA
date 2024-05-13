@@ -1,0 +1,77 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIF="mode==1" class="mb-0">Visualización</h3>
+                    <h3 *ngIF="mode==2" class="mb-0">Crear</h3>
+                    <h3 *ngIF="mode==1" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" [formGroup] = "theFormGroup">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    Id:
+                                </div>
+                                <div class="col-8">
+                                    {{plan.id}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Descripción:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="plan.description" [disabled]="mode==1" formControlName="description">
+                                    <div *ngIf="getTheFormGroup.description.errors && (getTheFormGroup.description.dirty || getTheFormGroup.description.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.description.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.description.errors.minLength" class="msnError">El mínimo aceptado es 5</strong>
+                                        <strong *ngIf="getTheFormGroup.description.errors.minLength" class="msnError">El máximo aceptado es 100</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Precio:
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" class="form-control" [(ngModel)]="plan.price" [disabled]="mode==1" formControlName="price">
+                                    <div *ngIf="getTheFormGroup.price.errors && (getTheFormGroup.price.dirty || getTheFormGroup.price.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.price.errors.min" class="msnError">Valor mínimo debe ser 10000</strong>
+                                        <strong *ngIf="getTheFormGroup.price.errors.max" class="msnError">Valor máximo es 100000</strong>
+                                        <strong *ngIf="getTheFormGroup.price.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Duración:
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" class="form-control" [(ngModel)]="plan.duration" [disabled]="mode==1" formControlName="duration">
+                                    <div *ngIf="getTheFormGroup.duration.errors && (getTheFormGroup.duration.dirty || getTheFormGroup.duration.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.duration.errors.min" class="msnError">Valor minimo debe ser 3</strong>
+                                        <strong *ngIf="getTheFormGroup.duration.errors.max" class="msnError">Valor máximo es 12</strong>
+                                        <strong *ngIf="getTheFormGroup.duration.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8">
+                              <button *ngIf="mode==2" class="btn btn-primary btn-block" (click)="create()">Crear</button>
+                              <button *ngIf="mode==3" class="btn btn-primary btn-block" (click)="update()">Actualizar</button>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
