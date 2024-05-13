@@ -21,7 +21,10 @@ export default class WakeRoom extends BaseModel {
   public sites_id: number
 
   @column()
-  public services_id: number
+  public cremation_id: number
+
+  @column()
+  public burial_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

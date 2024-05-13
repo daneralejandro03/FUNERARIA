@@ -8,6 +8,8 @@ export default class extends BaseSchema {
       table.increments('id')
       table.dateTime('start_date')
       table.boolean('state')
+      table.integer('message_id').unsigned().references('messages.id')
+      table.integer('executionService_id').unsigned().references('executionServices.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

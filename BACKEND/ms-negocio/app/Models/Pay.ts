@@ -10,7 +10,10 @@ export default class Pay extends BaseModel {
   public pay_day: DateTime
 
   @column()
-  public amount: number
+  public amount: number 
+
+  @column()
+  public subscription_id: number 
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

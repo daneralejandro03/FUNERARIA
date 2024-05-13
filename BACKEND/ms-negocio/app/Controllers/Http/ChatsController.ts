@@ -14,6 +14,7 @@ export default class ChatsController {
     if (params.id) {
       const theChat = await Chat.findOrFail(params.id);
       await theChat.load('messages');
+      await theChat.load('executionService');
       return theChat
     } else {
       const data = request.all()
@@ -33,6 +34,8 @@ export default class ChatsController {
     const body = request.body()
     theChat.start_date = body.start_date
     theChat.state = body.state
+    theChat.message_id = body.message_id
+    theChat.executionService_id = body.executionService_id
 
     return await theChat.save()
   }

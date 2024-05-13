@@ -31,7 +31,7 @@ export default class CremationsController {
     const body = request.body()
     theCremation.urnType = body.urnType
     theCremation.destinyAshes = body.destinyAshes
-    theCremation.hall_id = body.hall_id
+    theCremation.wakeRoom_id = body.hall_id
     theCremation.service_id = body.service_id
 
     return await theCremation.save()

@@ -14,7 +14,7 @@ export default class Cremation extends BaseModel {
   public destinyAshes: string
 
   @column()
-  public hall_id: number
+  public wakeRoom_id: number
 
   @column()
   public service_id: number

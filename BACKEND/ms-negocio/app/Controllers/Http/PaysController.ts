@@ -39,7 +39,7 @@ export default class PaysController {
         const body = request.body();
         thePay.pay_day = body.pay_day;
         thePay.amount = body.amount;
-        thePay.subscription = body.subscription
+        thePay.subscription_id = body.subscription_id
 
         return await thePay.save();
     }
