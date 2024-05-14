@@ -7,10 +7,10 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
-      table.string('placeOrigin')
+      table.string('place_origin')
       table.string('destination')
       table.float('distance')
-      table.string('typeVehicle')
+      table.string('type_vehicle')
       table.integer('service_id').unsigned().references('services.id').onDelete('CASCADE')
 
       table.timestamp('created_at', { useTz: true })

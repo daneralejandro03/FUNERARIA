@@ -8,19 +8,19 @@ export default class Cremation extends BaseModel {
   public id: number
 
   @column()
-  public urnType: string
+  public urn_type: string
 
   @column()
-  public destinyAshes: string
+  public destiny_ashes: string
 
   @column()
-  public wakeRoom_id: number
+  public wake_room_id: number
 
   @column()
   public service_id: number
 
   @belongsTo(() => WakeRoom, {
-    foreignKey: 'wakeRoom_id',
+    foreignKey: 'wake_room_id',
   })
   public WakeRoom: BelongsTo<typeof WakeRoom>
 

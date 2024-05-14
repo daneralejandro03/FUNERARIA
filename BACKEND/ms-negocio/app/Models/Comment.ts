@@ -13,7 +13,7 @@ export default class Comment extends BaseModel {
   public send_date: DateTime
 
   @column()
-  public executionService_id: number
+  public execution_service_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -22,8 +22,8 @@ export default class Comment extends BaseModel {
   public updatedAt: DateTime
 
   @belongsTo(() => ExecutionService, {
-    foreignKey: 'executionService_id'
+    foreignKey: 'execution_service_id'
   })
 
-  public executionService: BelongsTo<typeof ExecutionService>
+  public execution_service: BelongsTo<typeof ExecutionService>
 }

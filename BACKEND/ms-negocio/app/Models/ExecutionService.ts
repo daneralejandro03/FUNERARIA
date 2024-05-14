@@ -43,12 +43,12 @@ export default class ExecutionService extends BaseModel {
   public customer: BelongsTo<typeof Customer>
 
   @hasMany(() => Comment, {
-    foreignKey: 'executionService_id',
+    foreignKey: 'execution_service_id',
   })
   public comments: HasMany<typeof Comment>
 
   @hasOne(() => Chat, {
-    foreignKey: 'executionService_id',
+    foreignKey: 'execution_service_id',
   })
   public chat: HasOne<typeof Chat>
 }

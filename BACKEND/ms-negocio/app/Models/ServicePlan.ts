@@ -8,13 +8,13 @@ export default class ServicePlan extends BaseModel {
   public id: number
 
   @column()
-  public statusHiring: boolean
+  public status_hiring: boolean
 
   @column()
-  public dateHiring: DateTime
+  public date_hiring: DateTime
 
   @column()
-  public dateExpiration: DateTime
+  public date_expiration: DateTime
 
   @column()
   public service_id: number

@@ -5,9 +5,9 @@ export default class EmployeeValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    position: schema.string([rules.minLength(5)]),
-    salary: schema.number([rules.minLength(3)]),
-    user_id: schema.string([rules.minLength(5)]),
+    position: schema.string([rules.required(), rules.minLength(5)]),
+    salary: schema.number([rules.required(), rules.range(10000,100000)]),
+    user_id: schema.string([rules.required()]),
   })
 
   public messages: CustomMessages = {

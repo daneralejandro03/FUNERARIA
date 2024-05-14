@@ -5,14 +5,10 @@ export default class ServiceValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    type: schema.string([rules.minLength(10)]),
-    start_date: schema.date(),
-    end_date: schema.date(),
+    type: schema.string([rules.minLength(10), rules.required()]),
   })
 
   public messages: CustomMessages = {
-    'type.required': 'El tipo de servicio es requerido',
-    'start_date.required': 'La fecha de inicio es requerida',
-    'end_date.required': 'La fecha de fin es requerida',
+    
   }
 }

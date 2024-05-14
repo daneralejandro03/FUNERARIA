@@ -9,7 +9,7 @@ import Burial from './Burial'
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
   public id: number
-
+  
   @column()
   public type: string
 

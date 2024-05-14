@@ -5,11 +5,11 @@ export default class BurialValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    location: schema.string([rules.minLength(2)]),
-    burial_type: schema.string([rules.minLength(5)]),
-    cementery: schema.string.optional(),
-    wakeRoom_id: schema.number([rules.minLength(2)]),
-    service_id: schema.number([rules.minLength(2)]),
+    location: schema.string([rules.required()]),
+    burial_type: schema.string([rules.required()]),
+    cementery: schema.string([rules.required()]),
+    wake_room_id: schema.number([rules.unsigned()]),
+    service_id: schema.number([rules.unsigned()])
   })
 
   public messages: CustomMessages = {

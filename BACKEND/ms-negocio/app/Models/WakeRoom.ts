@@ -18,7 +18,7 @@ export default class WakeRoom extends BaseModel {
   public availability: boolean
 
   @column()
-  public sites_id: number
+  public site_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -32,12 +32,12 @@ export default class WakeRoom extends BaseModel {
   public site: BelongsTo<typeof Site>
 
   @hasMany(() => Burial, {
-    foreignKey: 'wakeRoom_id',
+    foreignKey: 'wake_room_id',
   })
   public burial: HasMany<typeof Burial>
 
   @hasMany(() => Cremation, {
-    foreignKey: 'wakeRoom_id',
+    foreignKey: 'wake_room_id',
   })
   public cremation: HasMany<typeof Cremation>
 }

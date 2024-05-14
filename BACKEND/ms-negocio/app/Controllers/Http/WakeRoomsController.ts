@@ -36,7 +36,7 @@ export default class WakeRoomsController {
         theWakeRoom.name = body.name;
         theWakeRoom.capacity = body.capacity;
         theWakeRoom.availability = body.availability;
-        theWakeRoom.sites_id = body.sites_id;
+        theWakeRoom.site_id = body.site_id;
 
         return await theWakeRoom.save();
     }

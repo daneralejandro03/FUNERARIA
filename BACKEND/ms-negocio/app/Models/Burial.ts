@@ -14,10 +14,10 @@ export default class Burial extends BaseModel {
   public cementery: string
 
   @column()
-  public burial_date: DateTime
+  public burial_type: string
 
   @column()
-  public wakeRoom_id: number
+  public wake_room_id: number
 
   @column()
   public service_id: number
@@ -29,7 +29,7 @@ export default class Burial extends BaseModel {
   public updatedAt: DateTime
 
   @belongsTo(() => WakeRoom, {
-    foreignKey: 'wakeRoom_id',
+    foreignKey: 'wake_room_id',
   })
   public wakeRoom: BelongsTo<typeof WakeRoom>
 

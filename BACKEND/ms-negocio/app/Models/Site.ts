@@ -16,7 +16,7 @@ export default class Site extends BaseModel {
   public email: string
 
   @column()
-  public city_id: string
+  public city_id: number
 
   @hasMany(() => WakeRoom, {
     foreignKey: 'site_id',

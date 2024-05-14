@@ -6,8 +6,8 @@ export default class PlanValidator {
 
   public schema = schema.create({
     description: schema.string([rules.minLength(10)]),
-    price: schema.number([rules.minLength(4)]),
-    duration: schema.number([rules.minLength(5)]),
+    price: schema.number([rules.range(10000,100000)]),
+    duration: schema.number([rules.range(3,12)]),
   })
 
   public messages: CustomMessages = {

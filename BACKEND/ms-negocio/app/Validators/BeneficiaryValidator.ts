@@ -5,9 +5,9 @@ export default class BeneficiaryValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    beneficiary_status: schema.string([rules.minLength(2)]),
-    customer_id: schema.number([rules.minLength(2)]),
-    owner_id: schema.number([rules.required(), rules.minLength(2)]),
+    beneficiary_status: schema.string([rules.required(), rules.minLength(2)]),
+    customer_id: schema.number([rules.required(), rules.unsigned()]),
+    owner_id: schema.number([rules.required(), rules.unsigned()]),
   })
 
   public messages: CustomMessages = {

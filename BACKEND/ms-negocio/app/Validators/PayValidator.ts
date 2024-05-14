@@ -5,9 +5,8 @@ export default class PayValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    pay_day: schema.date(),
-    amount: schema.number([rules.minLength(3)]),
-    subscription_id: schema.number([rules.minLength(2)]),
+    amount: schema.number([rules.range(1000,10000), rules.required()]),
+    subscription_id: schema.number([rules.unsigned(), rules.required()]),
   })
 
   public messages: CustomMessages = {

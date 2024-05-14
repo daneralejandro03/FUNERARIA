@@ -28,9 +28,9 @@ export default class ServicesPlansController {
   public async update({ params, request }: HttpContextContract) {
     const theServicePlan: ServicePlan = await ServicePlan.findOrFail(params.id)
     const body = request.body()
-    theServicePlan.statusHiring = body.statusHiring
-    theServicePlan.dateHiring = body.dateHiring
-    theServicePlan.dateExpiration = body.dateExpiration
+    theServicePlan.status_hiring = body.status_hiring
+    theServicePlan.date_hiring = body.date_expiration
+    theServicePlan.date_hiring = body.date_hiring
     theServicePlan.service_id = body.service_id
     theServicePlan.plan_id = body.plan_id
     return await theServicePlan.save()

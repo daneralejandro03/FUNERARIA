@@ -35,7 +35,7 @@ export default class BurialsController {
     const body = request.body()
     theBurial.location = body.location
     theBurial.cementery = body.cementery
-    theBurial.burial_date = body.burial_date
+    theBurial.burial_type = body.burial_type
     theBurial.wakeRoom = body.wakeRoom_id
     theBurial.service = body.service_id
 

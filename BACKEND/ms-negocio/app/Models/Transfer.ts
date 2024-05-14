@@ -7,7 +7,7 @@ export default class Transfer extends BaseModel {
   public id: number
 
   @column()
-  public placeOrigin: string
+  public place_origin: string
 
   @column()
   public destination: string
@@ -16,7 +16,7 @@ export default class Transfer extends BaseModel {
   public distance: number
 
   @column()
-  public typeVehicle: string
+  public type_vehicle: string
 
   @column()
   public service_id: number

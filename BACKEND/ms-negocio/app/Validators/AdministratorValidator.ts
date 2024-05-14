@@ -5,14 +5,13 @@ export default class AdministratorValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    privileges: schema.string([rules.minLength(2)]),
-    responsabilities: schema.string([rules.minLength(10)]),
-    user_id: schema.string([rules.required(), rules.minLength(1)])
+    privileges: schema.string([rules.required()]),
+    responsabilities: schema.string([rules.required()]),
+    user_id: schema.string([rules.required()])
+    
   })
 
   public messages: CustomMessages = {
-    'privileges.required': 'Los privilegios son obligatorios.',
-    'responsabilities.required': 'Las responsabilidades son obligatorias.',
-    'user_id.required': 'El ID de usuario es obligatorio.',
+    
   }
 }

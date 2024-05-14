@@ -24,7 +24,7 @@ export default class ExecutionServicesController {
     }
   }
   public async store({ request }: HttpContextContract) {
-    const body = await request.validate(ExecutionServiceValidator);
+    const body = request.body();
     const theExecutionServices: ExecutionService = await ExecutionService.create(body);
     return theExecutionServices;
   }

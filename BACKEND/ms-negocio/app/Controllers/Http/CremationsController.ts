@@ -30,9 +30,9 @@ export default class CremationsController {
   public async update({ params, request }: HttpContextContract) {
     const theCremation: Cremation = await Cremation.findOrFail(params.id)
     const body = request.body()
-    theCremation.urnType = body.urnType
-    theCremation.destinyAshes = body.destinyAshes
-    theCremation.wakeRoom_id = body.hall_id
+    theCremation.urn_type = body.urn_type
+    theCremation.destiny_ashes = body.destiny_ashes
+    theCremation.wake_room_id = body.wake_room_id
     theCremation.service_id = body.service_id
 
     return await theCremation.save()

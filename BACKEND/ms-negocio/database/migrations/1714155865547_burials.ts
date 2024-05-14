@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.string('location')
       table.string('burial_type')
       table.string('cementery')
-      table.integer('wakeRoom_id').unsigned().references('wake_rooms.id')
+      table.integer('wake_room_id').unsigned().references('wake_rooms.id')
       table.integer('service_id').unsigned().references('services.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

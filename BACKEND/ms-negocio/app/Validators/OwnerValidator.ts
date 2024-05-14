@@ -5,8 +5,8 @@ export default class OwnerValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    contract_status: schema.string([rules.minLength(4)]),
-    customer_id: schema.number([rules.minLength(2)]),
+    contract_status: schema.string([rules.required(), rules.minLength(4)]),
+    customer_id: schema.number([rules.range(1, 1000)]),
   })
 
   public messages: CustomMessages = {

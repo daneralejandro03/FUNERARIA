@@ -14,7 +14,7 @@ export default class CommentsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theComment:Comment = await Comment.findOrFail(params.id);
-      await theComment.load("executionService")
+      await theComment.load("execution_service")
       return theComment;
     } else {
       const data = request.all()
@@ -34,7 +34,7 @@ export default class CommentsController {
     const body = request.body()
     theComment.message = body.message
     theComment.send_date = body.send_date
-    theComment.executionService = body.executionService_id
+    theComment.execution_service_id = body.execution_service_id
     return await theComment.save()
   }
 

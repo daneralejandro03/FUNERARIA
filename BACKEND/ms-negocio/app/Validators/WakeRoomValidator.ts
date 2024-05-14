@@ -5,10 +5,10 @@ export default class WakeRoomValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    name: schema.string([rules.minLength(10)]),
-    capacity: schema.number([rules.minLength(2)]),
+    name: schema.string([rules.minLength(1), rules.required()]),
+    capacity: schema.number([rules.unsigned(), rules.required()]),
     availability: schema.boolean(),
-    site_id: schema.number([rules.minLength(2)]),
+    site_id: schema.number([rules.unsigned(), rules.required()])
   })
 
   public messages: CustomMessages = {

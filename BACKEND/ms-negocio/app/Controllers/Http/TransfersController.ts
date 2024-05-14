@@ -30,10 +30,10 @@ export default class TransfersController {
   public async update({ params, request }: HttpContextContract) {
     const theTransfer: Transfer = await Transfer.findOrFail(params.id)
     const body = request.body()
-    theTransfer.placeOrigin = body.placeOrigin
+    theTransfer.place_origin = body.place_origin
     theTransfer.destination = body.destination
     theTransfer.distance = body.distance
-    theTransfer.typeVehicle = body.typeVehicle
+    theTransfer.type_vehicle = body.type_vehicle
     theTransfer.service_id = body.service_id
 
     return await theTransfer.save()

@@ -5,9 +5,10 @@ export default class SiteValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    name: schema.string([rules.minLength(10)]),
-    location: schema.string([rules.minLength(10)]),
-    email: schema.string([rules.minLength(10)]),
+    name: schema.string([rules.required()]),
+    location: schema.string([rules.required()]),
+    email: schema.string([rules.required()]),
+    city_id: schema.number([rules.unsigned()])
   })
 
   public messages: CustomMessages = {

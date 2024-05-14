@@ -5,14 +5,10 @@ export default class CommentValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    message: schema.string([rules.minLength(15)]),
-    send_date: schema.date(),
-    executionService_id: schema.number([rules.minLength(2)]),
+    message: schema.string([rules.minLength(1)]),
+
+    execution_service_id: schema.number([rules.unsigned()]),
   })
 
-  public messages: CustomMessages = {
-    'message.required': 'El mensaje es requerido',
-    'send_date.required': 'La fecha de envío es requerida',
-    'executionService_id.required': 'El ID del servicio de ejecución es requerido',
-  }
+  public messages: CustomMessages = {}
 }
