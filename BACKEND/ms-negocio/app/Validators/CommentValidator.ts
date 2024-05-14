@@ -7,8 +7,12 @@ export default class CommentValidator {
   public schema = schema.create({
     message: schema.string([rules.minLength(15)]),
     send_date: schema.date(),
-    executionService_id: schema.number([rules.range(1,20)]),
+    executionService_id: schema.number([rules.minLength(2)]),
   })
 
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'message.required': 'El mensaje es requerido',
+    'send_date.required': 'La fecha de envío es requerida',
+    'executionService_id.required': 'El ID del servicio de ejecución es requerido',
+  }
 }

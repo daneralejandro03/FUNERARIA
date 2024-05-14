@@ -10,5 +10,9 @@ export default class ServiceValidator {
     end_date: schema.date(),
   })
 
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'type.required': 'El tipo de servicio es requerido',
+    'start_date.required': 'La fecha de inicio es requerida',
+    'end_date.required': 'La fecha de fin es requerida',
+  }
 }

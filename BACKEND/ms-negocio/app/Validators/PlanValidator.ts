@@ -6,9 +6,13 @@ export default class PlanValidator {
 
   public schema = schema.create({
     description: schema.string([rules.minLength(10)]),
-    price: schema.number([rules.range(1,10)]),
-    duration: schema.number([rules.range(1,500)]),
+    price: schema.number([rules.minLength(4)]),
+    duration: schema.number([rules.minLength(5)]),
   })
 
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'description.required': 'La descripción es requerida',
+    'price.required': 'El precio es requerido',
+    'duration.required': 'La duración es requerida',
+  }
 }

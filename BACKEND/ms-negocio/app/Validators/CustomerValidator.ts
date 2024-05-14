@@ -10,5 +10,9 @@ export default class CustomerValidator {
     user_id: schema.string([rules.minLength(5)]),
   })
 
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'address.required': 'La dirección es requerida',
+    'phone_number.required': 'El número de teléfono es requerido',
+    'user_id.required': 'El ID de usuario es requerido',
+  }
 }

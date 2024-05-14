@@ -7,9 +7,14 @@ export default class CremationValidator {
   public schema = schema.create({
     urnType: schema.string([rules.minLength(5)]),
     destinyAshes: schema.string([rules.minLength(5)]),
-    wakeRoom_id: schema.number([rules.range(1,20)]),
-    service_id: schema.number([rules.range(1,20)]),
+    hall_id: schema.number([rules.minLength(2)]),
+    service_id: schema.number([rules.minLength(2)]),
   })
 
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'urnType.required': 'El tipo de urna es requerido',
+    'destinyAshes.required': 'El destino de las cenizas es requerido',
+    'hall_id.required': 'El ID del salón es requerido',
+    'service_id.required': 'El ID del servicio es requerido',
+  }
 }

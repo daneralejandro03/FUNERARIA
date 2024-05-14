@@ -6,9 +6,13 @@ export default class BeneficiaryValidator {
 
   public schema = schema.create({
     beneficiary_status: schema.string([rules.minLength(2)]),
-    customer_id: schema.number([rules.range(1,20)]),
-    owner_id: schema.number([rules.required(), rules.range(1,20)]),
+    customer_id: schema.number([rules.minLength(2)]),
+    owner_id: schema.number([rules.required(), rules.minLength(2)]),
   })
 
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'beneficiary_status.required': 'El estado del beneficiario es requerido',
+    'customer_id.required': 'El ID del cliente es requerido',
+    'owner_id.required': 'El ID del propietario es requerido',
+  }
 }

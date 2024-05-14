@@ -6,8 +6,11 @@ export default class OwnerValidator {
 
   public schema = schema.create({
     contract_status: schema.string([rules.minLength(4)]),
-    customer_id: schema.number([rules.range(1,20)]),
+    customer_id: schema.number([rules.minLength(2)]),
   })
 
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'contract_status.required': 'El estado del contrato es requerido',
+    'customer_id.required': 'El ID del cliente es requerido',
+  }
 }
