@@ -6,6 +6,8 @@ export default class SubscriptionValidator {
 
   public schema = schema.create({
     subscription_type: schema.string([rules.minLength(10)]),
+    start_date: schema.date(),
+    end_date: schema.date(),
     state: schema.boolean([rules.required()]),
     plan_id: schema.number([rules.required()]),
     customer_id: schema.number([rules.required()]),

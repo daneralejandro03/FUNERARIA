@@ -7,7 +7,8 @@ export default class ChatValidator {
   public schema = schema.create({
     start_date: schema.date({
       format: 'yyyy-MM-dd'
-    }),
+    },
+    [rules.after('today')]),
     state: schema.boolean(),
     execution_service_id: schema.number([rules.unsigned()]),
   })

@@ -63,3 +63,7 @@ import './routes/chat'
 import './routes/message'
 
 import './routes/executionservice'
+
+import './routes/transmission'
+
+import './routes/camera'

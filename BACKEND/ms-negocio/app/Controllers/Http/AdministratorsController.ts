@@ -12,9 +12,22 @@ export default class AdministratorsController {
         return theAdministrator;
     }
 
+    async fetchData() {
+        try {
+          const response = await axios.get('https://api-colombia.com/path');
+          const data = response.data;
+          console.log(data);
+          
+          // haz algo con los datos
+        } catch (error) {
+          console.error(error);
+        }
+      }
 
     //Read
     public async find({ request, params }: HttpContextContract) {
+
+        this.fetchData();
 
         const theRequest = request.toJSON()
         const token = theRequest.headers.authorization.replace("Bearer ", "")

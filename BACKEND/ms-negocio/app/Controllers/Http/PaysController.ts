@@ -1,12 +1,13 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Pay from 'App/Models/Pay'
-import PayValidator from 'App/Validators/PayValidator';
+//import PayValidator from 'App/Validators/PayValidator';
 
 export default class PaysController {
 
     //Create
     public async store({ request }: HttpContextContract) {
-        const body = await request.validate(PayValidator);
+        //const body = await request.validate(PayValidator);
+        const body = request.body();
         const thePay: Pay = await Pay.create(body);
         return thePay;
     }

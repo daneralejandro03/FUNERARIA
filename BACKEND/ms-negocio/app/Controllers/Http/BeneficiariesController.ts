@@ -13,6 +13,8 @@ export default class BeneficiariesController {
         return theBeneficiary;
     }
 
+    
+
     //Read
     public async find({ request, params }: HttpContextContract) {
 

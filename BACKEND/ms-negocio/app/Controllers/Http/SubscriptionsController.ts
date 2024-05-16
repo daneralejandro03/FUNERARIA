@@ -1,12 +1,13 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Subscription from 'App/Models/Subscription'
-import SubscriptionValidator from 'App/Validators/SubscriptionValidator';
+//import SubscriptionValidator from 'App/Validators/SubscriptionValidator';
 
 export default class SubscriptionsController {
 
     //Create
     public async store({ request }: HttpContextContract) {
-        const body = await request.validate(SubscriptionValidator);
+        //const body = await request.validate(SubscriptionValidator);
+        const body = request.body();
         const theSubscription: Subscription = await Subscription.create(body);
         return theSubscription;
     }

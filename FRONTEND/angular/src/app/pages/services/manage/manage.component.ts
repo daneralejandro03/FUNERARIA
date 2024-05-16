@@ -73,16 +73,16 @@ export class ManageComponent implements OnInit {
     
     if(this.activateRoute.snapshot.params.id){
       this.serviceEntity.id = this.activateRoute.snapshot.params.id;
-      this.getTheater(this.serviceEntity.id);
+      this.getService(this.serviceEntity.id);
     }
   }
 
-  getTheater(id:number){
+  getService(id:number){
     this.service.view(id).subscribe(data=>{
       this.serviceEntity = data;
       this.startDateString = this.formatDate(this.serviceEntity.start_date);
       this.endDateString = this.formatDate(this.serviceEntity.end_date);
-      console.log("Teatro: " + JSON.stringify(this.serviceEntity))
+      console.log("Servicio: " + JSON.stringify(this.serviceEntity))
     })    
   }
 
@@ -93,6 +93,8 @@ export class ManageComponent implements OnInit {
       return;
     }
     this.service.create(this.serviceEntity).subscribe(data=>{
+      console.log('Entity:' + this.serviceEntity);
+      
       Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
       this.router.navigate(["services/list"]);
     });

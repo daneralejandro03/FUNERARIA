@@ -13,6 +13,23 @@ export default class CustomersController {
         return theCustomer;
     }
 
+    public async find2(id_customer:string, token: string){
+        let theData = {}
+        let theCustomer:Customer = (await Customer.findOrFail(id_customer));
+            let id = theCustomer["user_id"];
+        
+            theData = {
+                case: 1,
+                token: token, 
+                id: id,
+                theCustomer: theCustomer
+            }
+
+            let customerInfo = this.mergeCustomerData(theData);
+
+            return customerInfo;
+    }
+
     //Read
     public async find({ request, params }: HttpContextContract) {
 
@@ -69,6 +86,7 @@ export default class CustomersController {
             identificationCard: string;
             address: string;
             phone_number: string;
+            user_id: string;
             subscriptions?: Subscription[];
         }
 
@@ -96,7 +114,8 @@ export default class CustomersController {
                 identificationCard: theUser["identificationCard"],
                 address: theData["theCustomer"]["address"],
                 phone_number: theData["theCustomer"]["phone_number"],
-                subscriptions: theData["theCustomer"]["subscriptions"]
+                subscriptions: theData["theCustomer"]["subscriptions"],
+                user_id: theUser["_id"]
             }
             return customerInfo;
 
@@ -131,7 +150,8 @@ export default class CustomersController {
                             email: userActual["email"],
                             identificationCard: userActual["identificationCard"],
                             address: customerActual["address"],
-                            phone_number: customerActual["phone_number"]
+                            phone_number: customerActual["phone_number"],
+                            user_id: userActual["_id"]
                         };
 
                         customersInfo.push(customerInfo);       

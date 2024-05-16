@@ -12,10 +12,10 @@ export default class Subscription extends BaseModel {
   public subscription_type: string
 
   @column()
-  public start_date: Date
+  public start_date: DateTime
 
   @column()
-  public end_date: Date
+  public end_date: DateTime
 
   @column()
   public state: boolean
@@ -43,7 +43,7 @@ export default class Subscription extends BaseModel {
   public customer: BelongsTo<typeof Customer>
 
   @hasMany(() => Pay, {
-    foreignKey : 'pay_id'
+    foreignKey : 'subscription_id'
   })
 
   public pays: HasMany<typeof Pay>

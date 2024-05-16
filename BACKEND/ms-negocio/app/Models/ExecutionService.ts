@@ -5,6 +5,7 @@ import Service from './Service'
 import Comment from './Comment'
 import Chat from './Chat'
 import Customer from './Customer'
+import Transmission from './Transmission'
 
 export default class ExecutionService extends BaseModel {
 
@@ -51,4 +52,10 @@ export default class ExecutionService extends BaseModel {
     foreignKey: 'execution_service_id',
   })
   public chat: HasOne<typeof Chat>
+
+  
+  @hasMany(() => Transmission, {
+    foreignKey: 'execution_service_id',
+  })
+  public transmissions: HasMany<typeof Transmission>
 }

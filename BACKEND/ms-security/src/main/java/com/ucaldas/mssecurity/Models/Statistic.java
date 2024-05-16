@@ -13,6 +13,7 @@ public class Statistic {
     private int numberErrorsValidation;
     private int numberErrorsAuthorization;
 
+    //Farmacia a ciudad
     @DBRef
     private User user;
 
