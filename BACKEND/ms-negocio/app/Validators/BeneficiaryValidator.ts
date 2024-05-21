@@ -6,8 +6,8 @@ export default class BeneficiaryValidator {
 
   public schema = schema.create({
     beneficiary_status: schema.string([rules.required(), rules.minLength(2)]),
-    customer_id: schema.number([rules.required(), rules.unsigned()]),
-    owner_id: schema.number([rules.required(), rules.unsigned()]),
+    customer_id: schema.number([rules.exists({ table: 'customers', column: 'id'})]),
+    owner_id: schema.number([rules.exists({ table: 'owners', column: 'id'})]),
   })
 
   public messages: CustomMessages = {

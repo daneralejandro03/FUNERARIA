@@ -5,12 +5,9 @@ export default class ChatValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    start_date: schema.date({
-      format: 'yyyy-MM-dd'
-    },
-    [rules.after('today')]),
+    start_date: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
     state: schema.boolean(),
-    execution_service_id: schema.number([rules.unsigned()]),
+    execution_service_id: schema.number([rules.exists({ table: 'executionServices', column: 'id'})]),
   })
 
   public messages: CustomMessages = {

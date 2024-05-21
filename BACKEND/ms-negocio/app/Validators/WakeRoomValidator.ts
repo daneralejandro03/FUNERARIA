@@ -8,7 +8,7 @@ export default class WakeRoomValidator {
     name: schema.string([rules.minLength(1), rules.required()]),
     capacity: schema.number([rules.unsigned(), rules.required()]),
     availability: schema.boolean(),
-    site_id: schema.number([rules.unsigned(), rules.required()])
+    site_id: schema.number([rules.exists({ table: 'sites', column: 'id'})]),
   })
 
   public messages: CustomMessages = {

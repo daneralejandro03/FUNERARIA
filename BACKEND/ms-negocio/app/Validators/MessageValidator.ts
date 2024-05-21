@@ -7,7 +7,7 @@ export default class MessageValidator {
   public schema = schema.create({
     information: schema.string([rules.minLength(1), rules.required()]),
     user_id: schema.string([rules.required()]),
-    chat_id: schema.number([rules.unsigned()])
+    chat_id: schema.number([rules.exists({ table: 'chats', column: 'id'})]),
   })
 
   public messages: CustomMessages = {

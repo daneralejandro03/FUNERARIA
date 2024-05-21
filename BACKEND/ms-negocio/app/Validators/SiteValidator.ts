@@ -8,7 +8,7 @@ export default class SiteValidator {
     name: schema.string([rules.required()]),
     location: schema.string([rules.required()]),
     email: schema.string([rules.required()]),
-    city_id: schema.number([rules.unsigned()])
+    city_id: schema.number([rules.exists({ table: 'cities', column: 'id'})]),
   })
 
   public messages: CustomMessages = {

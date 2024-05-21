@@ -6,8 +6,8 @@ export default class ServicePlanValidator {
 
   public schema = schema.create({
     status_hiring: schema.boolean(),
-    service_id: schema.number([rules.unsigned()]),
-    plan_id: schema.number([rules.unsigned()]),
+    service_id: schema.number([rules.exists({ table: 'services', column: 'id'})]),
+    plan_id: schema.number([rules.exists({ table: 'plans', column: 'id'})]),
   })
 
   public messages: CustomMessages = {

@@ -8,7 +8,7 @@ export default class TransmissionValidator {
     start_date: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
     end_date: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
     camera_id: schema.number([rules.exists({table: 'cameras', column: 'id'})]),
-    execution_service_id: schema.number([rules.exists({table: 'execution_services', column: 'id'})])
+    execution_service_id: schema.number([rules.exists({table: 'executionServices', column: 'id'})])
   })
 
   public messages: CustomMessages = {}

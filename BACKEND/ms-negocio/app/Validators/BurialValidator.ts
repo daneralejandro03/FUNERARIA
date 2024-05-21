@@ -8,8 +8,8 @@ export default class BurialValidator {
     location: schema.string([rules.required()]),
     burial_type: schema.string([rules.required()]),
     cementery: schema.string([rules.required()]),
-    wake_room_id: schema.number([rules.unsigned()]),
-    service_id: schema.number([rules.unsigned()])
+    wake_room_id: schema.number([rules.exists({ table: 'wakeRooms', column: 'id'})]),
+    service_id: schema.number([rules.exists({ table: 'services', column: 'id'})]),
   })
 
   public messages: CustomMessages = {

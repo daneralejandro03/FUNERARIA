@@ -7,7 +7,7 @@ export default class EmployeeValidator {
   public schema = schema.create({
     position: schema.string([rules.required(), rules.minLength(5)]),
     salary: schema.number([rules.required(), rules.range(10000,100000)]),
-    user_id: schema.string([rules.required()]),
+    user_id: schema.number([rules.exists({ table: 'users', column: 'id'})]),
   })
 
   public messages: CustomMessages = {

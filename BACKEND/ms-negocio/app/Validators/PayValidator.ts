@@ -6,7 +6,7 @@ export default class PayValidator {
 
   public schema = schema.create({
     amount: schema.number([rules.range(1000,10000), rules.required()]),
-    subscription_id: schema.number([rules.unsigned(), rules.required()]),
+    subscription_id: schema.number([rules.exists({ table: 'subscriptions', column: 'id'})]),
   })
 
   public messages: CustomMessages = {

@@ -6,11 +6,11 @@ export default class SubscriptionValidator {
 
   public schema = schema.create({
     subscription_type: schema.string([rules.minLength(10)]),
-    start_date: schema.date(),
-    end_date: schema.date(),
+    start_date: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
+    end_date: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
     state: schema.boolean([rules.required()]),
-    plan_id: schema.number([rules.required()]),
-    customer_id: schema.number([rules.required()]),
+    plan_id: schema.number([rules.exists({ table: 'plans', column: 'id'})]),
+    customer_id: schema.number([rules.exists({ table: 'customers', column: 'id'})]),
   })
 
   public messages: CustomMessages = {
