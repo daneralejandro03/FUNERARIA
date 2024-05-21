@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -50,16 +51,24 @@ public class SecurityController {
     private ValidatorsService theValidatorService;
 
     @PostMapping("login")
-    public void login(@RequestBody User theUser, final HttpServletResponse response) throws IOException {
-        String token = "";
+    public HashMap<String, Object> login(@RequestBody User theUser, final HttpServletResponse response) throws IOException {
 
+        HashMap<String, Object> responseMap = new HashMap<>();
+
+        String token = "";
         User actualUser = theUserRepository.getUsersByEmail(theUser.getEmail());
 
         if (actualUser != null && actualUser.getPassword().equals(theEncryptionService.convertSHA256(theUser.getPassword()))) {
 
             token = this.thejwtService.generateToken(actualUser);
             theSessionService.verifySession(actualUser);
+
             theNotificationService.generateAndSend2FA(actualUser, token);
+
+            actualUser.setPassword("");
+            responseMap.put("user", actualUser);
+            responseMap.put("token", token);
+            return responseMap;
 
         }
         else if (actualUser!= null && !actualUser.getPassword().equals(theEncryptionService.convertSHA256(theUser.getPassword()))){
@@ -68,6 +77,9 @@ public class SecurityController {
         else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
+
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        return responseMap;
     }
 
     @PostMapping("login/2FA/{idUser}")
