@@ -77,6 +77,16 @@ export class ManageComponent implements OnInit {
   getService(id:number){
     this.service.view(id).subscribe(data=>{
       this.serviceEntity = data;
+
+      const start_date = this.formatDate(this.serviceEntity.start_date);
+      const end_date = this.formatDate(this.serviceEntity.end_date);
+
+      this.theFormGroup.patchValue({
+          type: this.serviceEntity.type,
+          start_date: start_date,
+          end_date: end_date,
+      });
+
       console.log("Servicio: " + JSON.stringify(this.serviceEntity))
     })    
   }
@@ -105,5 +115,16 @@ export class ManageComponent implements OnInit {
       Swal.fire("Actualización Exitosa", "Se ha actualizado un nuevo registro", "success");
       this.router.navigate(["services/list"]);
     });
+  }
+
+  formatDate(date: Date | string | null): string | null {
+    if (!date) {
+        return null;
+    }
+    const d = new Date(date);
+    const year = d.getFullYear();
+    const month = ('0' + (d.getMonth() + 1)).slice(-2);
+    const day = ('0' + d.getDate()).slice(-2);
+    return `${year}-${month}-${day}`;
   }
 }

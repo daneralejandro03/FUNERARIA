@@ -10,34 +10,42 @@ import { SecurityService } from './security.service';
 })
 export class SubscriptionService {
 
-  constructor(private http: HttpClient,
-              private theSecutityService: SecurityService
-  ) { console.log(this.theSecutityService.getSessionData());}
+  private token = "";
 
-  private token = this.theSecutityService.getSessionData();
+  constructor(private http: HttpClient,
+              private theSecurityService: SecurityService) { 
+
+                let sessionData = this.theSecurityService.getSessionData();
+                if (sessionData) {
+                  let sessionObject = JSON.parse(sessionData);
+                  this.token = sessionObject.token;
+                }
+  }
   
-  private headers = new HttpHeaders({
-    'Authorization': 'Bearer ' + this.token
-  });
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': 'Bearer ' + this.token
+    });
+  }
 
   list(): Observable<Subscription[]> {
-    return this.http.get<Subscription[]>(`${environment.url_ms_negocio}/subscriptions`, { headers: this.headers });
+    return this.http.get<Subscription[]>(`${environment.url_ms_negocio}/subscriptions`, { headers: this.getHeaders() });
   }
   view(id:number):Observable<Subscription>{
-    return this.http.get<Subscription>(`${environment.url_ms_negocio}/subscriptions/${id}`, { headers: this.headers },
+    return this.http.get<Subscription>(`${environment.url_ms_negocio}/subscriptions/${id}`, { headers: this.getHeaders() }
     );
   }
   create(theSubscription:Subscription):Observable<Subscription>{
-    return this.http.post<Subscription>(`${environment.url_ms_negocio}/subscriptions/`, theSubscription,
+    return this.http.post<Subscription>(`${environment.url_ms_negocio}/subscriptions/`, theSubscription, { headers: this.getHeaders() }
     );
   }
   update(theSubscription:Subscription):Observable<Subscription>{
-    return this.http.put<Subscription>(`${environment.url_ms_negocio}/subscriptions/${theSubscription.id}`, theSubscription,
+    return this.http.put<Subscription>(`${environment.url_ms_negocio}/subscriptions/${theSubscription.id}`, theSubscription, { headers: this.getHeaders() }
     );
   }
 
   delete(id:number){
-    return this.http.delete<Subscription>(`${environment.url_ms_negocio}/subscriptions/${id}`,
+    return this.http.delete<Subscription>(`${environment.url_ms_negocio}/subscriptions/${id}`, { headers: this.getHeaders() }
     );
   }
 }
