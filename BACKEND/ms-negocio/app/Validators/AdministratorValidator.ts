@@ -7,7 +7,7 @@ export default class AdministratorValidator {
   public schema = schema.create({
     privileges: schema.string([rules.required()]),
     responsabilities: schema.string([rules.required()]),
-    user_id: schema.number([rules.exists({ table: 'users', column: 'id'})]),
+    user_id: schema.string([rules.required()])
     
   })
 

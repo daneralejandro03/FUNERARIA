@@ -7,7 +7,7 @@ export default class CommentValidator {
   public schema = schema.create({
     message: schema.string([rules.minLength(1)]),
 
-    execution_service_id: schema.number([rules.exists({ table: 'executionServices', column: 'id'})]),
+    execution_service_id: schema.number([rules.exists({ table: 'execution_services', column: 'id'})]),
   })
 
   public messages: CustomMessages = {}

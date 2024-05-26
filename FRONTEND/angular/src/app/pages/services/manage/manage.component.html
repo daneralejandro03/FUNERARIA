@@ -40,7 +40,7 @@
                                     Fecha de inicio:
                                 </div>
                                 <div class="col-8">
-                                    <input type="date" class="form-control" [(ngModel)]="startDateString" [disabled]="mode==1" formControlName="start_date">
+                                    <input type="date" class="form-control" [(ngModel)]="serviceEntity.start_date" [disabled]="mode==1" formControlName="start_date">
                                     <div *ngIf="getTheFormGroup.start_date.errors && (getTheFormGroup.start_date.dirty || getTheFormGroup.start_date.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.start_date.errors.required" class="msnError">Requerido</strong>
                                     </div>
@@ -51,7 +51,7 @@
                                     Fecha de finalización:
                                 </div>
                                 <div class="col-8">
-                                    <input type="date" class="form-control" [(ngModel)]="endDateString" [disabled]="mode==1" formControlName="end_date">
+                                    <input type="date" class="form-control" [(ngModel)]="serviceEntity.end_date" [disabled]="mode==1" formControlName="end_date">
                                     <div *ngIf="getTheFormGroup.end_date.errors && (getTheFormGroup.end_date.dirty || getTheFormGroup.end_date.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.end_date.errors.required" class="msnError">Requerido</strong>
                                     </div>

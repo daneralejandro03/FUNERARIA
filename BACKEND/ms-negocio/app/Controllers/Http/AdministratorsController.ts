@@ -12,23 +12,8 @@ export default class AdministratorsController {
         return theAdministrator;
     }
 
-    async fetchData() {
-        try {
-          const response = await axios.get('https://api-colombia.com/path');
-          const data = response.data;
-          console.log(data);
-          
-          // haz algo con los datos
-        } catch (error) {
-          console.error(error);
-        }
-      }
-
     //Read
     public async find({ request, params }: HttpContextContract) {
-
-        this.fetchData();
-
         const theRequest = request.toJSON()
         const token = theRequest.headers.authorization.replace("Bearer ", "")
         let theData = {}
@@ -76,11 +61,13 @@ export default class AdministratorsController {
         let administratorsInfo: AdministratorInfo[] = [];
 
         interface AdministratorInfo {
+            id: number;
             name: string;
             email: string;
             identificationCard: string;
             privileges: string;
             responsabilities: string;
+            user_id: string;
         }
 
         if(theData["case"] == 1){
@@ -98,11 +85,13 @@ export default class AdministratorsController {
             }
                 
             const administratorInfo: AdministratorInfo = {
+                id: theData["theAdministrator"]["id"],
                 name: theUser["name"],
                 email: theUser["email"],
                 identificationCard: theUser["identificationCard"],
                 privileges: theData["theAdministrator"]["privileges"],
-                responsabilities: theData["theAdministrator"]["responsabilities"]
+                responsabilities: theData["theAdministrator"]["responsabilities"],
+                user_id: theUser["_id"]
             }
             return administratorInfo;
 
@@ -132,11 +121,13 @@ export default class AdministratorsController {
                     if(administratorActual["user_id"] === userActual["_id"]){
                             
                         const administrorInfo: AdministratorInfo  = {
+                            id: administratorActual["id"],
                             name: userActual["name"],
                             email: userActual["email"],
                             identificationCard: userActual["identificationCard"],
                             privileges: administratorActual["privileges"],
-                            responsabilities: administratorActual["responsabilities"]
+                            responsabilities: administratorActual["responsabilities"],
+                            user_id: administratorActual["_id"]
                         };
 
                         administratorsInfo.push(administrorInfo);       

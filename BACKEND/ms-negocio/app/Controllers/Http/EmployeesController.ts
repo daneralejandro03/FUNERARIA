@@ -67,11 +67,13 @@ export default class EmployeesController {
         let employeesInfo: EmployeeInfo[] = [];
 
         interface EmployeeInfo {
+            id: number;
             name: string;
             email: string;
             identificationCard: string;
             position: string;
             salary: number;
+            user_id: string;
         }
 
         if(theData["case"] == 1){
@@ -89,11 +91,13 @@ export default class EmployeesController {
             }
                 
             const employeeInfo: EmployeeInfo = {
+                id: theData["theEmployee"]["id"],
                 name: theUser["name"],
                 email: theUser["email"],
                 identificationCard: theUser["identificationCard"],
                 position: theData["theEmployee"]["position"],
-                salary: theData["theEmployee"]["salary"]
+                salary: theData["theEmployee"]["salary"],
+                user_id: theUser["_id"]
             }
             return employeeInfo;
 
@@ -123,11 +127,13 @@ export default class EmployeesController {
                     if(employeActual["user_id"] === userActual["_id"]){
                             
                         const employeeInfo: EmployeeInfo  = {
+                            id: employeActual["id"],
                             name: userActual["name"],
                             email: userActual["email"],
                             identificationCard: userActual["identificationCard"],
                             position: employeActual["position"],
-                            salary: employeActual["salary"]
+                            salary: employeActual["salary"],
+                            user_id: employeActual["user_id"]
                         };
 
                         employeesInfo.push(employeeInfo);       

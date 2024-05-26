@@ -3,15 +3,18 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subscription } from '../models/subscription.model';
 import { environment } from 'src/environments/environment';
+import { SecurityService } from './security.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubscriptionService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private theSecutityService: SecurityService
+  ) { console.log(this.theSecutityService.getSessionData());}
 
-  private token = environment.token
+  private token = this.theSecutityService.getSessionData();
   
   private headers = new HttpHeaders({
     'Authorization': 'Bearer ' + this.token

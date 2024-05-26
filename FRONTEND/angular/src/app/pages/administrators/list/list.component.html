@@ -1,0 +1,48 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <div class="row">
+            <div class="col-3">
+              <h3 class="mb-0">Administradores</h3>
+            </div>
+            <div class="col-6"></div>
+            <div class="col-3">
+              <button type="button" class="btn btn-success" (click)="create()">Crear</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="col-1">ID</th>
+                  <th class="col-3">CEDULA</th>
+                  <th class="col-3">NOMBRE</th>
+                  <th class="col-5">OPCIONES</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let administrator of administrators">
+                  <td>{{ administrator.id }}</td>
+                  <td>{{ administrator.identificationCard }}</td>
+                  <td>{{ administrator.name }}</td>
+                  <td>
+                      <button type="button" class="btn btn-primary" (click)="view(administrator.id)">Ver</button>
+                      <button type="button" class="btn btn-warning" (click)="update(administrator.id)">Editar</button>
+                      <button type="button" class="btn btn-danger" (click)="delete(administrator.id)">Eliminar</button>
+                  </td>
+                </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

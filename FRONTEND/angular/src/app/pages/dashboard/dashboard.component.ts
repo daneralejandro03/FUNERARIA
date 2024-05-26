@@ -8,6 +8,7 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { SecurityService } from 'src/app/services/security.service';
 
 @Component({
   selector: 'app-dashboard',

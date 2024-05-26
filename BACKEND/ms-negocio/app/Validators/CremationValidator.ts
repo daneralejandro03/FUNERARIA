@@ -7,7 +7,7 @@ export default class CremationValidator {
   public schema = schema.create({
     urn_type: schema.string([rules.required()]),
     destiny_ashes: schema.string([rules.required()]),
-    wake_room_id: schema.number([rules.exists({ table: 'wakeRooms', column: 'id'})]),
+    wake_room_id: schema.number([rules.exists({ table: 'wake_rooms', column: 'id'})]),
     service_id: schema.number([rules.exists({ table: 'services', column: 'id'})]),
   })
 

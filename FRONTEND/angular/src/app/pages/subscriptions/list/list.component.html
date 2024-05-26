@@ -9,16 +9,17 @@
         <div class="card-header bg-transparent">
           <div class="row">
             <div class="col-3">
-              <h3 class="mb-0">Beneficiarios</h3>
+              <h3 class="mb-0">Subscripciones</h3>
             </div>
             <div class="col-6"></div>
             <div class="col-3">
-              <button type="button" class="btn btn-success" (click)="create()">Crear</button>
+              <button type="button" class="btn btn-success" (click)="create(customer)">Crear</button>
             </div>
           </div>
         </div>
         <div class="card-body">
           <h1>Subscripciones de {{ customer }}</h1>
+          <div class="table-responsive"> <!-- Agrega esta línea -->
             <table class="table">
                 <thead>
                   <tr>
@@ -37,11 +38,14 @@
                         <button type="button" class="btn btn-primary" (click)="view(subscription.id)">Ver</button>
                         <button type="button" class="btn btn-warning" (click)="update(subscription.id)">Editar</button>
                         <button type="button" class="btn btn-danger" (click)="delete(subscription.id)">Eliminar</button>
+                        <button type="button" class="btn btn-info" (click)="listPays(subscription.id)">Pagos</button>
                     </td>
                   </tr>
               </table>
+          </div> <!-- Agrega esta línea -->
         </div>
       </div>
     </div>
   </div>
 </div>
+

@@ -13,7 +13,7 @@ export default class CustomersController {
         return theCustomer;
     }
 
-    public async find2(id_customer:string, token: string){
+    /*public async find2(id_customer:string, token: string){
         let theData = {}
         let theCustomer:Customer = (await Customer.findOrFail(id_customer));
             let id = theCustomer["user_id"];
@@ -28,7 +28,7 @@ export default class CustomersController {
             let customerInfo = this.mergeCustomerData(theData);
 
             return customerInfo;
-    }
+    }*/
 
     //Read
     public async find({ request, params }: HttpContextContract) {
@@ -39,6 +39,7 @@ export default class CustomersController {
 
         if (params.id) {
             let theCustomer:Customer = (await Customer.findOrFail(params.id));
+            await theCustomer.load('subscriptions');
             let id = theCustomer["user_id"];
         
             theData = {

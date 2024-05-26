@@ -50,7 +50,7 @@ public class SecurityController {
     @Autowired
     private ValidatorsService theValidatorService;
 
-    @PostMapping("login")
+    /*@PostMapping("login")
     public HashMap<String, Object> login(@RequestBody User theUser, final HttpServletResponse response) throws IOException {
 
         HashMap<String, Object> responseMap = new HashMap<>();
@@ -80,14 +80,42 @@ public class SecurityController {
 
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         return responseMap;
+    }*/
+
+    @PostMapping("login")
+    public boolean login(@RequestBody User theUser, final HttpServletResponse response) throws IOException {
+        boolean respuesta = false;
+
+        String token = "";
+        User actualUser = theUserRepository.getUsersByEmail(theUser.getEmail());
+
+        if (actualUser != null && actualUser.getPassword().equals(theEncryptionService.convertSHA256(theUser.getPassword()))) {
+
+            token = this.thejwtService.generateToken(actualUser);
+            theSessionService.verifySession(actualUser);
+
+            theNotificationService.generateAndSend2FA(actualUser, token);
+
+            respuesta = true;
+
+            return respuesta;
+
+        }
+        else if (actualUser!= null && !actualUser.getPassword().equals(theEncryptionService.convertSHA256(theUser.getPassword()))){
+            erroresDeAutorizacion(actualUser);
+        }
+        else {
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        return respuesta;
     }
 
-    @PostMapping("login/2FA/{idUser}")
+    /*@PostMapping("login/2FA/{idUser}")
     public String login2FA(@RequestBody Session theSession, @PathVariable String idUser) {
         String response = "No ha iniciado sesión.";
-
         Session actualSession = theSessionRepository.getSessionByUser(idUser);
-
         User actualUser = theUserRepository.getUsersById(idUser);
 
         if (actualSession != null) {
@@ -100,7 +128,43 @@ public class SecurityController {
         }
 
         return response;
+    }*/
+
+    @PostMapping("login/2FA/{idUser}")
+    public HashMap<String, Object> login2FA(@PathVariable String idUser, @RequestBody Session theSession) {
+
+        HashMap<String, Object> responseMap = new HashMap<>();
+        System.out.println(theSession.getToken2FA());
+        Session actualSession = theSessionRepository.getSessionByUser(idUser);
+        User actualUser = theUserRepository.getUsersById(idUser);
+        String token = actualSession.getToken();
+
+        if (actualSession != null) {
+            if (actualSession.getToken2FA() == theSession.getToken2FA()) {
+                actualUser.setPassword("");
+                responseMap.put("user", actualUser);
+                responseMap.put("token", token);
+                return responseMap;
+            } else {
+                erroresDeAutorizacion(actualUser);
+                return responseMap;
+            }
+        }
+        return responseMap;
     }
+
+    @GetMapping("getUserId")
+    public Map<String, String> getUserByEmail(String email){
+        Map<String, String> response = new HashMap<>();
+        User theUser = theUserRepository.getUsersByEmail(email);
+
+        if (theUser != null){
+            response.put("user_id", theUser.get_id());
+        }
+
+        return response;
+    }
+
 
     public void erroresDeAutorizacion(User theUser){
         Statistic statistic = this.theStatisticRepository.getStatisticByIdUser(theUser.get_id());
