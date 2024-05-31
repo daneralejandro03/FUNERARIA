@@ -7,15 +7,19 @@ use App\Models\Payment;
 use App\Services\EpaycoService;
 use App\Services\CustomSession;
 use Illuminate\Support\Facades\Log;
+use function Symfony\Component\Translation\t;
 
 class PaymentsController extends Controller
 {
     protected $epaycoService;
+    protected $customSession;
+    protected $test;
 
     public function __construct(EpaycoService $epaycoService, CustomSession $customSession)
     {
         $this->epaycoService = $epaycoService;
         $this->customSession = $customSession;
+        $this->test = 'true';
     }
 
     // CREAR UNA SESSIÓN
@@ -28,7 +32,7 @@ class PaymentsController extends Controller
             'currency' => 'required|string',
             'amount' => 'required|string',
             'country' => 'required|string',
-            'test' => 'required|string',
+            'test' => $this->test,
             'ip' => 'required|string',
         ]);
 
@@ -88,7 +92,7 @@ class PaymentsController extends Controller
             'currency' => 'required|string',
             'amount' => 'required|string',
             'country' => 'required|string',
-            'test' => 'required|string',
+            'test' => $this->test,
             'ip' => 'required|string',
         ]);
 
@@ -209,7 +213,7 @@ class PaymentsController extends Controller
             'currency' => 'USD', // O cualquier otra moneda que corresponda
             'amount' => $validated['value'],
             'country' => 'CO', // Código ISO del país, por ejemplo, Colombia
-            'test' => 'true', // Si es una prueba o no
+            'test' => $this->test, // Si es una prueba o no
             'ip' => "186.97.212.162" //$request->ip() //, // IP del cliente
         ]);
 
@@ -284,7 +288,7 @@ class PaymentsController extends Controller
             'currency' => 'COP', // Cambiar si es necesario
             'amount' => $validated['value'],
             'country' => $validated['indCountry'], // Cambiar si es necesario
-            'test' => "true", // Cambiar si es necesario
+            'test' => $this->test, // Cambiar si es necesario
             'ip' => "186.97.212.162" //$request->ip() //, // IP del cliente
         ]);
 
@@ -368,7 +372,7 @@ class PaymentsController extends Controller
             'currency' => 'COP', // Cambiar si es necesario
             'amount' => $validated['value'],
             'country' => "CO", // Cambiar si es necesario
-            'test' => "true", // Cambiar si es necesario
+            'test' => $this->test, // Cambiar si es necesario
             'ip' => "186.97.212.162" //$request->ip() //, // IP del cliente
         ]);
 
@@ -400,7 +404,5 @@ class PaymentsController extends Controller
         $this->customSession->deleteToken($sessionIdResponse);
 
         return response()->json($response);
-
     }
-
 }

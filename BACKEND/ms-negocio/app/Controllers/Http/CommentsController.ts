@@ -1,22 +1,22 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Comment from 'App/Models/Comment'
-import CommentValidator from 'App/Validators/CommentValidator';
+import CommentValidator from 'App/Validators/CommentValidator'
 
 export default class CommentsController {
   //Create
   public async store({ request }: HttpContextContract) {
-    const body = await request.validate(CommentValidator);
-    //const body = request.body();
-    const theComment: Comment = await Comment.create(body);
-    return theComment;
+    const body = await request.validate(CommentValidator)
+    //const body = await request.body()
+    const theComment: Comment = await Comment.create(body)
+    return theComment
   }
 
   //Read
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      let theComment:Comment = await Comment.findOrFail(params.id);
-      await theComment.load("incident")
-      return theComment;
+      let theComment: Comment = await Comment.findOrFail(params.id)
+      await theComment.load('incident')
+      return theComment
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
