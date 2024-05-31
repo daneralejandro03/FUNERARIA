@@ -1,5 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import ExecutionService from 'App/Models/ExecutionService'
+import Incident from 'App/Models/Incident'
 import Message from 'App/Models/Message'
 import axios from 'axios'
 import Env from '@ioc:Adonis/Core/Env'
@@ -17,49 +17,49 @@ export default class MessagesController {
   //Read
   public async find({ request, params }: HttpContextContract) {
     const theRequest = request.toJSON()
-    const token = theRequest.headers.authorization.replace('Bearer ', '')
+    const token = theRequest.headers.authorization?.replace('Bearer ', '') || '';
     let theData = {}
 
     if (params.id) {
-      let theExecutionService: ExecutionService = await ExecutionService.findOrFail(params.id)
-      await theExecutionService.load('chat')
-      let id = theExecutionService['user_id']
+      let theIncident: Incident = await Incident.findOrFail(params.id)
+      await theIncident.load('chat')
+      let id = theIncident['user_id']
 
       theData = {
         case: 1,
         token: token,
         id: id,
-        theExecutionService: theExecutionService,
+        theIncident: theIncident,
       }
 
-      let executionServiceInfo = this.mergeExecutionServiceData(theData)
+      let incidentInfo = this.mergeIncidentData(theData)
 
-      return executionServiceInfo
+      return incidentInfo
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
         const page = request.input('page', 1)
         const perPage = request.input('per_page', 20)
-        return await ExecutionService.query().paginate(page, perPage)
+        return await Incident.query().paginate(page, perPage)
       } else {
         theData = {
           case: 2,
           token: token,
         }
 
-        let executionServicesInfo = this.mergeExecutionServiceData(theData)
+        let incidentInfo = this.mergeIncidentData(theData)
 
-        return executionServicesInfo
+        return incidentInfo
       }
     }
   }
 
-  public async mergeExecutionServiceData(theData: {}) {
+  public async mergeIncidentData(theData: {}) {
     let theUsers = []
     let theUser = {}
-    let executionServicesInfo: ExecutionServiceInfo[] = []
+    let incidentInfo: IncidentInfo[] = []
 
-    interface ExecutionServiceInfo {
+    interface IncidentInfo {
       name: string
       email: string
       identificationCard: string
@@ -80,14 +80,14 @@ export default class MessagesController {
         console.error('Error al realizar la solicitud GET:', error)
       }
 
-      const executionServiceInfo: ExecutionServiceInfo = {
+      const incidentInfo: IncidentInfo = {
         name: theUser['name'],
         email: theUser['email'],
         identificationCard: theUser['identificationCard'],
-        privileges: theData['theExecutionService']['privileges'],
-        responsabilities: theData['theExecutionService']['responsabilities'],
+        privileges: theData['theIncident']['privileges'],
+        responsabilities: theData['theIncident']['responsabilities'],
       }
-      return executionServiceInfo
+      return incidentInfo
     } else if (theData['case'] == 2) {
       try {
         const response = await axios.get(`${Env.get('MS_SECURITY')}/api/users`, {
@@ -101,26 +101,26 @@ export default class MessagesController {
         console.error('Error al realizar la solicitud GET:', error)
       }
 
-      let theExecutionServices: ExecutionService[] = []
+      let theIncidents: Incident[] = []
 
-      theExecutionServices = await ExecutionService.query()
+      theIncidents = await Incident.query()
 
       for (let userActual of theUsers) {
-        for (let executionServiceActual of theExecutionServices) {
-          if (executionServiceActual['user_id'] === userActual['_id']) {
-            const administrorInfo: ExecutionServiceInfo = {
+        for (let incidentActual of theIncidents) {
+          if (incidentActual['user_id'] === userActual['_id']) {
+            const administrorInfo: IncidentInfo = {
               name: userActual['name'],
               email: userActual['email'],
               identificationCard: userActual['identificationCard'],
-              privileges: executionServiceActual['privileges'],
-              responsabilities: executionServiceActual['responsabilities'],
+              privileges: incidentActual['privileges'],
+              responsabilities: incidentActual['responsabilities'],
             }
 
-            executionServicesInfo.push(administrorInfo)
+            incidentInfo.push(administrorInfo)
           }
         }
       }
-      return executionServicesInfo
+      return incidentInfo
     }
   }
 
