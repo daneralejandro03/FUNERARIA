@@ -1,10 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Notification from 'App/Models/Notification'
+import NotificationValidator from 'App/Validators/NotificationValidator'
 
 export default class NotificationsController {
   //Create
   public async store({ request }: HttpContextContract) {
-    const body = request.body()
+    const body = await request.validate(NotificationValidator)
+    //const body = request.body()
     const theNotification: Notification = await Notification.create(body)
     return theNotification
   }

@@ -67,3 +67,7 @@ import './routes/executionservice'
 import './routes/transmission'
 
 import './routes/camera'
+
+import './routes/incident'
+
+import './routes/report'

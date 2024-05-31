@@ -7,7 +7,7 @@ export default class CustomerValidator {
   public schema = schema.create({
     address: schema.string([rules.minLength(5)]),
     phone_number: schema.string([rules.minLength(5)]),
-    user_id: schema.number([rules.exists({ table: 'users', column: 'id'})]),
+    user_id: schema.string([rules.required()])
   })
 
   public messages: CustomMessages = {

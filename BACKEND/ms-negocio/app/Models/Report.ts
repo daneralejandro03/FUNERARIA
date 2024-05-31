@@ -1,16 +1,23 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import Customer from './Customer'
 import Incident from './Incident'
 
-export default class Comment extends BaseModel {
+export default class Report extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public message: String
+  public reporting_date: DateTime
 
   @column()
-  public send_date: DateTime
+  public description: string
+
+  @column()
+  public state: boolean
+
+  @column()
+  public customer_id: number
 
   @column()
   public incident_id: number
@@ -21,9 +28,11 @@ export default class Comment extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(() => Incident, {
-    foreignKey: 'incident_id'
-  })
+  @belongsTo(() => Customer, { foreignKey: 'customer_id' })
 
+  public customer: BelongsTo<typeof Customer>
+
+  @belongsTo(() => Incident, { foreignKey: 'incident_id' })
+  
   public incident: BelongsTo<typeof Incident>
 }

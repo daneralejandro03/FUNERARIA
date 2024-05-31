@@ -1,12 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Chat from 'App/Models/Chat'
-//import ChatValidator from 'App/Validators/ChatValidator'
+import ChatValidator from 'App/Validators/ChatValidator'
 
 export default class ChatsController {
   //Create
   public async store({ request }: HttpContextContract) {
-    //const body = request.validate(ChatValidator);
-    const body = request.body();
+    const body = await request.validate(ChatValidator);
+    //const body = request.body();
     const theChat: Chat = await Chat.create(body);
     return theChat;
   }
@@ -16,7 +16,7 @@ export default class ChatsController {
     if (params.id) {
       const theChat = await Chat.findOrFail(params.id);
       await theChat.load('messages');
-      await theChat.load('execution_service');
+      await theChat.load('incident');
       return theChat
     } else {
       const data = request.all()
@@ -36,7 +36,7 @@ export default class ChatsController {
     const body = request.body()
     theChat.start_date = body.start_date
     theChat.state = body.state
-    theChat.execution_service_id = body.execution_service_id
+    theChat.incident_id = body.incident_id
 
     return await theChat.save()
   }

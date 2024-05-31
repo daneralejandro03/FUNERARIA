@@ -8,7 +8,8 @@ import CustomerValidator from 'App/Validators/CustomerValidator';
 export default class CustomersController {
     //Create
     public async store({ request }: HttpContextContract) {
-        const body = request.body();
+        const body = await request.validate(CustomerValidator)
+        //const body = request.body();
         const theCustomer: Customer = await Customer.create(body);
         return theCustomer;
     }

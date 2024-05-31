@@ -1,11 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, HasMany, HasOne, belongsTo, column, hasMany, hasOne
-        } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany} from '@ioc:Adonis/Lucid/Orm'
 import Service from './Service'
-import Comment from './Comment'
-import Chat from './Chat'
-import Customer from './Customer'
 import Transmission from './Transmission'
+import Incident from './Incident'
 
 export default class ExecutionService extends BaseModel {
 
@@ -22,7 +19,7 @@ export default class ExecutionService extends BaseModel {
   public state: boolean
 
   @column()
-  public customer_id: number
+  public incident_id: number
 
   @column()
   public service_id: number
@@ -38,22 +35,11 @@ export default class ExecutionService extends BaseModel {
   })
   public service: BelongsTo<typeof Service>
 
-  @belongsTo(() => Customer, {
-    foreignKey: 'customer_id',
+  @belongsTo(() => Incident, {
+    foreignKey: 'incident_id',
   })
-  public customer: BelongsTo<typeof Customer>
+  public incident: BelongsTo<typeof Incident>
 
-  @hasMany(() => Comment, {
-    foreignKey: 'execution_service_id',
-  })
-  public comments: HasMany<typeof Comment>
-
-  @hasOne(() => Chat, {
-    foreignKey: 'execution_service_id',
-  })
-  public chat: HasOne<typeof Chat>
-
-  
   @hasMany(() => Transmission, {
     foreignKey: 'execution_service_id',
   })

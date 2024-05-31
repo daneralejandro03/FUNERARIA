@@ -9,7 +9,7 @@ export default class extends BaseSchema {
 
       table.string('message')
       table.dateTime('send_date')
-      table.integer('execution_service_id').unsigned().references('execution_services.id').onDelete('CASCADE')
+      table.integer('incident_id').unsigned().references('incidents.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

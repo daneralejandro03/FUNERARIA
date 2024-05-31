@@ -7,7 +7,7 @@ export default class ChatValidator {
   public schema = schema.create({
     start_date: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
     state: schema.boolean(),
-    execution_service_id: schema.number([rules.exists({ table: 'execution_services', column: 'id'})]),
+    incident_id: schema.number([rules.exists({ table: 'incidents', column: 'id'})]),
   })
 
   public messages: CustomMessages = {

@@ -7,7 +7,7 @@ export default class ExecutionServiceValidator {
     cost: schema.number([rules.unsigned()]),
     duration: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
     state: schema.boolean(),
-    customer_id: schema.number([rules.exists({ table: 'customers', column: 'id'})]),
+    incident_id: schema.number([rules.exists({ table: 'incidents', column: 'id'})]),
     service_id: schema.number([rules.exists({ table: 'services', column: 'id'})]),
   })
 

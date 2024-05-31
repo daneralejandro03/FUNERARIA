@@ -6,6 +6,8 @@ export default class ServiceValidator {
 
   public schema = schema.create({
     type: schema.string([rules.minLength(10), rules.required()]),
+    start_date: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
+    end_date: schema.date({format: 'yyyy-MM-dd HH:mm:ss'})
   })
 
   public messages: CustomMessages = {

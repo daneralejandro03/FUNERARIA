@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import ExecutionService from 'App/Models/ExecutionService'
+import ExecutionServiceValidator from 'App/Validators/ExecutionServiceValidator'
 //import ExecutionServiceValidator from 'App/Validators/ExecutionServiceValidator'
 
 export default class ExecutionServicesController {
@@ -7,17 +8,13 @@ export default class ExecutionServicesController {
   public async find2(id:number){
     
       let theExecutionServices: ExecutionService = await ExecutionService.findOrFail(id)
-      await theExecutionServices.load('comments')
-      await theExecutionServices.load('customer')
-      await theExecutionServices.load('service')
       return theExecutionServices
   }
   public async find({ request, params }: HttpContextContract) {
 
     if (params.id) {
       let theExecutionServices: ExecutionService = await ExecutionService.findOrFail(params.id)
-      await theExecutionServices.load('comments')
-      await theExecutionServices.load('customer')
+      await theExecutionServices.load('incident')
       await theExecutionServices.load('service')
       return theExecutionServices
     } else {
@@ -32,7 +29,8 @@ export default class ExecutionServicesController {
     }
   }
   public async store({ request }: HttpContextContract) {
-    const body = request.body();
+    const body = await request.validate(ExecutionServiceValidator)
+    //const body = request.body();
     const theExecutionServices: ExecutionService = await ExecutionService.create(body);
     return theExecutionServices;
   }
@@ -43,7 +41,7 @@ export default class ExecutionServicesController {
     theExecutionServices.cost = body.cost
     theExecutionServices.duration = body.duration
     theExecutionServices.state = body.state
-    theExecutionServices.customer_id = body.customer_id
+    theExecutionServices.incident_id = body.incident_id
     theExecutionServices.service_id = body.service_id
 
     return await theExecutionServices.save()
