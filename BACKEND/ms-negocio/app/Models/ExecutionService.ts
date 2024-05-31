@@ -12,7 +12,7 @@ export default class ExecutionService extends BaseModel {
   @column()
   public cost: number
 
-  @column()
+  @column.dateTime()
   public duration: DateTime
 
   @column()

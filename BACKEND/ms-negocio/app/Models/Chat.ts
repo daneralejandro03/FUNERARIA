@@ -7,7 +7,7 @@ export default class Chat extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public start_date: DateTime
 
   @column()

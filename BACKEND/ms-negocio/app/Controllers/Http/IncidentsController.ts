@@ -5,6 +5,8 @@ import IncidentValidator from 'App/Validators/IncidentValidator';
 export default class IncidentsController {
     public async store({ request }: HttpContextContract) {
         const body = await request.validate(IncidentValidator);
+        console.log(JSON.stringify(body));
+        
         const theIncident: Incident = await Incident.create(body);
         return theIncident;
       }

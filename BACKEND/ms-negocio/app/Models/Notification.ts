@@ -9,7 +9,7 @@ export default class Notification extends BaseModel {
   @column()
   public message: string
 
-  @column()
+  @column.dateTime()
   public date_shipped: DateTime
 
   @column()

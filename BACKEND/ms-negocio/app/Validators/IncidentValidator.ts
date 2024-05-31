@@ -6,7 +6,9 @@ export default class IncidentValidator {
 
   
   public schema = schema.create({
-    date_decease: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
+    date_decease: schema.date({
+      format: 'yyyy-MM-dd HH:mm:ss',
+    }),
     place_decease: schema.string([rules.required()]),
     cause_decease: schema.string([rules.required()])
   })

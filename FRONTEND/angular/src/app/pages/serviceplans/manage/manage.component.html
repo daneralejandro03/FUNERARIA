@@ -1,0 +1,93 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIF="mode==1" class="mb-0">Visualización</h3>
+                    <h3 *ngIF="mode==2" class="mb-0">Crear</h3>
+                    <h3 *ngIF="mode==1" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" [formGroup] = "theFormGroup">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    Id:
+                                </div>
+                                <div class="col-8">
+                                    {{serviceplan.id}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Estado contrato:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="serviceplan.status_hiring" [disabled]="mode==1" formControlName="status_hiring">
+                                    <div *ngIf="getTheFormGroup.status_hiring.errors && (getTheFormGroup.status_hiring.dirty || getTheFormGroup.status_hiring.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.status_hiring.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Comienzo:
+                                </div>
+                                <div class="col-8">
+                                    <input type="date" class="form-control" [(ngModel)]="serviceplan.date_hiring" [value]="serviceplan.date_hiring | date:'yyyy-MM-dd'" [disabled]="mode==1" formControlName="date_hiring">
+                                    <div *ngIf="getTheFormGroup.date_hiring.errors && (getTheFormGroup.date_hiring.dirty || getTheFormGroup.date_hiring.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.date_hiring.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Fin:
+                                </div>
+                                <div class="col-8">
+                                    <input type="date" class="form-control" [(ngModel)]="serviceplan.date_expiration" [value]="serviceplan.date_expiration | date:'yyyy-MM-dd'" [disabled]="mode==1" formControlName="date_expiration">
+                                    <div *ngIf="getTheFormGroup.date_expiration.errors && (getTheFormGroup.date_expiration.dirty || getTheFormGroup.date_expiration.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.date_expiration.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <div *ngIf="isService" class="row">
+                                <div class="col-4">
+                                    Plan:
+                                </div>
+                                <div class="col-8">
+                                    <label for="plan">Seleccionar Plan:</label>
+                                    <select class="form-control" id="plan" formControlName="plan_id" (change)="selectPlan($event.target.value)">
+                                        <option *ngFor="let plan of plans" [value]="plan.id" [selected]="plan.id === serviceplan.plan_id">{{ plan.description }}</option>
+                                    </select>
+                                </div>
+                            </div>            
+                            <div *ngIf="isPlan" class="row">
+                                <div class="col-4">
+                                    Servicio:
+                                </div>
+                                <div class="col-8">
+                                    <label for="service">Seleccionar Servicio:</label>
+                                    <select class="form-control" id="service" formControlName="service_id" (change)="selectService($event.target.value)">
+                                        <option *ngFor="let service of services" [value]="service.id" [selected]="service.id === serviceplan.service_id">{{ service.type }}</option>
+                                    </select>
+                                </div>
+                            </div>                            
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8">
+                              <button *ngIf="mode==2" class="btn btn-primary btn-block" (click)="create()">Crear</button>
+                              <button *ngIf="mode==3" class="btn btn-primary btn-block" (click)="update()">Actualizar</button>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

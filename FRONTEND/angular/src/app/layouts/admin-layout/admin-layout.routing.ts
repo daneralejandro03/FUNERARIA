@@ -74,4 +74,9 @@ export const AdminLayoutRoutes: Routes = [
     loadChildren: () =>
       import("src/app/pages/sites/sites.module").then((m) => m.SitesModule),
   },
+  {
+    path: "serviceplans",
+    loadChildren: () =>
+      import("src/app/pages/serviceplans/serviceplans.module").then((m) => m.ServiceplansModule),
+  },
 ];

@@ -40,6 +40,17 @@ export class ListComponent implements OnInit {
     this.router.navigate(["plans/update/"+id])
   }
 
+  listServicesPlans(id:number){
+    console.log(id);
+
+    this.router.navigate(["serviceplans/list/"], { queryParams: { planId: id } })
+    
+    /*this.service.view(id).subscribe(data=>{
+        console.log(data["beneficiaries"]);
+    });*/
+    
+  }
+
   delete(id:number){
     console.log("Eliminando a: " + id);
     Swal.fire({

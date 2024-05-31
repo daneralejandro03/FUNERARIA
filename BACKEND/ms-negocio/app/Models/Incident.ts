@@ -9,7 +9,7 @@ export default class Incident extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public date_decease: DateTime
 
   @column()

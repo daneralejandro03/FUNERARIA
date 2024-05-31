@@ -6,7 +6,7 @@ export default class Pay extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public pay_day: DateTime
 
   @column()

@@ -29,7 +29,7 @@ import { Login2faComponent } from './pages/login2fa/login2fa.component';
     AppComponent,
     AdminLayoutComponent,
     AuthLayoutComponent,
-    Login2faComponent
+    Login2faComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

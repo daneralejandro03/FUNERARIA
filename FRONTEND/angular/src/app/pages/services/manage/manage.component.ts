@@ -71,6 +71,8 @@ export class ManageComponent implements OnInit {
     if(this.activateRoute.snapshot.params.id){
       this.serviceEntity.id = this.activateRoute.snapshot.params.id;
       this.getService(this.serviceEntity.id);
+      console.log(JSON.stringify(this.serviceEntity));
+      
     }
   }
 
@@ -125,6 +127,10 @@ export class ManageComponent implements OnInit {
     const year = d.getFullYear();
     const month = ('0' + (d.getMonth() + 1)).slice(-2);
     const day = ('0' + d.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
+    const hours = ('0' + d.getHours()).slice(-2);
+    const minutes = ('0' + d.getMinutes()).slice(-2);
+    const seconds = ('0' + d.getSeconds()).slice(-2);
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
+  
 }

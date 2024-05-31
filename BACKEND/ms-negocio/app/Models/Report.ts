@@ -7,7 +7,7 @@ export default class Report extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public reporting_date: DateTime
 
   @column()

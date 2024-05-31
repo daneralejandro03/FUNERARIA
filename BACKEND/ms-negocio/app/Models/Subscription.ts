@@ -11,10 +11,10 @@ export default class Subscription extends BaseModel {
   @column()
   public subscription_type: string
 
-  @column()
+  @column.dateTime()
   public start_date: DateTime
 
-  @column()
+  @column.dateTime()
   public end_date: DateTime
 
   @column()

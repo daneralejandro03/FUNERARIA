@@ -7,10 +7,10 @@ export default class Transmission extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public start_date: DateTime
 
-  @column()
+  @column.dateTime()
   public end_date: DateTime
 
   @column()

@@ -9,7 +9,7 @@ export default class Comment extends BaseModel {
   @column()
   public message: String
 
-  @column()
+  @column.dateTime()
   public send_date: DateTime
 
   @column()

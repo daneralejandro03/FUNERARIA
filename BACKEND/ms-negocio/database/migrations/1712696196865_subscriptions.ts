@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('subscription_type')
-      table.dateTime('start_date')
+      table.timestamp('start_date')
       table.dateTime('end_date')
       table.boolean('state')
       table.integer('plan_id').unsigned().references('plans.id')

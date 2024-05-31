@@ -13,10 +13,10 @@ export default class Service extends BaseModel {
   @column()
   public type: string
 
-  @column()
+  @column.dateTime()
   public start_date: DateTime
 
-  @column()
+  @column.dateTime()
   public end_date: DateTime
 
   @column.dateTime({ autoCreate: true })
