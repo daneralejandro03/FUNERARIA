@@ -13,6 +13,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 import { Login2faComponent } from './pages/login2fa/login2fa.component';
+import { ListComponent } from './pages/rolePermission/list/list.component';
+import { ManageComponent } from './pages/rolePermission/manage/manage.component';
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import { Login2faComponent } from './pages/login2fa/login2fa.component';
     AdminLayoutComponent,
     AuthLayoutComponent,
     Login2faComponent,
+    ListComponent,
+    ManageComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

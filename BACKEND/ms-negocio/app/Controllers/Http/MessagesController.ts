@@ -1,5 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import ExecutionService from 'App/Models/ExecutionService'
+import Incident from 'App/Models/Incident'
 import Message from 'App/Models/Message'
 import axios from 'axios'
 import Env from '@ioc:Adonis/Core/Env'
@@ -8,140 +8,129 @@ import MessageValidator from 'App/Validators/MessageValidator'
 export default class MessagesController {
   //Create
   public async store({ request }: HttpContextContract) {
-    const body = await request.validate(MessageValidator);
-    const theMessage: Message = await Message.create(body);
-    return theMessage;
+    //const body = await request.body()
+    const body = await request.validate(MessageValidator)
+    const theMessage: Message = await Message.create(body)
+    return theMessage
   }
 
   //Read
   public async find({ request, params }: HttpContextContract) {
-
     const theRequest = request.toJSON()
-    const token = theRequest.headers.authorization.replace("Bearer ", "")
+    const token = theRequest.headers.authorization?.replace('Bearer ', '') || '';
     let theData = {}
 
     if (params.id) {
+      let theIncident: Incident = await Incident.findOrFail(params.id)
+      await theIncident.load('chat')
+      let id = theIncident['user_id']
 
-        let theExecutionService:ExecutionService = await ExecutionService.findOrFail(params.id);
-        await theExecutionService.load("chat")
-        let id = theExecutionService["user_id"];
-    
-        theData = {
-            case: 1,
-            token: token, 
-            id: id,
-            theExecutionService: theExecutionService
-        }
+      theData = {
+        case: 1,
+        token: token,
+        id: id,
+        theIncident: theIncident,
+      }
 
-        let executionServiceInfo = this.mergeExecutionServiceData(theData);
+      let incidentInfo = this.mergeIncidentData(theData)
 
-        return executionServiceInfo;
-
+      return incidentInfo
     } else {
-        const data = request.all()
-        if ("page" in data && "per_page" in data) {
-            const page = request.input('page', 1);
-            const perPage = request.input("per_page", 20);
-            return await ExecutionService.query().paginate(page, perPage)
-        } else {
-            
-            theData = {
-                case: 2,
-                token: token
-            };
-
-            let executionServicesInfo = this.mergeExecutionServiceData(theData);
-
-            return executionServicesInfo;
+      const data = request.all()
+      if ('page' in data && 'per_page' in data) {
+        const page = request.input('page', 1)
+        const perPage = request.input('per_page', 20)
+        return await Incident.query().paginate(page, perPage)
+      } else {
+        theData = {
+          case: 2,
+          token: token,
         }
 
+        let incidentInfo = this.mergeIncidentData(theData)
+
+        return incidentInfo
+      }
     }
-}
+  }
 
-public async mergeExecutionServiceData(theData: {}){
-    let theUsers = [];
-    let theUser = {};
-    let executionServicesInfo: ExecutionServiceInfo[] = [];
+  public async mergeIncidentData(theData: {}) {
+    let theUsers = []
+    let theUser = {}
+    let incidentInfo: IncidentInfo[] = []
 
-    interface ExecutionServiceInfo {
-        name: string;
-        email: string;
-        identificationCard: string;
-        privileges: string;
-        responsabilities: string;
+    interface IncidentInfo {
+      name: string
+      email: string
+      identificationCard: string
+      privileges: string
+      responsabilities: string
     }
 
-    if(theData["case"] == 1){
-        try {
-            const response = await axios.get(`${Env.get('MS_SECURITY')}/api/users/${theData["id"]}`, {
-                headers: {
-                Authorization: `Bearer ${theData["token"]}`
-                }
-            });
-        
-            theUser = response.data;
-                
-        } catch (error) {
-            console.error('Error al realizar la solicitud GET:', error);
-        }
-            
-        const executionServiceInfo: ExecutionServiceInfo = {
-            name: theUser["name"],
-            email: theUser["email"],
-            identificationCard: theUser["identificationCard"],
-            privileges: theData["theExecutionService"]["privileges"],
-            responsabilities: theData["theExecutionService"]["responsabilities"]
-        }
-        return executionServiceInfo;
+    if (theData['case'] == 1) {
+      try {
+        const response = await axios.get(`${Env.get('MS_SECURITY')}/api/users/${theData['id']}`, {
+          headers: {
+            Authorization: `Bearer ${theData['token']}`,
+          },
+        })
 
-    }else if(theData["case"] == 2){
+        theUser = response.data
+      } catch (error) {
+        console.error('Error al realizar la solicitud GET:', error)
+      }
 
-        try {
-            const response = await axios.get(`${Env.get('MS_SECURITY')}/api/users`, {
-              headers: {
-                Authorization: `Bearer ${theData["token"]}`
-              }
-            });
+      const incidentInfo: IncidentInfo = {
+        name: theUser['name'],
+        email: theUser['email'],
+        identificationCard: theUser['identificationCard'],
+        privileges: theData['theIncident']['privileges'],
+        responsabilities: theData['theIncident']['responsabilities'],
+      }
+      return incidentInfo
+    } else if (theData['case'] == 2) {
+      try {
+        const response = await axios.get(`${Env.get('MS_SECURITY')}/api/users`, {
+          headers: {
+            Authorization: `Bearer ${theData['token']}`,
+          },
+        })
 
-            theUsers = response.data;
+        theUsers = response.data
+      } catch (error) {
+        console.error('Error al realizar la solicitud GET:', error)
+      }
 
-        } catch (error) {
-            console.error('Error al realizar la solicitud GET:', error);
-        }
+      let theIncidents: Incident[] = []
 
-        let theExecutionServices:ExecutionService[] = [];
+      theIncidents = await Incident.query()
 
-        theExecutionServices = await ExecutionService.query();
-
-        for(let userActual of theUsers){
-
-            for(let executionServiceActual of theExecutionServices){
-
-                if(executionServiceActual["user_id"] === userActual["_id"]){
-                        
-                    const administrorInfo: ExecutionServiceInfo  = {
-                        name: userActual["name"],
-                        email: userActual["email"],
-                        identificationCard: userActual["identificationCard"],
-                        privileges: executionServiceActual["privileges"],
-                        responsabilities: executionServiceActual["responsabilities"]
-                    };
-
-                    executionServicesInfo.push(administrorInfo);       
-                }
+      for (let userActual of theUsers) {
+        for (let incidentActual of theIncidents) {
+          if (incidentActual['user_id'] === userActual['_id']) {
+            const administrorInfo: IncidentInfo = {
+              name: userActual['name'],
+              email: userActual['email'],
+              identificationCard: userActual['identificationCard'],
+              privileges: incidentActual['privileges'],
+              responsabilities: incidentActual['responsabilities'],
             }
-        }   
-        return executionServicesInfo;
+
+            incidentInfo.push(administrorInfo)
+          }
+        }
+      }
+      return incidentInfo
     }
-}
+  }
 
   //Update
   public async update({ params, request }: HttpContextContract) {
     const theMessage: Message = await Message.findOrFail(params.id)
     const body = request.body()
     theMessage.information = body.information
-    theMessage.chat = body.chat_id 
-    theMessage.user_id = body.user_id;
+    theMessage.chat = body.chat_id
+    theMessage.user_id = body.user_id
 
     return await theMessage.save()
   }

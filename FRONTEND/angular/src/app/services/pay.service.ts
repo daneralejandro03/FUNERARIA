@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Pay } from '../models/pay.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root' 
 })
 export class PayService {
 

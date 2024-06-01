@@ -7,3 +7,4 @@ export class Customer {
     user_id: string
     subscriptions?: Subscription[]
 }
+ 

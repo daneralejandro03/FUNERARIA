@@ -1,8 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Service } from "../models/service.model";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { Site } from "../models/site.model";
 
 @Injectable({
   providedIn: "root",
@@ -10,32 +10,28 @@ import { environment } from "src/environments/environment";
 export class SiteService {
   constructor(private http: HttpClient) {}
 
-  list(): Observable<Service[]> {
-    return this.http.get<Service[]>(`${environment.url_ms_negocio}/services`);
+  list(): Observable<Site[]> {
+    return this.http.get<Site[]>(`${environment.url_ms_negocio}/sites`);
   }
 
-  view(id: number): Observable<Service> {
-    return this.http.get<Service>(
-      `${environment.url_ms_negocio}/services/${id}`
-    );
+  view(id: number): Observable<Site> {
+    return this.http.get<Site>(`${environment.url_ms_negocio}/sites/${id}`);
   }
 
-  create(theService: Service): Observable<Service> {
-    return this.http.post<Service>(
-      `${environment.url_ms_negocio}/services/`,
+  create(theService: Site): Observable<Site> {
+    return this.http.post<Site>(
+      `${environment.url_ms_negocio}/sites/`,
       theService
     );
   }
-  update(theService: Service): Observable<Service> {
-    return this.http.put<Service>(
-      `${environment.url_ms_negocio}/services/${theService.id}`,
+  update(theService: Site): Observable<Site> {
+    return this.http.put<Site>(
+      `${environment.url_ms_negocio}/sites/${theService.id}`,
       theService
     );
   }
 
   delete(id: number) {
-    return this.http.delete<Service>(
-      `${environment.url_ms_negocio}/services/${id}`
-    );
+    return this.http.delete<Site>(`${environment.url_ms_negocio}/sites/${id}`);
   }
 }

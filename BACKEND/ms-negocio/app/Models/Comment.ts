@@ -22,8 +22,7 @@ export default class Comment extends BaseModel {
   public updatedAt: DateTime
 
   @belongsTo(() => Incident, {
-    foreignKey: 'incident_id'
+    foreignKey: 'incident_id',
   })
-
   public incident: BelongsTo<typeof Incident>
 }
