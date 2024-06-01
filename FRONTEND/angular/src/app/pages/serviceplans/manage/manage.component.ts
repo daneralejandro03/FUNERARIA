@@ -74,12 +74,12 @@ export class ManageComponent implements OnInit {
         this.plan_id = this.activateRoute.snapshot.params['planId'];
         this.isPlan = true;
         this.isService = false;
-        this.getServices(); // Obtener la lista de servicios
+        this.getServices();
       } else if (this.activateRoute.snapshot.params['serviceId']) {
         this.service_id = this.activateRoute.snapshot.params['serviceId'];
         this.isService = true;
         this.isPlan = false;
-        this.getPlans(); // Obtener la lista de planes
+        this.getPlans();
       }
     } else if(currentUrl.includes('update')){
       this.mode = 3;
@@ -96,16 +96,23 @@ export class ManageComponent implements OnInit {
     this.service.view(id).subscribe(data => {
       this.serviceplan = data;
 
-      const startDate = this.formatDate(this.serviceplan.date_hiring);
-      const endDate = this.formatDate(this.serviceplan.date_expiration);
-
       this.theFormGroup.patchValue({
+        date_hiring: this.serviceplan.date_hiring,
         status_hiring: this.serviceplan.status_hiring,
-        date_hiring: startDate,
-        date_expiration: endDate,
+        date_expiration: this.serviceplan.date_expiration,
         plan_id: this.serviceplan.plan_id,
-        service_id: this.serviceplan.service_id,
-      });
+        service_id: this.serviceplan.service_id
+    });
+
+    if (this.serviceplan.plan_id) {
+      this.isPlan = true;
+      this.isService = false;
+      this.getServices();
+    } else if (this.serviceplan.service_id) {
+      this.isService = true;
+      this.isPlan = false;
+      this.getPlans();
+    }
 
       this.plan_id = this.serviceplan.plan_id;
       this.service_id = this.serviceplan.service_id;
@@ -115,42 +122,57 @@ export class ManageComponent implements OnInit {
   create() {
     if (this.plan_id) {
       this.serviceplan.plan_id = this.plan_id;
-    } else if (this.service_id) {
+      if (this.theFormGroup.invalid) {
+        this.trySend = true;
+        Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
+        return;
+      }
+
+      this.serviceplan.plan_id = this.plan_id;
+
+      this.service.create(this.serviceplan).subscribe(data => {
+        Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
+        this.router.navigate(["serviceplans/list"], { queryParams: this.plan_id ? { planId: this.plan_id } : { serviceId: this.service_id } });
+      });
+
+    } 
+    else if (this.service_id) {
       this.serviceplan.service_id = this.service_id;
+      if (this.theFormGroup.invalid) {
+        this.trySend = true;
+        Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
+        return;
+      }
+
+      this.serviceplan.service_id = this.service_id;
+  
+      this.service.create(this.serviceplan).subscribe(data => {
+        Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
+        this.router.navigate(["serviceplans/list"], { queryParams: this.plan_id ? { planId: this.plan_id } : { serviceId: this.service_id } });
+      });
     }
 
-    if (this.theFormGroup.invalid) {
-      this.trySend = true;
-      Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
-      return;
-    }
-
-    this.service.create(this.serviceplan).subscribe(data => {
-      Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
-      this.router.navigate(["serviceplans/list"], { queryParams: this.plan_id ? { planId: this.plan_id } : { serviceId: this.service_id } });
-    });
   }
 
   update() {
     if (this.theFormGroup.invalid) {
-      this.trySend = true;
-      Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
-      return;
+        this.trySend = true;
+        Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
+        return;
     }
 
     if (this.plan_id) {
-      this.serviceplan.plan_id = this.plan_id;
+        this.serviceplan.plan_id = this.plan_id;
     } else if (this.service_id) {
-      this.serviceplan.service_id = this.service_id;
+        this.serviceplan.service_id = this.service_id;
     }
 
-    this.serviceplan = { ...this.serviceplan, ...this.theFormGroup.value };
-
     this.service.update(this.serviceplan).subscribe(data => {
-      Swal.fire("Actualización Exitosa", "Se ha actualizado el registro", "success");
-      this.router.navigate(["serviceplans/list"], { queryParams: this.plan_id ? { planId: this.plan_id } : { serviceId: this.service_id } });
+        Swal.fire("Actualización Exitosa", "Se ha actualizado el registro", "success");
+        this.router.navigate(["serviceplans/list"], { queryParams: this.plan_id ? { planId: this.plan_id } : { serviceId: this.service_id } });
     });
-  }
+}
+
 
   getPlans() {
     this.thePlanService.list().subscribe(data => {
@@ -176,16 +198,6 @@ export class ManageComponent implements OnInit {
     this.serviceplan.service_id = service_id;
   }  
 
-  formatDate(date: Date | string | null): string | null {
-    if (!date) {
-      return null;
-    }
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = ('0' + (d.getMonth() + 1)).slice(-2);
-    const day = ('0' + d.getDate()).slice(-2);
-    return `${year}-${month}-${day}`;
-  }
 }
 
 

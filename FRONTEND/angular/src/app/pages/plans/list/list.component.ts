@@ -41,14 +41,7 @@ export class ListComponent implements OnInit {
   }
 
   listServicesPlans(id:number){
-    console.log(id);
-
     this.router.navigate(["serviceplans/list/"], { queryParams: { planId: id } })
-    
-    /*this.service.view(id).subscribe(data=>{
-        console.log(data["beneficiaries"]);
-    });*/
-    
   }
 
   delete(id:number){

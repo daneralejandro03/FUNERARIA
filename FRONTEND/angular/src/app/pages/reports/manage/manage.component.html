@@ -1,0 +1,93 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIF="mode==1" class="mb-0">Visualización</h3>
+                    <h3 *ngIF="mode==2" class="mb-0">Crear</h3>
+                    <h3 *ngIF="mode==1" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" [formGroup] = "theFormGroup">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    Id:
+                                </div>
+                                <div class="col-8">
+                                    {{report.id}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Fecha:
+                                </div>
+                                <div class="col-8">
+                                    <input type="date" class="form-control" [(ngModel)]="report.reporting_date" [value]="report.reporting_date | date:'yyyy-MM-dd'" [disabled]="mode==1" formControlName="reporting_date">
+                                    <div *ngIf="getTheFormGroup.reporting_date.errors && (getTheFormGroup.reporting_date.dirty || getTheFormGroup.reporting_date.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.reporting_date.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Descripción:
+                                </div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="report.description" [disabled]="mode==1" formControlName="description">
+                                    <div *ngIf="getTheFormGroup.description.errors && (getTheFormGroup.description.dirty || getTheFormGroup.description.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.description.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Estado:
+                                </div>
+                                <div class="col-8">
+                                    <input type="checkbox" class="form-control" [(ngModel)]="report.state" [disabled]="mode==1" formControlName="state">
+                                    <div *ngIf="getTheFormGroup.state.errors && (getTheFormGroup.state.dirty || getTheFormGroup.state.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.state.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>                       
+                            <div *ngIf="isIncident" class="row">
+                                <div class="col-4">
+                                  Clientes:
+                                </div>
+                                <div class="col-8">
+                                  <label for="plan">Seleccionar Cliente:</label>
+                                  <select class="form-control" id="customer" formControlName="customer_id" [(ngModel)]="report.customer_id" (change)="selectCustomer($event.target.value)">
+                                    <option *ngFor="let customer of customers" [value]="customer.id" [selected]="customer.id === report.customer_id">{{ customer.name }}</option>
+                                  </select>
+                                </div>
+                              </div>            
+                              <div *ngIf="isCustomer" class="row">
+                                <div class="col-4">
+                                  Siniestros:
+                                </div>
+                                <div class="col-8">
+                                  <label for="service">Seleccionar Siniestro:</label>
+                                  <select class="form-control" id="incident" formControlName="incident_id" [(ngModel)]="report.incident_id" (change)="selectIncident($event.target.value)">
+                                    <option *ngFor="let incident of incidents" [value]="incident.id" [selected]="incident.id === report.incident_id">{{ incident.id }}</option>
+                                  </select>
+                                </div>
+                              </div>                                                         
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8">
+                              <button *ngIf="mode==2" class="btn btn-primary btn-block" (click)="create()">Crear</button>
+                              <button *ngIf="mode==3" class="btn btn-primary btn-block" (click)="update()">Actualizar</button>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

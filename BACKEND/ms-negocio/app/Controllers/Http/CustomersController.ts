@@ -4,6 +4,7 @@ import axios from 'axios';
 import Env from '@ioc:Adonis/Core/Env'
 import Subscription from 'App/Models/Subscription';
 import CustomerValidator from 'App/Validators/CustomerValidator';
+import Report from 'App/Models/Report';
 
 export default class CustomersController {
     //Create
@@ -41,6 +42,7 @@ export default class CustomersController {
         if (params.id) {
             let theCustomer:Customer = (await Customer.findOrFail(params.id));
             await theCustomer.load('subscriptions');
+            await theCustomer.load('reports');
             let id = theCustomer["user_id"];
         
             theData = {
@@ -90,6 +92,7 @@ export default class CustomersController {
             phone_number: string;
             user_id: string;
             subscriptions?: Subscription[];
+            reports?: Report[]
         }
 
         if(theData["case"] == 1){
@@ -117,6 +120,7 @@ export default class CustomersController {
                 address: theData["theCustomer"]["address"],
                 phone_number: theData["theCustomer"]["phone_number"],
                 subscriptions: theData["theCustomer"]["subscriptions"],
+                reports: theData["theCustomer"]["reports"],
                 user_id: theUser["_id"]
             }
             return customerInfo;

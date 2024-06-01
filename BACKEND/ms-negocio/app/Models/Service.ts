@@ -33,7 +33,7 @@ export default class Service extends BaseModel {
   @hasMany(() => Notification, {
     foreignKey: 'service_id',
   })
-  public notification: HasMany<typeof Notification>
+  public notifications: HasMany<typeof Notification>
 
   @hasMany(() => Transfer, {
     foreignKey: 'service_id',

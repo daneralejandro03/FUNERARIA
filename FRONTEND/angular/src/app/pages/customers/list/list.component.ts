@@ -40,15 +40,13 @@ export class ListComponent implements OnInit {
   }
 
   listSubscriptions(id:number){
-    console.log(id);
-
     this.router.navigate(["subscriptions/list/"], { queryParams: { customerId: id } })
-    
-    /*this.service.view(id).subscribe(data=>{
-        console.log(data["beneficiaries"]);
-    });*/
-    
   }
+
+  listReports(id:number){
+    this.router.navigate(["reports/list/"], { queryParams: { customerId: id, type: 1 } })
+  }
+
 
   delete(id:number){
     console.log("Eliminando a: " + id);

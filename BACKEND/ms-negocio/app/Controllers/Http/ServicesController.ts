@@ -5,8 +5,8 @@ import ServiceValidator from 'App/Validators/ServiceValidator'
 export default class ServicesController {
   //Create
   public async store({ request }: HttpContextContract) {
-    //const body = await request.validate(ServiceValidator)
-    const body = request.body();
+    const body = await request.validate(ServiceValidator)
+    //const body = request.body();
     const theService: Service = await Service.create(body);
     return theService;
   }
@@ -17,7 +17,7 @@ export default class ServicesController {
       let theService: Service = await Service.findOrFail(params.id)
       await theService.load('burial')
       await theService.load('cremation')
-      await theService.load('notification')
+      await theService.load('notifications')
       await theService.load('transfer')
       await theService.load('servicesplan')
       return theService
@@ -51,7 +51,7 @@ export default class ServicesController {
     if (
       theService.burial ||
       theService.cremation ||
-      theService.notification ||
+      theService.notifications ||
       theService.transfer ||
       theService.servicesplan
     ) {

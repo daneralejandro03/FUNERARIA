@@ -15,7 +15,7 @@ export default class IncidentsController {
       public async find({ request, params }: HttpContextContract) {
         if (params.id) {
           let theIncident: Incident = await Incident.findOrFail(params.id);
-
+          await theIncident.preload('reports'); 
           return theIncident;
         } else {
           const data = request.all()

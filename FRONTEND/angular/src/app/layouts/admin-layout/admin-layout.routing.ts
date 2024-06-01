@@ -79,4 +79,24 @@ export const AdminLayoutRoutes: Routes = [
     loadChildren: () =>
       import("src/app/pages/serviceplans/serviceplans.module").then((m) => m.ServiceplansModule),
   },
+  {
+    path: "notifications",
+    loadChildren: () =>
+      import("src/app/pages/notifications/notifications.module").then((m) => m.NotificationsModule),
+  },
+  {
+    path: "transfers",
+    loadChildren: () =>
+      import("src/app/pages/transfers/transfers.module").then((m) => m.TransfersModule),
+  },
+  {
+    path: "incidents",
+    loadChildren: () =>
+      import("src/app/pages/incidents/incidents.module").then((m) => m.IncidentsModule),
+  },
+  {
+    path: "reports",
+    loadChildren: () =>
+      import("src/app/pages/reports/reports.module").then((m) => m.ReportsModule),
+  }
 ];

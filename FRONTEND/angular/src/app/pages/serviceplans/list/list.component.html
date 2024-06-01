@@ -20,8 +20,6 @@
           </div>
         </div>
         <div class="card-body">
-          <h1 *ngIf="isPlan">Planes de {{ plan_id }}</h1>
-          <h1 *ngIf="isService">Servicios de {{ service_id }}</h1>
           <div class="table-responsive">
             <table class="table">
               <thead>
@@ -41,7 +39,6 @@
                     <button type="button" class="btn btn-primary" (click)="view(serviceplan.id)">Ver</button>
                     <button type="button" class="btn btn-warning" (click)="update(serviceplan.id)">Editar</button>
                     <button type="button" class="btn btn-danger" (click)="delete(serviceplan.id)">Eliminar</button>
-                    <button type="button" class="btn btn-info" (click)="listPays(serviceplan.id)">Pagos</button>
                   </td>
                 </tr>
               </tbody>

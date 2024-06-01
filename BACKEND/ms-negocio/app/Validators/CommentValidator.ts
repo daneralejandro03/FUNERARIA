@@ -6,7 +6,7 @@ export default class CommentValidator {
 
   public schema = schema.create({
     message: schema.string([rules.minLength(1)]),
-    send_date: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
+    send_date: schema.date({format: 'yyyy-MM-dd'}),
     incident_id: schema.number([rules.exists({ table: 'incidents', column: 'id'})]),
   })
 

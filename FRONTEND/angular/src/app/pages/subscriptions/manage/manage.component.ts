@@ -91,14 +91,10 @@ getSubscription(id: number) {
   this.service.view(id).subscribe(data => {
       this.subscription = data;
 
-      // Asegurar que las fechas estén en formato YYYY-MM-dd
-      const startDate = this.formatDate(this.subscription.start_date);
-      const endDate = this.formatDate(this.subscription.end_date);
-
       this.theFormGroup.patchValue({
           subscription_type: this.subscription.subscription_type,
-          start_date: startDate,
-          end_date: endDate,
+          start_date: this.subscription.start_date,
+          end_date: this.subscription.end_date,
           state: this.subscription.state,
           plan_id: this.subscription.plan_id
       });
@@ -108,8 +104,6 @@ getSubscription(id: number) {
       console.log("Subscription: " + JSON.stringify(this.subscription));
   });
 }
-
-
 
 create() {
   console.log(`Customer Id desde el componente de subscripcion: ${this.customerId}`);
@@ -155,20 +149,8 @@ update() {
  }
 
  selectPlan(plan_id: number) {
-  console.log("Plan seleccionado:", plan_id);
-  // Puedes realizar acciones adicionales aquí, como asignar el plan a this.subscription
-  this.subscription.plan_id = plan_id;
-}
-
-formatDate(date: Date | string | null): string | null {
-  if (!date) {
-      return null;
+    console.log("Plan seleccionado:", plan_id);
+    this.subscription.plan_id = plan_id;
   }
-  const d = new Date(date);
-  const year = d.getFullYear();
-  const month = ('0' + (d.getMonth() + 1)).slice(-2);
-  const day = ('0' + d.getDate()).slice(-2);
-  return `${year}-${month}-${day}`;
-}
  
 }

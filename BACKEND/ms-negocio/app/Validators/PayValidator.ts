@@ -5,7 +5,7 @@ export default class PayValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    pay_day: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
+    pay_day: schema.date({format: 'yyyy-MM-dd'}),
     amount: schema.number([rules.range(1000,10000), rules.required()]),
     subscription_id: schema.number([rules.exists({ table: 'subscriptions', column: 'id'})]),
   })

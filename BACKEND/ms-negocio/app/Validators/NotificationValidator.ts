@@ -6,7 +6,7 @@ export default class NotificationValidator {
 
   public schema = schema.create({
     message: schema.string([rules.minLength(1), rules.required()]),
-    date_shipped: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
+    date_shipped: schema.date({format: 'yyyy-MM-dd'}),
     service_id: schema.number([rules.exists({ table: 'services', column: 'id'})]),
   })
 

@@ -56,8 +56,6 @@ export class ListComponent implements OnInit {
   }
 
   create(customerId){
-    //console.log(`Id del user: ${customer}`);
-    
     this.router.navigate(["subscriptions/create/"+customerId])
   }
 
@@ -66,14 +64,7 @@ export class ListComponent implements OnInit {
   }
 
   listPays(id:number){
-    console.log(`Desde el componente de list de subscriptions: ${id}`);
-
     this.router.navigate(["pays/list/"], { queryParams: { subscription_id: id } })
-    
-    /*this.service.view(id).subscribe(data=>{
-        console.log(data["beneficiaries"]);
-    });*/
-    
   }
 
   delete(id:number){

@@ -71,8 +71,6 @@ export class ManageComponent implements OnInit {
     if(this.activateRoute.snapshot.params.id){
       this.serviceEntity.id = this.activateRoute.snapshot.params.id;
       this.getService(this.serviceEntity.id);
-      console.log(JSON.stringify(this.serviceEntity));
-      
     }
   }
 
@@ -80,13 +78,10 @@ export class ManageComponent implements OnInit {
     this.service.view(id).subscribe(data=>{
       this.serviceEntity = data;
 
-      const start_date = this.formatDate(this.serviceEntity.start_date);
-      const end_date = this.formatDate(this.serviceEntity.end_date);
-
       this.theFormGroup.patchValue({
           type: this.serviceEntity.type,
-          start_date: start_date,
-          end_date: end_date,
+          start_date: this.serviceEntity.start_date,
+          end_date: this.serviceEntity.end_date,
       });
 
       console.log("Servicio: " + JSON.stringify(this.serviceEntity))
@@ -99,6 +94,8 @@ export class ManageComponent implements OnInit {
       Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
       return;
     }
+    console.log("Servicio: " + JSON.stringify(this.serviceEntity));
+    
     this.service.create(this.serviceEntity).subscribe(data=>{
       console.log('Entity:' + this.serviceEntity);
       
@@ -119,18 +116,4 @@ export class ManageComponent implements OnInit {
     });
   }
 
-  formatDate(date: Date | string | null): string | null {
-    if (!date) {
-        return null;
-    }
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = ('0' + (d.getMonth() + 1)).slice(-2);
-    const day = ('0' + d.getDate()).slice(-2);
-    const hours = ('0' + d.getHours()).slice(-2);
-    const minutes = ('0' + d.getMinutes()).slice(-2);
-    const seconds = ('0' + d.getSeconds()).slice(-2);
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-  }
-  
 }

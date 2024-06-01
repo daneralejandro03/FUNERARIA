@@ -6,7 +6,7 @@ export default class ReportValidator {
 
   
   public schema = schema.create({
-    reporting_date: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
+    reporting_date: schema.date({format: 'yyyy-MM-dd'}),
     description: schema.string([rules.required()]),
     state: schema.boolean([rules.required()]),
     customer_id: schema.number([rules.exists({table: 'customers', column: 'id'})]),

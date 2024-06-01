@@ -57,8 +57,8 @@ export class ListComponent implements OnInit {
       this.servicesplansAux = [];
   
       for(let serviceplan of this.servicesplans){
-        this.service.view(serviceplan.id).subscribe(subscriptionData => {
-          this.servicesplansAux.push(subscriptionData);
+        this.service.view(serviceplan.id).subscribe(servicesplansData => {
+          this.servicesplansAux.push(servicesplansData);
         })
       }
 
@@ -73,8 +73,8 @@ export class ListComponent implements OnInit {
       this.servicesplansAux = [];
   
       for(let serviceplan of this.servicesplans){
-        this.service.view(serviceplan.id).subscribe(subscriptionData => {
-          this.servicesplansAux.push(subscriptionData);
+        this.service.view(serviceplan.id).subscribe(servicesplansData => {
+          this.servicesplansAux.push(servicesplansData);
         })
       }
 
@@ -83,7 +83,7 @@ export class ListComponent implements OnInit {
   
 
   view(id:number){
-    this.router.navigate(["subscriptions/view/"+id])
+    this.router.navigate(["serviceplans/view/"+id])
   }
 
   createWithPlan(plan_id){
@@ -97,18 +97,7 @@ export class ListComponent implements OnInit {
   }
 
   update(id:number){
-    this.router.navigate(["subscriptions/update/"+id])
-  }
-
-  listPays(id:number){
-    console.log(`Desde el componente de list de subscriptions: ${id}`);
-
-    this.router.navigate(["pays/list/"], { queryParams: { subscription_id: id } })
-    
-    /*this.service.view(id).subscribe(data=>{
-        console.log(data["beneficiaries"]);
-    });*/
-    
+    this.router.navigate(["serviceplans/update/"+id])
   }
 
   delete(id:number){

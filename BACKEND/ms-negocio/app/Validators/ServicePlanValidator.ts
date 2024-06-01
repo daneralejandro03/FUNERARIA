@@ -6,8 +6,8 @@ export default class ServicePlanValidator {
 
   public schema = schema.create({
     status_hiring: schema.boolean(),
-    date_hiring: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
-    date_expiration: schema.date({format: 'yyyy-MM-dd HH:mm:ss'}),
+    date_hiring: schema.date({format: 'yyyy-MM-dd'}),
+    date_expiration: schema.date({format: 'yyyy-MM-dd'}),
     service_id: schema.number([rules.exists({ table: 'services', column: 'id'})]),
     plan_id: schema.number([rules.exists({ table: 'plans', column: 'id'})])
     
