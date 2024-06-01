@@ -1,0 +1,39 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Form -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIf="mode === 1" class="mb-0">Visualización</h3>
+                    <h3 *ngIf="mode === 2" class="mb-0">Crear</h3>
+                    <h3 *ngIf="mode === 3" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="permissionForm">
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="url">URL:</label>
+                                    <input type="text" class="form-control" id="url" formControlName="url">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label for="method">Método:</label>
+                                    <input type="text" class="form-control" id="method" formControlName="method">
+                                </div>
+                            </div>
+                        </div>
+                        <button *ngIf="mode === 2" type="button" class="btn btn-primary"
+                            (click)="create()">Crear</button>
+                        <button *ngIf="mode === 3" type="button" class="btn btn-primary"
+                            (click)="update()">Actualizar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
