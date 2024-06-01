@@ -1,24 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RolePermissionListComponent } from './list/list.component';
-import { RolePermissionManageComponent } from './manage/manage.component';
+import { ListComponent } from './list/list.component';
+import { ManageComponent } from './manage/manage.component';
 
 const routes: Routes = [
   {
     path: 'list',
-    component: RolePermissionListComponent
+    component: ListComponent
   },
   {
     path: 'create',
-    component: RolePermissionManageComponent
+    component: ManageComponent
   },
   {
     path: 'update/:id',
-    component: RolePermissionManageComponent
+    component: ManageComponent
   },
   {
     path: 'view/:id',
-    component: RolePermissionManageComponent
+    component: ManageComponent
   }
 ];
 

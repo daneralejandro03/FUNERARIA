@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
   templateUrl: './manage.component.html',
   styleUrls: ['./manage.component.scss']
 })
-export class RolePermissionManageComponent implements OnInit {
+export class ManageComponent implements OnInit {
   mode: number; // 1 -> View, 2 -> Create, 3 -> Update
   rolePermission: RolePermission;
   roles: Role[];

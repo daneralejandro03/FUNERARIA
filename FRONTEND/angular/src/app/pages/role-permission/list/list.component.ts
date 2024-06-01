@@ -8,7 +8,7 @@ import { RolePermissionService } from 'src/app/services/role-permission.service'
   styleUrls: ['./list.component.scss']
 })
 
-export class RolePermissionListComponent implements OnInit {
+export class ListComponent implements OnInit {
   rolePermissions: RolePermission[];
 
   constructor(private rolePermissionService: RolePermissionService) {
