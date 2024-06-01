@@ -3,10 +3,11 @@ import { RolePermission } from 'src/app/models/role-permission.model';
 import { RolePermissionService } from 'src/app/services/role-permission.service';
 
 @Component({
-  selector: 'app-role-permission-list',
-  templateUrl: './role-permission-list.component.html',
-  styleUrls: ['./role-permission-list.component.scss']
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss']
 })
+
 export class RolePermissionListComponent implements OnInit {
   rolePermissions: RolePermission[];
 

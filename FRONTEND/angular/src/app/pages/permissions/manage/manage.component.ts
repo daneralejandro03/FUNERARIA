@@ -5,7 +5,7 @@ import { Permission } from 'src/app/models/permission.model';
 import { PermissionService } from 'src/app/services/permission.service';
 
 @Component({
-  selector: 'app-permission-manage',
+  selector: 'app-manage',
   templateUrl: './manage.component.html',
   styleUrls: ['./manage.component.scss']
 })

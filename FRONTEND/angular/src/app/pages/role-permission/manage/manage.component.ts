@@ -10,9 +10,9 @@ import { PermissionService } from 'src/app/services/permission.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-role-permission-manage',
-  templateUrl: './role-permission-manage.component.html',
-  styleUrls: ['./role-permission-manage.component.scss']
+  selector: 'app-manage',
+  templateUrl: './manage.component.html',
+  styleUrls: ['./manage.component.scss']
 })
 export class RolePermissionManageComponent implements OnInit {
   mode: number; // 1 -> View, 2 -> Create, 3 -> Update

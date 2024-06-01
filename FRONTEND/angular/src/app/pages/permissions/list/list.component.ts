@@ -3,10 +3,11 @@ import { Permission } from 'src/app/models/permission.model';
 import { PermissionService } from 'src/app/services/permission.service';
 
 @Component({
-  selector: 'app-permission-list',
+  selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
+
 export class PermissionListComponent implements OnInit {
 
   permissions: Permission[];
