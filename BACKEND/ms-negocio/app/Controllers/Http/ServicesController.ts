@@ -5,10 +5,10 @@ import ServiceValidator from 'App/Validators/ServiceValidator'
 export default class ServicesController {
   //Create
   public async store({ request }: HttpContextContract) {
-    //const body = await request.validate(ServiceValidator)
-    const body = request.body();
-    const theService: Service = await Service.create(body);
-    return theService;
+    const body = await request.validate(ServiceValidator)
+    //const body = request.body();
+    const theService: Service = await Service.create(body)
+    return theService
   }
 
   //Read

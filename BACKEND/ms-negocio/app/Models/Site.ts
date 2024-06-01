@@ -16,6 +16,9 @@ export default class Site extends BaseModel {
   public email: string
 
   @column()
+  public department_id: number
+
+  @column()
   public city_id: number
 
   @hasMany(() => WakeRoom, {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AdonisService;
 use Illuminate\Http\Request;
 use App\Models\Payment;
 use App\Services\EpaycoService;
@@ -13,12 +14,14 @@ class PaymentsController extends Controller
 {
     protected $epaycoService;
     protected $customSession;
+    protected $adonisService;
     protected $test;
 
-    public function __construct(EpaycoService $epaycoService, CustomSession $customSession)
+    public function __construct(EpaycoService $epaycoService, CustomSession $customSession, AdonisService $adonisService)
     {
         $this->epaycoService = $epaycoService;
         $this->customSession = $customSession;
+        $this->adonisService = $adonisService;
         $this->test = 'true';
     }
 
@@ -167,6 +170,13 @@ class PaymentsController extends Controller
         }
         Log::info('Bearer token received after process function: ' . $bearerToken);
 
+        // Verificar la existencia del ID de suscripción en Adonis
+        // Verificar la existencia del ID de suscripción en Adonis
+        if (!$this->adonisService->checkSubscriptionExistence($validated['subscription_id'])) {
+            $this->customSession->deleteToken($bearerToken); // Eliminar el token de sesión antes de retornar
+            return response()->json(['error' => 'El ID de suscripción no existe'], 404);
+        }
+
         // Procesar la transacción
         $response = $this->epaycoService->processCreditCardTransaction($validated);
 
@@ -185,6 +195,8 @@ class PaymentsController extends Controller
         return response()->json($response);
     }
 
+
+    //PAGO POR TARJETA DE CREDITO DIRECTO
     public function directPaymentCreditcard(Request $request)
     {
         // Validar los datos de la solicitud
@@ -223,6 +235,11 @@ class PaymentsController extends Controller
             return response()->json(['error' => $sessionIdResponse['message']], 500);
         }
 
+        // Verificar la existencia del ID de suscripción en Adonis
+        if (!$this->adonisService->checkSubscriptionExistence($validated['subscription_id'])) {
+            $this->customSession->deleteToken($sessionIdResponse); // Eliminar el token de sesión antes de retornar
+            return response()->json(['error' => 'El ID de suscripción no existe'], 404);
+        }
 
         // Proceder con el proceso de pago, pasando el ID de sesión
         $response = $this->epaycoService->processCreditCardTransactionSession($validated, $sessionIdResponse);
@@ -298,6 +315,11 @@ class PaymentsController extends Controller
             return response()->json(['error' => $sessionIdResponse['message']], 500);
         }
 
+        // Verificar la existencia del ID de suscripción en Adonis
+        if (!$this->adonisService->checkSubscriptionExistence($validated['subscription_id'])) {
+            $this->customSession->deleteToken($sessionIdResponse); // Eliminar el token de sesión antes de retornar
+            return response()->json(['error' => 'El ID de suscripción no existe'], 404);
+        }
 
         // Proceder con el proceso de pago, pasando el ID de sesión
         $response = $this->epaycoService->createDaviplataPaymentSession($validated, $sessionIdResponse);
@@ -380,6 +402,12 @@ class PaymentsController extends Controller
         Log::info("OBTENIENDO LA IP DE MI COMPUTADORA: " . $request->ip());
         if (isset($sessionIdResponse['error'])) {
             return response()->json(['error' => $sessionIdResponse['message']], 500);
+        }
+
+        // Verificar la existencia del ID de suscripción en Adonis
+        if (!$this->adonisService->checkSubscriptionExistence($validated['subscription_id'])) {
+            $this->customSession->deleteToken($sessionIdResponse); // Eliminar el token de sesión antes de retornar
+            return response()->json(['error' => 'El ID de suscripción no existe'], 404);
         }
 
         // Realizar el proceso de pago PSE

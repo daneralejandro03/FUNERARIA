@@ -4,7 +4,7 @@ import ReportValidator from 'App/Validators/ReportValidator'
 
 export default class ReportsController {
   public async store({ request }: HttpContextContract) {
-    const body = await request.body()
+    //const body = await request.body()
     const body = await request.validate(ReportValidator)
     const theReport: Report = await Report.create(body)
     return theReport

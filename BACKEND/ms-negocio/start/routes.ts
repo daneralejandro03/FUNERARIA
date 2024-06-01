@@ -44,8 +44,6 @@ import './routes/plan'
 
 import './routes/subscription'
 
-import './routes/pay'
-
 import './routes/notification'
 
 import './routes/transfer'
@@ -71,3 +69,5 @@ import './routes/camera'
 import './routes/incident'
 
 import './routes/report'
+
+import './routes/location'

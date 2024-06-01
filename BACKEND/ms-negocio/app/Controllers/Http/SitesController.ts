@@ -1,13 +1,29 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Site from 'App/Models/Site'
-import SiteValidator from 'App/Validators/SiteValidator';
+import SiteValidator from 'App/Validators/SiteValidator'
+import ApiColombiaService from 'App/service/ApiColombiaService'
 
 export default class SitesController {
   // Create
-  public async store({ request }: HttpContextContract) {
-    const body = await request.validate(SiteValidator);
-    const theSite: Site = await Site.create(body);
-    return theSite;
+  public async store({ request, response }: HttpContextContract) {
+    try {
+      const body = await request.validate(SiteValidator)
+
+      // Verificar que la ciudad exista en el departamento especificado
+      const cityId = body.city_id
+      const departmentId = body.department_id
+      const city = await ApiColombiaService.getCityById(cityId, departmentId)
+      if (!city) {
+        return response
+          .status(400)
+          .json({ error: 'City does not exist in the specified department' })
+      }
+
+      const theSite: Site = await Site.create(body)
+      return theSite
+    } catch (error) {
+      return response.status(500).json({ error: 'Error creating site', message: error.message })
+    }
   }
 
   //Read
@@ -29,14 +45,35 @@ export default class SitesController {
   }
 
   //Update
-  public async update({ params, request }: HttpContextContract) {
-    const theSite: Site = await Site.findOrFail(params.id)
-    const body = request.body()
-    theSite.name = body.name
-    theSite.location = body.location
-    theSite.email = body.email
-    theSite.city_id = body.city_id
-    return await theSite.save()
+  public async update({ params, request, response }: HttpContextContract) {
+    try {
+      const theSite: Site = await Site.findOrFail(params.id)
+      const body = request.body()
+
+      // Verificar que la ciudad exista en el departamento especificado
+      const cityId = body.city_id
+      const departmentId = body.department_id
+      const city = await ApiColombiaService.getCityById(cityId, departmentId)
+      if (!city) {
+        return response
+          .status(400)
+          .json({ error: 'City does not exist in the specified department' })
+      }
+
+      // Actualizar el sitio con los datos proporcionados
+      theSite.merge({
+        name: body.name,
+        location: body.location,
+        email: body.email,
+        department_id: body.department_id,
+        city_id: body.city_id,
+      })
+      await theSite.save()
+
+      return theSite
+    } catch (error) {
+      return response.status(500).json({ error: 'Error updating site', message: error.message })
+    }
   }
 
   //Delete
