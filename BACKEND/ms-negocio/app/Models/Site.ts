@@ -16,6 +16,12 @@ export default class Site extends BaseModel {
   public email: string
 
   @column()
+  public department_name: string
+
+  @column()
+  public city_name: string
+
+  @column()
   public department_id: number
 
   @column()

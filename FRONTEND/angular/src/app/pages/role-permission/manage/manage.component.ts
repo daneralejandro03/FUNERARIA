@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Role } from 'src/app/models/role.model';
-import { Permission } from 'src/app/models/permission.model';
-import { RolePermission } from 'src/app/models/role-permission.model';
-import { RolePermissionService } from 'src/app/services/role-permission.service';
-import { RoleService } from 'src/app/services/role.service';
-import { PermissionService } from 'src/app/services/permission.service';
-import Swal from 'sweetalert2';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Role } from "src/app/models/role.model";
+import { Permission } from "src/app/models/permission.model";
+import { RolePermission } from "src/app/models/role-permission.model";
+import { RolePermissionService } from "src/app/services/role-permission.service";
+import { RoleService } from "src/app/services/role.service";
+import { PermissionService } from "src/app/services/permission.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-manage',
-  templateUrl: './manage.component.html',
-  styleUrls: ['./manage.component.scss']
+  selector: "app-manage",
+  templateUrl: "./manage.component.html",
+  styleUrls: ["./manage.component.scss"],
 })
 export class ManageComponent implements OnInit {
   mode: number; // 1 -> View, 2 -> Create, 3 -> Update
@@ -35,9 +35,9 @@ export class ManageComponent implements OnInit {
     this.trySend = false;
     this.mode = 1;
     this.rolePermission = {
-      _id: '',
-      role: { _id: '', name: '', description: '' },
-      permission: { _id: '', url: '', method: '' }
+      _id: "",
+      role: { _id: "", name: "", description: "" },
+      permission: { _id: "", url: "", method: "" },
     };
     this.configFormGroup();
     this.loadRoles();
@@ -45,7 +45,7 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const currentUrl = this.activateRoute.snapshot.url.join('/');
+    const currentUrl = this.activateRoute.snapshot.url.join("/");
     const id = this.activateRoute.snapshot.params.id;
 
     if (id) {
@@ -53,23 +53,23 @@ export class ManageComponent implements OnInit {
       this.getRolePermission(this.rolePermission._id);
     }
 
-    if (currentUrl.includes('view')) {
+    if (currentUrl.includes("view")) {
       this.mode = 1;
-    } else if (currentUrl.includes('create')) {
+    } else if (currentUrl.includes("create")) {
       this.mode = 2;
-    } else if (currentUrl.includes('update')) {
+    } else if (currentUrl.includes("update")) {
       this.mode = 3;
     }
   }
 
   loadRoles() {
-    this.roleService.list().subscribe(data => {
+    this.roleService.list().subscribe((data) => {
       this.roles = data;
     });
   }
 
   loadPermissions() {
-    this.permissionService.list().subscribe(data => {
+    this.permissionService.list().subscribe((data) => {
       this.permissions = data;
     });
   }
@@ -77,7 +77,7 @@ export class ManageComponent implements OnInit {
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
       role: [null, [Validators.required]],
-      permission: [null, [Validators.required]]
+      permission: [null, [Validators.required]],
     });
   }
 
@@ -86,7 +86,7 @@ export class ManageComponent implements OnInit {
   }
 
   getRolePermission(id: string) {
-    this.rolePermissionService.findByRole(id).subscribe(data => {
+    this.rolePermissionService.findByRole(id).subscribe((data) => {
       this.rolePermission = data[0];
     });
   }
@@ -94,24 +94,50 @@ export class ManageComponent implements OnInit {
   create() {
     if (this.theFormGroup.invalid) {
       this.trySend = true;
-      Swal.fire('Formulario Incompleto', 'Ingrese los datos solicitados', 'error');
+      Swal.fire(
+        "Formulario Incompleto",
+        "Ingrese los datos solicitados",
+        "error"
+      );
       return;
     }
-    this.rolePermissionService.create(this.getTheFormGroup.role.value, this.getTheFormGroup.permission.value).subscribe(data => {
-      Swal.fire('Creación Exitosa', 'Se ha creado una nueva asignación', 'success');
-      this.router.navigate(['role-permission/list']);
-    });
+    this.rolePermissionService
+      .create(
+        this.getTheFormGroup.role.value,
+        this.getTheFormGroup.permission.value
+      )
+      .subscribe((data) => {
+        Swal.fire(
+          "Creación Exitosa",
+          "Se ha creado una nueva asignación",
+          "success"
+        );
+        this.router.navigate(["role-permission/list"]);
+      });
   }
 
   update() {
     if (this.theFormGroup.invalid) {
       this.trySend = true;
-      Swal.fire('Formulario Incompleto', 'Ingrese los datos solicitados', 'error');
+      Swal.fire(
+        "Formulario Incompleto",
+        "Ingrese los datos solicitados",
+        "error"
+      );
       return;
     }
-    this.rolePermissionService.create(this.getTheFormGroup.role.value, this.getTheFormGroup.permission.value).subscribe(data => {
-      Swal.fire('Actualización Exitosa', 'Se ha actualizado la asignación', 'success');
-      this.router.navigate(['role-permission/list']);
-    });
+    this.rolePermissionService
+      .create(
+        this.getTheFormGroup.role.value,
+        this.getTheFormGroup.permission.value
+      )
+      .subscribe((data) => {
+        Swal.fire(
+          "Actualización Exitosa",
+          "Se ha actualizado la asignación",
+          "success"
+        );
+        this.router.navigate(["role-permission/list"]);
+      });
   }
 }

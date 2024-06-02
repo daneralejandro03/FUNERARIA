@@ -5,6 +5,9 @@ export class Site {
   name: string;
   location: string;
   email: string;
+  department_name?: string;
+  city_name?: string;
+  department_id: number;
   city_id: number;
-  WakeRooms: WakeRoom[];
+  WakeRooms?: WakeRoom[];
 }

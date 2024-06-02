@@ -38,6 +38,22 @@ class ApiColombiaService {
       throw new Error(`Error fetching city with ID ${cityId}: ` + error.message)
     }
   }
+
+  public static async getDepartmentAndCityNames(departmentId: number, cityId: number) {
+    try {
+      const [departments, city] = await Promise.all([
+        ApiColombiaService.getDepartments(),
+        ApiColombiaService.getCityById(cityId, departmentId),
+      ])
+
+      const department = departments.find((d: any) => d.id === departmentId)
+      if (!department) throw new Error('Department not found')
+
+      return { departmentName: department.name, cityName: city.name }
+    } catch (error) {
+      throw new Error('Error fetching department or city name: ' + error.message)
+    }
+  }
 }
 
 export default ApiColombiaService
