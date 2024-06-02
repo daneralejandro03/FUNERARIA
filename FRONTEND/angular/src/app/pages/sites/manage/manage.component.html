@@ -1,1 +1,121 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIf="mode == 1" class="mb-0">Visualización</h3>
+                    <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+                    <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <form [formGroup]="theFormGroup">
+                            <div class="row">
+                                <!-- Primera fila -->
+                                <div class="col-4">Id:</div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="site.id" disabled="mode==1">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Segunda fila -->
+                                <div class="col-4">Nombre:</div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="site.name" [disabled]="mode==1"
+                                        formControlName="name">
+                                    <br>
+                                    <div
+                                        *ngIf="theFormGroup.get('name').errors && (theFormGroup.get('name').dirty || theFormGroup.get('name').touched || trySend)">
+                                        <strong *ngIf="theFormGroup.get('name').errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong
+                                            *ngIf="theFormGroup.get('name').errors.minlength || theFormGroup.get('name').errors.maxlength"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Tercera fila -->
+                                <div class="col-4">Ubicación:</div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="site.location"
+                                        [disabled]="mode==1" formControlName="location">
+                                    <br>
+                                    <div
+                                        *ngIf="theFormGroup.get('location').errors && (theFormGroup.get('location').dirty || theFormGroup.get('location').touched || trySend)">
+                                        <strong *ngIf="theFormGroup.get('location').errors.required"
+                                            class="msnError">Requerido</strong>
+                                        <strong
+                                            *ngIf="theFormGroup.get('location').errors.minlength || theFormGroup.get('location').errors.maxlength"
+                                            class="msnError">Invalido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Cuarta fila -->
+                                <div class="col-4">Email:</div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="site.email"
+                                        [disabled]="mode==1" formControlName="email">
+                                    <br>
+                                    <div
+                                        *ngIf="theFormGroup.get('email').errors && (theFormGroup.get('email').dirty || theFormGroup.get('email').touched || trySend)">
+                                        <strong *ngIf="theFormGroup.get('email').errors.required"
+                                            class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Quinta fila -->
+                                <div class="col-4">Departamento:</div>
+                                <div class="col-8">
+                                    <select class="form-control" [(ngModel)]="site.department_id"
+                                        (change)="onDepartmentChange(site.department_id.toString())"
+                                        [disabled]="mode==1" formControlName="department_id">
+                                        <option *ngFor="let department of departments" [value]="department.id">{{
+                                            department.name }}</option>
+                                    </select>
+                                    <br>
+                                    <div
+                                        *ngIf="theFormGroup.get('department_id').errors && (theFormGroup.get('department_id').dirty || theFormGroup.get('department_id').touched || trySend)">
+                                        <strong *ngIf="theFormGroup.get('department_id').errors.required"
+                                            class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Sexta fila -->
+                                <div class="col-4">Ciudad:</div>
+                                <div class="col-8">
+                                    <select class="form-control" [(ngModel)]="site.city_id" [disabled]="mode==1"
+                                        formControlName="city_id">
+                                        <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
+                                    </select>
+                                    <br>
+                                    <div
+                                        *ngIf="theFormGroup.get('city_id').errors && (theFormGroup.get('city_id').dirty || theFormGroup.get('city_id').touched || trySend)">
+                                        <strong *ngIf="theFormGroup.get('city_id').errors.required"
+                                            class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Botones -->
+                                <div class="col-4"></div>
+                                <div class="col-8">
+                                    <button *ngIf="mode==2" class="btn btn-primary btn-block"
+                                        (click)="create()">Crear</button>
+                                    <button *ngIf="mode==3" class="btn btn-primary btn-block"
+                                        (click)="update()">Actualizar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

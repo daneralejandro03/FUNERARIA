@@ -9,9 +9,7 @@ export default class SitesController {
     try {
       const body = await request.validate(SiteValidator)
 
-      // Verificar que la ciudad exista en el departamento especificado
-      const cityId = body.city_id
-      const departmentId = body.department_id
+      const { city_id: cityId, department_id: departmentId } = body
       const city = await ApiColombiaService.getCityById(cityId, departmentId)
       if (!city) {
         return response
@@ -19,14 +17,25 @@ export default class SitesController {
           .json({ error: 'City does not exist in the specified department' })
       }
 
-      const theSite: Site = await Site.create(body)
-      return theSite
+      const { departmentName, cityName } = await ApiColombiaService.getDepartmentAndCityNames(
+        departmentId,
+        cityId
+      )
+
+      const theSite: Site = await Site.create({
+        ...body,
+        department_name: departmentName,
+        city_name: cityName,
+      })
+
+      return response.status(201).json(theSite)
     } catch (error) {
+      console.error(error)
       return response.status(500).json({ error: 'Error creating site', message: error.message })
     }
   }
 
-  //Read
+  // Read
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theSite: Site = await Site.findOrFail(params.id)
@@ -44,15 +53,13 @@ export default class SitesController {
     }
   }
 
-  //Update
+  // Update
   public async update({ params, request, response }: HttpContextContract) {
     try {
       const theSite: Site = await Site.findOrFail(params.id)
       const body = request.body()
 
-      // Verificar que la ciudad exista en el departamento especificado
-      const cityId = body.city_id
-      const departmentId = body.department_id
+      const { city_id: cityId, department_id: departmentId } = body
       const city = await ApiColombiaService.getCityById(cityId, departmentId)
       if (!city) {
         return response
@@ -60,34 +67,35 @@ export default class SitesController {
           .json({ error: 'City does not exist in the specified department' })
       }
 
-      // Actualizar el sitio con los datos proporcionados
+      const { departmentName, cityName } = await ApiColombiaService.getDepartmentAndCityNames(
+        departmentId,
+        cityId
+      )
+
       theSite.merge({
-        name: body.name,
-        location: body.location,
-        email: body.email,
-        department_id: body.department_id,
-        city_id: body.city_id,
+        ...body,
+        department_name: departmentName,
+        city_name: cityName,
       })
       await theSite.save()
 
-      return theSite
+      return response.status(200).json(theSite)
     } catch (error) {
+      console.error(error)
       return response.status(500).json({ error: 'Error updating site', message: error.message })
     }
   }
 
-  //Delete
+  // Delete
   public async delete({ params, response }: HttpContextContract) {
     const theSite: Site = await Site.findOrFail(params.id)
 
     if (theSite.wakeRoom) {
-      response.status(400)
-      return { error: 'No se puede eliminar ya que tiene una sala asociada' }
-    } else {
-      response.status(204)
+      return response.status(400).json({ error: 'Cannot delete as it has an associated wake room' })
     }
 
-    response.status(204)
-    return await theSite.delete()
+    await theSite.delete()
+
+    return response.status(204)
   }
 }

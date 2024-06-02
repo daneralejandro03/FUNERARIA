@@ -10,6 +10,8 @@ export default class SiteValidator {
     email: schema.string([rules.required()]),
     city_id: schema.number([rules.required()]),
     department_id: schema.number([rules.required()]),
+    department_name: schema.string.optional(),
+    city_name: schema.string.optional(),
   })
 
   public messages: CustomMessages = {}

@@ -21,31 +21,30 @@
           <h1>Subscripciones de {{ customer }}</h1>
           <div class="table-responsive">
             <table class="table">
-                <thead>
-                  <tr>
-                    <th class="col-1">ID</th>
-                    <th class="col-3">TIPO</th>
-                    <th class="col-3">ESTADO</th>
-                    <th class="col-5">OPCIONES</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let subscription of subscriptionsAux">
-                    <td>{{ subscription.id }}</td>
-                    <td>{{ subscription.subscription_type }}</td>
-                    <td>{{ subscription.state }}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" (click)="view(subscription.id)">Ver</button>
-                        <button type="button" class="btn btn-warning" (click)="update(subscription.id)">Editar</button>
-                        <button type="button" class="btn btn-danger" (click)="delete(subscription.id)">Eliminar</button>
-                        <button type="button" class="btn btn-info" (click)="listPays(subscription.id)">Pagos</button>
-                    </td>
-                  </tr>
-              </table>
-          </div> 
+              <thead>
+                <tr>
+                  <th class="col-1">ID</th>
+                  <th class="col-3">TIPO</th>
+                  <th class="col-3">ESTADO</th>
+                  <th class="col-5">OPCIONES</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let subscription of subscriptionsAux">
+                  <td>{{ subscription.id }}</td>
+                  <td>{{ subscription.subscription_type }}</td>
+                  <td>{{ subscription.state }}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary" (click)="view(subscription.id)">Ver</button>
+                    <button type="button" class="btn btn-warning" (click)="update(subscription.id)">Editar</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(subscription.id)">Eliminar</button>
+                    <button type="button" class="btn btn-info" (click)="listPays(subscription.id)">Pagos</button>
+                  </td>
+                </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-

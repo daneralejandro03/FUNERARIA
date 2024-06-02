@@ -9,6 +9,8 @@ export default class extends BaseSchema {
       table.string('name').notNullable()
       table.string('location').notNullable()
       table.string('email').notNullable()
+      table.string('department_name').notNullable()
+      table.string('city_name').notNullable()
       table.integer('department_id').notNullable()
       table.integer('city_id').notNullable()
       table.timestamp('created_at', { useTz: true })

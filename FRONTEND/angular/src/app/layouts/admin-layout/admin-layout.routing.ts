@@ -77,26 +77,43 @@ export const AdminLayoutRoutes: Routes = [
   {
     path: "serviceplans",
     loadChildren: () =>
-      import("src/app/pages/serviceplans/serviceplans.module").then((m) => m.ServiceplansModule),
+      import("src/app/pages/serviceplans/serviceplans.module").then(
+        (m) => m.ServiceplansModule
+      ),
   },
   {
     path: "notifications",
     loadChildren: () =>
-      import("src/app/pages/notifications/notifications.module").then((m) => m.NotificationsModule),
+      import("src/app/pages/notifications/notifications.module").then(
+        (m) => m.NotificationsModule
+      ),
   },
   {
     path: "transfers",
     loadChildren: () =>
-      import("src/app/pages/transfers/transfers.module").then((m) => m.TransfersModule),
+      import("src/app/pages/transfers/transfers.module").then(
+        (m) => m.TransfersModule
+      ),
   },
   {
     path: "incidents",
     loadChildren: () =>
-      import("src/app/pages/incidents/incidents.module").then((m) => m.IncidentsModule),
+      import("src/app/pages/incidents/incidents.module").then(
+        (m) => m.IncidentsModule
+      ),
   },
   {
     path: "reports",
     loadChildren: () =>
-      import("src/app/pages/reports/reports.module").then((m) => m.ReportsModule),
-  }
+      import("src/app/pages/reports/reports.module").then(
+        (m) => m.ReportsModule
+      ),
+  },
+  {
+    path: "wakerooms",
+    loadChildren: () =>
+      import("src/app/pages/wake-rooms/wake-rooms.module").then(
+        (m) => m.WakeRoomsModule
+      ),
+  },
 ];
