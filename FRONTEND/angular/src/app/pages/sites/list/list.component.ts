@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { Site } from "src/app/models/site.model";
+import { WakeRoom } from "src/app/models/wake-room.model";
 import { SiteService } from "src/app/services/site.service";
 import Swal from "sweetalert2";
 
@@ -38,6 +39,12 @@ export class ListComponent implements OnInit {
 
   update(id: number) {
     this.router.navigate(["sites/update/" + id]);
+  }
+
+  navigateToWakeRooms(id: number) {
+    this.router.navigate(["wakerooms/list/" + id], {
+      queryParams: { site_id: id },
+    });
   }
 
   delete(id: number): void {
