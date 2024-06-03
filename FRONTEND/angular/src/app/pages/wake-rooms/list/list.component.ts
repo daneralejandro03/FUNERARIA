@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Site } from "src/app/models/site.model";
 import { WakeRoom } from "src/app/models/wake-room.model";
 import { SiteService } from "src/app/services/site.service";
 import { WakeRoomsService } from "src/app/services/wake-rooms.service";
@@ -15,6 +14,7 @@ export class ListComponent implements OnInit {
   wakerooms: WakeRoom[];
   wakeroomsAux: WakeRoom[];
   site: number;
+
   constructor(
     private service: WakeRoomsService,
     private siteService: SiteService,
@@ -28,10 +28,12 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      
-      let service_id = params["site_id"];
-      this.list(service_id);
- 
+      this.site = params["site_id"];
+      if (this.site) {
+        this.list(this.site); // Llama al método list cuando se recibe el site_id
+      } else {
+        console.error("El parámetro site_id es undefined.");
+      }
     });
 
     this.route.queryParams.subscribe((queryParams) => {
@@ -39,20 +41,22 @@ export class ListComponent implements OnInit {
     });
   }
 
-  list(site_id: number) {
-    this.siteService.view(site_id).subscribe(data => {
-      this.site = site_id;
+  list(id: number) {
+    console.log("ID recibido en list():", id);
+    this.siteService.view(id).subscribe((data) => {
       console.log(data);
 
-      this.wakerooms = data["wakerooms"];
+      this.wakerooms = data["wakeRoom"];
       this.wakeroomsAux = [];
 
-      for (let subscription of this.wakerooms) {
-        this.service.view(subscription.id).subscribe((subscriptionData) => {
-          this.wakeroomsAux.push(subscriptionData);
+      for (let wakeroom of this.wakerooms) {
+        this.service.view(wakeroom.id).subscribe((wakeroomData) => {
+          this.wakeroomsAux.push(wakeroomData);
         });
       }
 
+      // Mover la asignación de this.site aquí después de recibir los datos
+      this.site = id;
       console.log(JSON.stringify(this.wakerooms));
     });
   }
@@ -62,12 +66,14 @@ export class ListComponent implements OnInit {
     this.router.navigate(["wakerooms/view/" + id]);
   }
 
-  create(siteId: number) {
-    this.router.navigate(["wakerooms/create/" + siteId]);
+  create(id: number) {
+    this.router.navigate(["wakerooms/create/" + id]);
+    this.list(id); // Actualiza la lista después de navegar a la página de creación
   }
 
   update(id: number) {
     this.router.navigate(["wakerooms/update/" + id]);
+    this.list(this.site); // Actualiza la lista después de navegar a la página de actualización
   }
 
   delete(id: number): void {
@@ -89,7 +95,7 @@ export class ListComponent implements OnInit {
             "El registro se ha sido eliminada correctamente",
             "success"
           );
-          this.ngOnInit();
+          this.ngOnInit(); // Recarga los datos después de eliminar una sala
         });
       }
     });
