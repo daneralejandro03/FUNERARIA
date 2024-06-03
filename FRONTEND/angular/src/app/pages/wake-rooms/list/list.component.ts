@@ -27,8 +27,11 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.site = params["site_id"];
+    this.route.queryParams.subscribe((params) => {
+      
+      let service_id = params["site_id"];
+      this.list(service_id);
+ 
     });
 
     this.route.queryParams.subscribe((queryParams) => {
@@ -36,12 +39,12 @@ export class ListComponent implements OnInit {
     });
   }
 
-  list(customerId: number) {
-    this.siteService.view(customerId).subscribe((data) => {
-      this.site = customerId;
+  list(site_id: number) {
+    this.siteService.view(site_id).subscribe(data => {
+      this.site = site_id;
       console.log(data);
 
-      this.wakerooms = data["subscriptions"];
+      this.wakerooms = data["wakerooms"];
       this.wakeroomsAux = [];
 
       for (let subscription of this.wakerooms) {
