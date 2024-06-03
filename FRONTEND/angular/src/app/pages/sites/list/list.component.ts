@@ -42,10 +42,14 @@ export class ListComponent implements OnInit {
   }
 
   navigateToWakeRooms(id: number) {
-    this.router.navigate(["wakerooms/list/" + id], {
+    console.log("LLEGO HASTA ACA");
+    
+    this.router.navigate(["wakerooms/list/"], {
       queryParams: { site_id: id },
     });
   }
+
+
 
   delete(id: number): void {
     console.log(id);
