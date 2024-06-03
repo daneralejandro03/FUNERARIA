@@ -54,7 +54,7 @@ export class ManageComponent implements OnInit {
       this.mode = 1;
     } else if (currentUrl.includes("create")) {
       this.mode = 2;
-      this.siteId = this.activateRoute.snapshot.params["siteId"];
+      this.siteId = this.activateRoute.snapshot.params["site_id"];
       console.log(`Site ID: ${this.siteId}`);
     } else if (currentUrl.includes("update")) {
       this.mode = 3;
