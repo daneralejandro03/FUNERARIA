@@ -21,9 +21,6 @@ export class CustomerService {
                   this.token = sessionObject.token;
                 }
   }
-
-  private token2 = "eyJhbGciOiJIUzUxMiJ9.eyJyb2xlIjp7Il9pZCI6IjY1ZTA5NGE3OWQ5ZjM1MGJiY2E0OGFkOSIsIm5hbWUiOiJBZG1pbmlzdHJhZG9yIiwiZGVzY3JpcHRpb24iOiJFc3RhIGVzIHVuYSBkZXNjcmlwY2nDs24ifSwiaWRlbnRpZmljYXRpb25DYXJkIjoiMTA1Mzg2OTY0OSIsIm5hbWUiOiJKYWltZSBBbmRyw6lzIENhcmRvbmEiLCJfaWQiOiI2NWY3YTdjYmU3YmQ3YjViYTU4NTQxNzUiLCJlbWFpbCI6ImphY2Q5OUBob3RtYWlsLmNvbSIsInN1YiI6IkphaW1lIEFuZHLDqXMgQ2FyZG9uYSIsImlhdCI6MTcxNjU4OTkwNCwiZXhwIjoxNzE2NTkzNTA0fQ.VsHT-eM-xN6ppSg3HQ7MG-3Gx4DjJUVXU_--_u_ul1IyB2WYc0dh3OjaC8MGhYGuClXvq6rUVztYQ9o_yuvFLA"
-
   
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
@@ -48,7 +45,7 @@ export class CustomerService {
   }
 
   delete(id:number){
-    return this.http.delete<Customer>(`${environment.url_ms_negocio}/customers/${id}`,
+    return this.http.delete<Customer>(`${environment.url_ms_negocio}/customers/${id}`, { headers: this.getHeaders()}
     );
   }
 }
