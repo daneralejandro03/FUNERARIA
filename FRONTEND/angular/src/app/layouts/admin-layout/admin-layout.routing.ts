@@ -116,4 +116,11 @@ export const AdminLayoutRoutes: Routes = [
         (m) => m.WakeRoomsModule
       ),
   },
+  {
+    path: "comments",
+    loadChildren: () =>
+      import("src/app/pages/comments/comments.module").then(
+        (m) => m.CommentsModule
+      ),
+  },
 ];

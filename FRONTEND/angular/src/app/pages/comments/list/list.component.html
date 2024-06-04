@@ -1,0 +1,49 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <div class="row">
+            <div class="col-3">
+              <h3 class="mb-0">Comentarios</h3>
+            </div>
+            <div class="col-6"></div>
+            <div class="col-3">
+              <button type="button" class="btn btn-success" (click)="create(incident_id)">Crear</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <h1>Comentarios de {{ incident_id }}</h1>
+          <div class="table-responsive">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th class="col-1">ID</th>
+                    <th class="col-3">MENSAJE</th>
+                    <th class="col-3">ENVIADO</th>
+                    <th class="col-5">OPCIONES</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let comment of commentsAux">
+                    <td>{{ comment.id }}</td>
+                    <td>{{ comment.message }}</td>
+                    <td>{{ comment.send_date }}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" (click)="view(comment.id)">Ver</button>
+                        <button type="button" class="btn btn-warning" (click)="update(comment.id)">Editar</button>
+                        <button type="button" class="btn btn-danger" (click)="delete(comment.id)">Eliminar</button>
+                    </td>
+                  </tr>
+              </table>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -89,7 +89,7 @@ export default class BeneficiariesController {
             const beneficiaryInfo: BeneficiaryInfo = {
                 id: theData["theBeneficiary"]["id"],
                 identificationCard: theUser["identificationCard"],
-                beneficiary_status: theData["contract_status"],
+                beneficiary_status: theData["theBeneficiary"]["beneficiary_status"],
                 address: theData["address"],
                 phone_number: theData["phone_number"],
                 name: theUser["name"],
@@ -113,7 +113,7 @@ export default class BeneficiariesController {
                         const beneficiarieInfo: BeneficiaryInfo  = {
                             id: beneficiaryActual["id"],
                             identificationCard: userActual["identificationCard"],
-                            beneficiary_status: beneficiaryActual["contract_status"],
+                            beneficiary_status: beneficiaryActual["beneficiary_status"],
                             address: beneficiaryActual.customer.address,
                             phone_number: beneficiaryActual.customer.phone_number,
                             name: userActual["name"],

@@ -97,7 +97,6 @@ export class ManageComponent implements OnInit {
         this.theUser = data;
       })
 
-
       console.log("Owner: " + JSON.stringify(this.theCustomer))
     })    
   }

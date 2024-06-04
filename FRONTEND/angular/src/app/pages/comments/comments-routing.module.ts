@@ -9,7 +9,7 @@ const routes: Routes = [
     component: ListComponent
   },
   {
-    path: "create/:ownerId",
+    path: "create/:incidentId",
     component: ManageComponent
   },
   {
@@ -26,4 +26,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BeneficiariesRoutingModule { }
+export class CommentsRoutingModule { }

@@ -5,6 +5,8 @@ import { BeneficiaryService } from 'src/app/services/beneficiary.service';
 import { OwnerService } from 'src/app/services/owner.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { UserService } from 'src/app/services/user.service';
+import { CustomerService } from 'src/app/services/customer.service';
 
 @Component({
   selector: 'app-list',
@@ -20,7 +22,9 @@ export class ListComponent implements OnInit {
   constructor(private service:BeneficiaryService, 
               private router:Router, 
               private route: ActivatedRoute,
-              private ownerService: OwnerService
+              private ownerService: OwnerService,
+              private customerService: CustomerService,
+              private userService: UserService
             ) {
     this.beneficiaries = [];
    }
@@ -53,8 +57,8 @@ export class ListComponent implements OnInit {
     this.router.navigate(["beneficiaries/view/"+id])
   }
 
-  create(){
-    this.router.navigate(["beneficiaries/create"])
+  create(ownerId:number){
+    this.router.navigate(["beneficiaries/create/"+ownerId])
   }
 
   update(id:number){
@@ -72,17 +76,28 @@ export class ListComponent implements OnInit {
         cancelButtonColor: '#d33',
         confirmButtonText: 'Si, eliminar'
       }).then((result) => {
-      if (result.isConfirmed) {
-        this.service.delete(id).
-        subscribe(data => {
-        Swal.fire(
-          'Eliminado!',
-          'El registro ha sido eliminada correctamente',
-          'success'
-      )
-        this.ngOnInit();
-        });
-      }
+        if (result.isConfirmed) {
+
+          this.service.view(id).subscribe(data=>{
+            let customer_id = data["customer"]["id"];
+            this.customerService.view(customer_id).subscribe(data=>{
+              let user_id = data.user_id;
+  
+              this.service.delete(id).subscribe(data=>{
+                this.customerService.delete(customer_id).subscribe(data=>{
+                  this.userService.delete(user_id).subscribe(data=>{
+                    Swal.fire(
+                      'Eliminado!',
+                      'El registro ha sido eliminada correctamente',
+                      'success'
+                  )
+                    this.ngOnInit();
+                  })
+                })
+              })
+            })
+          }) 
+        }
       })
   }
 

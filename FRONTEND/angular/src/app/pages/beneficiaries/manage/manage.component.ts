@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Beneficiary } from 'src/app/models/beneficiary.model';
+import { Customer } from 'src/app/models/customer.model';
+import { User } from 'src/app/models/user.model';
 import { BeneficiaryService } from 'src/app/services/beneficiary.service';
+import { CustomerService } from 'src/app/services/customer.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -14,11 +18,16 @@ export class ManageComponent implements OnInit {
 
   mode:number; //1->View, 2->Create, 3->Update 
   beneficiary:Beneficiary;
+  customer:Customer;
+  user: User;
   theFormGroup: FormGroup;
   trySend:boolean;
+  owner_id:number;
 
   constructor(private activateRoute: ActivatedRoute,
     private service: BeneficiaryService,
+    private customerService: CustomerService,
+    private userService: UserService,
     private router: Router,
     private theFormBuilder: FormBuilder) { 
     
@@ -26,23 +35,36 @@ export class ManageComponent implements OnInit {
       this.mode = 1;
       this.beneficiary={
         id: 0,
+        beneficiary_status: "",
+        customer_id: null,
+        owner_id: null
+      }
+      this.user = {
+        name: "",
         identificationCard: "",
+        email: "",
+        password: ""
+      }
+      this.customer = {
+        id: 0,
         address: "",
         phone_number: "",
-        name: "",
-        beneficiary_status: "",
-        email: "",
+        user_id: null
       }
-
       this.configFormGroup();
+      this.owner_id = null;
+
 }
 
 configFormGroup(){
   this.theFormGroup = this.theFormBuilder.group({
-//Primer elemento del vector, valor por defecto
-//Lista seran las reglas
-  identificationCard: ['',[Validators.required]],
-  name: ['', [Validators.required, Validators.minLength(3)]]
+      beneficiary_status: ['',[Validators.required]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      identificationCard: ['',[Validators.required]],
+      email: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      phone_number: ['', [Validators.required]]
   });
 }
 
@@ -62,6 +84,7 @@ ngOnInit(): void {
   if(currentUrl.includes('view')){
   this.mode = 1;
   }else if(currentUrl.includes('create')){
+    this.owner_id = this.activateRoute.snapshot.params['ownerId'];
   this.mode = 2;
   }else if(currentUrl.includes('update')){
   this.mode = 3;
@@ -76,7 +99,18 @@ ngOnInit(): void {
 getBeneficiary(id:number){
   this.service.view(id).subscribe(data=>{
     this.beneficiary = data;
-    console.log("Beneficiary: " + JSON.stringify(this.beneficiary))
+
+    let customer_id = data["customer"]["id"];
+    
+    this.customerService.view(customer_id).subscribe(data =>{
+
+      this.customer = data;
+
+      this.userService.view(this.customer.user_id).subscribe(data=>{
+        this.user = data
+      })
+
+    })
   })    
 }
 
@@ -86,10 +120,31 @@ create(){
     Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
     return;
   }
-  this.service.create(this.beneficiary).subscribe(data=>{
-    Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
-    this.router.navigate(["beneficiaries/list"]);
-  });
+
+  this.beneficiary.owner_id = this.owner_id;
+
+  this.userService.create(this.user).subscribe(data=>{
+    if(data){
+      let user_id = data._id;
+      this.customer.user_id = user_id;
+  
+      this.customerService.create(this.customer).subscribe(data=>{
+        if(data){
+
+          this.beneficiary.owner_id = this.owner_id;
+          this.beneficiary.customer_id = data.id;
+    
+          this.service.create(this.beneficiary).subscribe(data=>{
+            Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
+            this.router.navigate(["beneficiaries/list"], { queryParams: { ownerId: this.owner_id } });
+          });
+        }
+      })
+    }
+    
+  })
+
+  
 }
 
 update(){
@@ -98,10 +153,21 @@ update(){
     Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
     return;
   }
-  this.service.update(this.beneficiary).subscribe(data=>{
-    Swal.fire("Actualización Exitosa", "Se ha actualizado un nuevo registro", "success");
-    this.router.navigate(["beneficiaries/list"]);
-  });
+
+  this.userService.update(this.user).subscribe(data=>{
+    if(data){
+      this.customerService.update(this.customer).subscribe(data=>{
+        if(data){
+          this.service.update(this.beneficiary).subscribe(data=>{
+            this.owner_id = data.owner_id;
+            Swal.fire("Actualización Exitosa", "Se ha actualizado un nuevo registro", "success");
+            this.router.navigate(["beneficiaries/list"], { queryParams: { ownerId: this.owner_id } });
+          });
+        }
+      })
+    }
+  })
+  
 }
 
 }

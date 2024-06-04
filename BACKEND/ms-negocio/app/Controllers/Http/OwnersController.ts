@@ -81,7 +81,7 @@ export default class OwnersController {
             phone_number: string;
             name: string;
             email: string;
-            customer?: Customer;
+            customer_id: number;
             beneficiaries?: Beneficiary[];
         }
 
@@ -100,7 +100,7 @@ export default class OwnersController {
                 phone_number: theData["phone_number"],
                 name: theUser["name"],
                 email: theUser["email"],
-                customer: theData["theOwner"].customer,
+                customer_id: theData["theOwner"].customer.id,
                 beneficiaries: theData["theOwner"].beneficiaries
             }
             return ownerInfo;
@@ -126,7 +126,8 @@ export default class OwnersController {
                             address: ownerActual.customer.address,
                             phone_number: ownerActual.customer.phone_number,
                             name: userActual["name"],
-                            email: userActual["email"]
+                            email: userActual["email"],
+                            customer_id: ownerActual.customer.id
                         };
 
                         ownersInfo.push(ownerInfo);       
