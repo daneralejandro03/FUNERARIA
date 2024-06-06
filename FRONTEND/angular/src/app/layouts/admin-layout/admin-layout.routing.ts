@@ -124,4 +124,19 @@ export const AdminLayoutRoutes: Routes = [
         (m) => m.ExecutionservicesModule
       ),
   },
+  {
+    path: "burials",
+    loadChildren: () =>
+      import("src/app/pages/burials/burials.module").then(
+        (m) => m.BurialsModule
+      ),
+  },
+  
+  {
+    path: "cremations",
+    loadChildren: () =>
+      import("src/app/pages/cremations/cremations.module").then(
+        (m) => m.CremationsModule
+      ),
+  },
 ];
