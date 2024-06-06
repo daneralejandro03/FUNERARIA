@@ -18,8 +18,10 @@
               <div class="row">
                 <div class="col-4">Tipo:</div>
                 <div class="col-8">
-                  <input type="text" class="form-control" [(ngModel)]="serviceEntity.type" [disabled]="mode==1" formControlName="type">
-                  <div *ngIf="getTheFormGroup.type.errors && (getTheFormGroup.type.dirty || getTheFormGroup.type.touched || trySend)">
+                  <input type="text" class="form-control" [(ngModel)]="serviceEntity.type" [disabled]="mode==1"
+                    formControlName="type">
+                  <div
+                    *ngIf="getTheFormGroup.type.errors && (getTheFormGroup.type.dirty || getTheFormGroup.type.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.type.errors.required" class="msnError">Requerido</strong>
                   </div>
                 </div>
@@ -27,8 +29,11 @@
               <div class="row">
                 <div class="col-4">Fecha de comienzo:</div>
                 <div class="col-8">
-                  <input type="date" class="form-control" [(ngModel)]="serviceEntity.start_date" [value]="serviceEntity.start_date | date:'yyyy-MM-dd'" [disabled]="mode==1" formControlName="start_date">
-                  <div *ngIf="getTheFormGroup.start_date.errors && (getTheFormGroup.start_date.dirty || getTheFormGroup.start_date.touched || trySend)">
+                  <input type="date" class="form-control" [(ngModel)]="serviceEntity.start_date"
+                    [value]="serviceEntity.start_date | date:'yyyy-MM-dd'" [disabled]="mode==1"
+                    formControlName="start_date">
+                  <div
+                    *ngIf="getTheFormGroup.start_date.errors && (getTheFormGroup.start_date.dirty || getTheFormGroup.start_date.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.name.start_date.required" class="msnError">Requerido</strong>
                   </div>
                 </div>
@@ -36,8 +41,11 @@
               <div class="row">
                 <div class="col-4">Fecha de fin:</div>
                 <div class="col-8">
-                  <input type="date" class="form-control" [(ngModel)]="serviceEntity.end_date" [value]="serviceEntity.end_date | date:'yyyy-MM-dd'" [disabled]="mode==1" formControlName="end_date">
-                  <div *ngIf="getTheFormGroup.end_date.errors && (getTheFormGroup.end_date.dirty || getTheFormGroup.end_date.touched || trySend)">
+                  <input type="date" class="form-control" [(ngModel)]="serviceEntity.end_date"
+                    [value]="serviceEntity.end_date | date:'yyyy-MM-dd'" [disabled]="mode==1"
+                    formControlName="end_date">
+                  <div
+                    *ngIf="getTheFormGroup.end_date.errors && (getTheFormGroup.end_date.dirty || getTheFormGroup.end_date.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.end_date.errors.required" class="msnError">Requerido</strong>
                   </div>
                 </div>
@@ -45,8 +53,10 @@
               <div class="row">
                 <div class="col-4">Origen:</div>
                 <div class="col-8">
-                  <input type="text" class="form-control" [(ngModel)]="transfer.place_origin" [disabled]="mode==1" formControlName="place_origin">
-                  <div *ngIf="getTheFormGroup.place_origin.errors && (getTheFormGroup.place_origin.dirty || getTheFormGroup.place_origin.touched || trySend)">
+                  <input type="text" class="form-control" [(ngModel)]="transfer.place_origin" [disabled]="mode==1"
+                    formControlName="place_origin">
+                  <div
+                    *ngIf="getTheFormGroup.place_origin.errors && (getTheFormGroup.place_origin.dirty || getTheFormGroup.place_origin.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.place_origin.errors.required" class="msnError">Requerido</strong>
                   </div>
                 </div>
@@ -54,45 +64,53 @@
               <div class="row">
                 <div class="col-4">Destino:</div>
                 <div class="col-8">
-                  <input type="text" class="form-control" [(ngModel)]="transfer.destination" [disabled]="mode==1" formControlName="destination">
-                  <div *ngIf="getTheFormGroup.destination.errors && (getTheFormGroup.destination.dirty || getTheFormGroup.destination.touched || trySend)">
+                  <input type="text" class="form-control" [(ngModel)]="transfer.destination" [disabled]="mode==1"
+                    formControlName="destination">
+                  <div
+                    *ngIf="getTheFormGroup.destination.errors && (getTheFormGroup.destination.dirty || getTheFormGroup.destination.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.destination.errors.required" class="msnError">Requerido</strong>
-                    <strong *ngIf="getTheFormGroup.destination.errors.email" class="msnError">Debe ser un email válido</strong>
+                    <strong *ngIf="getTheFormGroup.destination.errors.email" class="msnError">Debe ser un email
+                      válido</strong>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-4">Distancia:</div>
                 <div class="col-8">
-                    <input type="number" class="form-control" [(ngModel)]="transfer.distance" [disabled]="mode==1" formControlName="distance">
-                    <div *ngIf="getTheFormGroup.distance.errors && (getTheFormGroup.distance.dirty || getTheFormGroup.distance.touched || trySend)">
-                      <strong *ngIf="getTheFormGroup.distance.errors.required" class="msnError">Requerido</strong>
-                      <strong *ngIf="getTheFormGroup.distance.errors.minlength" class="msnError">Valor mínimo debe ser 3</strong>
-                    </div>
-                  </div>
-                </div>
-            <div class="row">
-                <div class="col-4">Vehiculo:</div>
-                <div class="col-8">
-                    <input type="text" class="form-control" [(ngModel)]="transfer.type_vehicle" [disabled]="mode==1" formControlName="type_vehicle">
-                    <div *ngIf="getTheFormGroup.type_vehicle.errors && (getTheFormGroup.type_vehicle.dirty || getTheFormGroup.type_vehicle.touched || trySend)">
-                      <strong *ngIf="getTheFormGroup.type_vehicle.errors.required" class="msnError">Requerido</strong>
-                      <strong *ngIf="getTheFormGroup.type_vehicle.errors.minlength" class="msnError">Valor mínimo debe ser 3</strong>
-                    </div>
-                  </div>
-                </div>
-                <div class="row mt-4">
-                  <div class="col">
-                    <button *ngIf="mode != 1" class="btn btn-success btn-block" (click)="mode == 2 ? create() : update()">
-                      {{ mode == 2 ? 'Crear' : 'Actualizar' }}
-                    </button>
+                  <input type="number" class="form-control" [(ngModel)]="transfer.distance" [disabled]="mode==1"
+                    formControlName="distance">
+                  <div
+                    *ngIf="getTheFormGroup.distance.errors && (getTheFormGroup.distance.dirty || getTheFormGroup.distance.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.distance.errors.required" class="msnError">Requerido</strong>
+                    <strong *ngIf="getTheFormGroup.distance.errors.minlength" class="msnError">Valor mínimo debe ser
+                      3</strong>
                   </div>
                 </div>
               </div>
-            </form>
-          </div>
+              <div class="row">
+                <div class="col-4">Vehiculo:</div>
+                <div class="col-8">
+                  <input type="text" class="form-control" [(ngModel)]="transfer.type_vehicle" [disabled]="mode==1"
+                    formControlName="type_vehicle">
+                  <div
+                    *ngIf="getTheFormGroup.type_vehicle.errors && (getTheFormGroup.type_vehicle.dirty || getTheFormGroup.type_vehicle.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.type_vehicle.errors.required" class="msnError">Requerido</strong>
+                    <strong *ngIf="getTheFormGroup.type_vehicle.errors.minlength" class="msnError">Valor mínimo debe ser
+                      3</strong>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-4">
+                <div class="col">
+                  <button *ngIf="mode != 1" class="btn btn-success btn-block" (click)="mode == 2 ? create() : update()">
+                    {{ mode == 2 ? 'Crear' : 'Actualizar' }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

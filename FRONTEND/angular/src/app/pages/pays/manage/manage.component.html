@@ -2,7 +2,7 @@
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
-  <!-- Table -->
+    <!-- Table -->
     <div class="row">
         <div class="col">
             <div class="card shadow">
@@ -12,7 +12,7 @@
                     <h3 *ngIF="mode==1" class="mb-0">Actualizar</h3>
                 </div>
                 <div class="card-body">
-                    <form class="form" [formGroup] = "theFormGroup">
+                    <form class="form" [formGroup]="theFormGroup">
                         <div class="container">
                             <div class="row">
                                 <div class="col-4">
@@ -27,9 +27,13 @@
                                     Dia de pago:
                                 </div>
                                 <div class="col-8">
-                                    <input type="date" class="form-control" [(ngModel)]="pay.pay_day" [value]="pay.pay_day | date:'yyyy-MM-dd'" [disabled]="mode==1" formControlName="pay_day">
-                                    <div *ngIf="getTheFormGroup.pay_day.errors && (getTheFormGroup.pay_day.dirty || getTheFormGroup.pay_day.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.pay_day.errors.required" class="msnError">Requerido</strong>
+                                    <input type="datetime-local" class="form-control" [(ngModel)]="pay.paymentDate"
+                                        [value]="pay.paymentDate | date:'yyyy-MM-dd'" [disabled]="mode==1"
+                                        formControlName="paymentDate">
+                                    <div
+                                        *ngIf="getTheFormGroup.paymentDate.errors && (getTheFormGroup.paymentDate.dirty || getTheFormGroup.paymentDate.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.paymentDate.errors.required"
+                                            class="msnError">Requerido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -38,19 +42,24 @@
                                     Cantidad:
                                 </div>
                                 <div class="col-8">
-                                    <input type="number" class="form-control" [(ngModel)]="pay.amount" [disabled]="mode==1" formControlName="amount">
-                                    <div *ngIf="getTheFormGroup.amount.errors && (getTheFormGroup.amount.dirty || getTheFormGroup.amount.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.amount.errors.required" class="msnError">Requerido</strong>
+                                    <input type="number" class="form-control" [(ngModel)]="pay.amount"
+                                        [disabled]="mode==1" formControlName="amount">
+                                    <div
+                                        *ngIf="getTheFormGroup.amount.errors && (getTheFormGroup.amount.dirty || getTheFormGroup.amount.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.amount.errors.required"
+                                            class="msnError">Requerido</strong>
                                     </div>
                                 </div>
                             </div>
-                        <div class="row">
-                            <div class="col-4"></div>
-                            <div class="col-8">
-                              <button *ngIf="mode==2" class="btn btn-primary btn-block" (click)="create()">Crear</button>
-                              <button *ngIf="mode==3" class="btn btn-primary btn-block" (click)="update()">Actualizar</button>
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <div class="col-8">
+                                    <button *ngIf="mode==2" class="btn btn-primary btn-block"
+                                        (click)="create()">Crear</button>
+                                    <button *ngIf="mode==3" class="btn btn-primary btn-block"
+                                        (click)="update()">Actualizar</button>
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </form>
                 </div>

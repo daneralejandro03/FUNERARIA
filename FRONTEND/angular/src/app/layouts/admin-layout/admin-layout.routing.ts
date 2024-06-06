@@ -5,6 +5,7 @@ import { IconsComponent } from "../../pages/icons/icons.component";
 import { MapsComponent } from "../../pages/maps/maps.component";
 import { UserProfileComponent } from "../../pages/user-profile/user-profile.component";
 import { TablesComponent } from "../../pages/tables/tables.component";
+import * as path from "path";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "dashboard", component: DashboardComponent },
@@ -114,13 +115,6 @@ export const AdminLayoutRoutes: Routes = [
     loadChildren: () =>
       import("src/app/pages/wake-rooms/wake-rooms.module").then(
         (m) => m.WakeRoomsModule
-      ),
-  },
-  {
-    path: "comments",
-    loadChildren: () =>
-      import("src/app/pages/comments/comments.module").then(
-        (m) => m.CommentsModule
       ),
   },
   {

@@ -5,12 +5,20 @@ import { PaysRoutingModule } from './pays-routing.module';
 import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ManageCreditCardComponent } from './manage-credit-card/manage-credit-card.component';
+import { ManageDaviplataComponent } from './manage-daviplata/manage-daviplata.component';
+import { ManagePseComponent } from './manage-pse/manage-pse.component';
+import { PaymentMethodComponent } from './payment-method/payment-method.component';
 
 
 @NgModule({
   declarations: [
     ListComponent,
-    ManageComponent
+    ManageComponent,
+    ManageCreditCardComponent,
+    ManageDaviplataComponent,
+    ManagePseComponent,
+    PaymentMethodComponent
   ],
   imports: [
     CommonModule,

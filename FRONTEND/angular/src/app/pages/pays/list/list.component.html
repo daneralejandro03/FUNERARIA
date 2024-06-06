@@ -21,26 +21,27 @@
           <h1>Pagos de {{ subscription }}</h1>
           <div class="table-responsive"> <!-- Agrega esta línea -->
             <table class="table">
-                <thead>
-                  <tr>
-                    <th class="col-1">ID</th>
-                    <th class="col-3">DIA DE PAGO</th>
-                    <th class="col-3">CANTIDAD</th>
-                    <th class="col-5">OPCIONES</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let pay of paysAux">
-                    <td>{{ pay.id }}</td>
-                    <td>{{ pay.pay_day }}</td>
-                    <td>{{ pay.amount }}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" (click)="view(pay.id)">Ver</button>
-                        <button type="button" class="btn btn-warning" (click)="update(pay.id)">Editar</button>
-                        <button type="button" class="btn btn-danger" (click)="delete(pay.id)">Eliminar</button>
-                    </td>
-                  </tr>
-              </table>
+              <thead>
+                <tr>
+                  <th class="col-1">ID</th>
+                  <th class="col-3">DIA DE PAGO</th>
+                  <th class="col-3">CANTIDAD</th>
+                  <th class="col-5">OPCIONES</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let pay of pays">
+                  <td>{{ pay.id }}</td>
+                  <td>{{ pay.paymentDate }}</td>
+                  <td>{{ pay.amount }}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary" (click)="view(pay.id)">Ver</button>
+                    <button type="button" class="btn btn-warning" (click)="update(pay.id)">Editar</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(pay.id)">Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div> <!-- Agrega esta línea -->
         </div>
       </div>

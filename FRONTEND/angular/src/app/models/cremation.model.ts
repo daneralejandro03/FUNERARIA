@@ -1,7 +1,7 @@
 export class Cremation {
   id?: number;
-  urnType: string;
-  destinyAshes: string;
+  urn_type: string;
+  destiny_ashes: string;
   service_id?: number;
-  hall_id?: number;
+  wake_room_id?: number;
 }
