@@ -48,6 +48,10 @@ export class ListComponent implements OnInit {
     this.router.navigate(["notifications/list/"], { queryParams: { serviceId: id } })
   }
 
+  listExecutionServices(id:number){
+    this.router.navigate(["executionservices/list/"], { queryParams: { serviceId: id } })
+  }
+
   delete(id:number){
     console.log("Eliminando a: " + id);
     Swal.fire({

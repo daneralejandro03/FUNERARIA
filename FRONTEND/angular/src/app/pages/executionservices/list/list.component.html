@@ -1,0 +1,52 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <div class="row">
+            <div class="col-3">
+              <h3 class="mb-0" *ngIf="isIncident">Ejecuciones de {{ incident_id }}</h3>
+              <h3 class="mb-0" *ngIf="isService">Ejecuciones de {{ service_id }}</h3>
+            </div>
+            <div class="col-6"></div>
+            <div class="col-3">
+              <button *ngIf="isIncident" type="button" class="btn btn-success" (click)="createWithIncident(incident_id)">Crear</button>
+              <button *ngIf="isService" type="button" class="btn btn-success" (click)="createWithService(service_id)">Crear</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="col-1">ID</th>
+                  <th class="col-3">ESTADO</th>
+                  <th class="col-3">COSTO</th>
+                  <th class="col-5">OPCIONES</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let executionservice of executionservicesAux">
+                  <td>{{ executionservice.id }}</td>
+                  <td>{{ executionservice.state }}</td>
+                  <td>{{ executionservice.cost }}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary" (click)="view(executionservice.id)">Ver</button>
+                    <button type="button" class="btn btn-warning" (click)="update(executionservice.id)">Editar</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(executionservice.id)">Eliminar</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

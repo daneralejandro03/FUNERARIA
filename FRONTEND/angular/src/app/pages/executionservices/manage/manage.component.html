@@ -1,0 +1,93 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIF="mode==1" class="mb-0">Visualización</h3>
+                    <h3 *ngIF="mode==2" class="mb-0">Crear</h3>
+                    <h3 *ngIF="mode==1" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" [formGroup] = "theFormGroup">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-4">
+                                    Id:
+                                </div>
+                                <div class="col-8">
+                                    {{executionservice.id}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Costo:
+                                </div>
+                                <div class="col-8">
+                                    <input type="number" class="form-control" [(ngModel)]="executionservice.cost" [disabled]="mode==1" formControlName="cost">
+                                    <div *ngIf="getTheFormGroup.cost.errors && (getTheFormGroup.cost.dirty || getTheFormGroup.cost.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.cost.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Duracion:
+                                </div>
+                                <div class="col-8">
+                                    <input type="date" class="form-control" [(ngModel)]="executionservice.duration" [value]="executionservice.duration | date:'yyyy-MM-dd'" [disabled]="mode==1" formControlName="duration">
+                                    <div *ngIf="getTheFormGroup.duration.errors && (getTheFormGroup.duration.dirty || getTheFormGroup.duration.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.duration.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-4">
+                                    Estado:
+                                </div>
+                                <div class="col-8">
+                                    <input type="checkbox" class="form-control" [(ngModel)]="executionservice.state" [disabled]="mode==1" formControlName="state">
+                                    <div *ngIf="getTheFormGroup.state.errors && (getTheFormGroup.state.dirty || getTheFormGroup.state.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.state.errors.required" class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>                                               
+                            <div *ngIf="isService" class="row">
+                                <div class="col-4">
+                                    Siniestro:
+                                </div>
+                                <div class="col-8">
+                                    <label for="plan">Seleccionar siniestro:</label>
+                                    <select class="form-control" id="plan" formControlName="incident_id" [(ngModel)]= "executionservice.incident_id" (change)="selectPlan($event.target.value)">
+                                        <option *ngFor="let incident of incidents"  [value]="incident.id" [selected]="incident.id === executionservice.incident_id">{{ incident.id }}</option>
+                                    </select>
+                                </div>
+                            </div>            
+                            <div *ngIf="isIncident" class="row">
+                                <div class="col-4">
+                                    Servicio:
+                                </div>
+                                <div class="col-8">
+                                    <label for="service">Seleccionar Servicio:</label>
+                                    <select class="form-control" id="service" formControlName="service_id" [(ngModel)]= "executionservice.service_id" (change)="selectService($event.target.value)">
+                                        <option *ngFor="let service of services" [value]="service.id" [selected]="service.id === executionservice.service_id">{{ service.type }}</option>
+                                    </select>
+                                </div>
+                            </div>                            
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-8">
+                              <button *ngIf="mode==2" class="btn btn-primary btn-block" (click)="create()">Crear</button>
+                              <button *ngIf="mode==3" class="btn btn-primary btn-block" (click)="update()">Actualizar</button>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

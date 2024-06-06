@@ -13,7 +13,7 @@
             </div>
             <div class="col-6"></div>
             <div class="col-3">
-              <button type="button" class="btn btn-success" (click)="create()">Crear</button>
+              <!--<button type="button" class="btn btn-success" (click)="create()">Crear</button>-->
             </div>
           </div>
         </div>
@@ -39,6 +39,7 @@
                       <button type="button" class="btn btn-danger" (click)="delete(service.id)">Eliminar</button>
                       <button type="button" class="btn btn-info" (click)="listServicesPlans(service.id)">Servicios Planes</button>
                       <button type="button" class="btn btn-secondary" (click)="listNotifications(service.id)">Notificaciones</button>
+                      <button type="button" class="btn btn-secondary" (click)="listExecutionServices(service.id)">Ejecuciones</button>
                   </td>
                 </tr>
             </table>

@@ -14,7 +14,8 @@ export default class IncidentsController {
         if (params.id) {
           let theIncident: Incident = await Incident.findOrFail(params.id);
           await theIncident.load('reports'); 
-          await theIncident.load('comments')
+          await theIncident.load('comments');
+          await theIncident.load('execution_services');
           return theIncident;
         } else {
           const data = request.all()

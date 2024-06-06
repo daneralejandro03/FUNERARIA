@@ -123,4 +123,11 @@ export const AdminLayoutRoutes: Routes = [
         (m) => m.CommentsModule
       ),
   },
+  {
+    path: "executionservices",
+    loadChildren: () =>
+      import("src/app/pages/executionservices/executionservices.module").then(
+        (m) => m.ExecutionservicesModule
+      ),
+  },
 ];

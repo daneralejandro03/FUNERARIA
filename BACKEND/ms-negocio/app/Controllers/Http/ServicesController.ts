@@ -15,11 +15,12 @@ export default class ServicesController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theService: Service = await Service.findOrFail(params.id)
-      await theService.load('burial')
-      await theService.load('cremation')
-      await theService.load('notifications')
-      await theService.load('transfer')
-      await theService.load('servicesplan')
+      await theService.load('burial');
+      await theService.load('cremation');
+      await theService.load('notifications');
+      await theService.load('transfer');
+      await theService.load('servicesplan');
+      await theService.load('execution_services');
       return theService
     } else {
       const data = request.all()
