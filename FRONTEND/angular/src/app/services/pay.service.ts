@@ -1,43 +1,59 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { SecurityService } from './security.service';
-import { environment } from 'src/environments/environment';
-import { Pay } from '../models/pay.model';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
+import { Pay } from "../models/pay.model";
 
 @Injectable({
-  providedIn: 'root' 
+  providedIn: "root",
 })
 export class PayService {
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient,
-    private theSecutityService: SecurityService
-) { console.log(this.theSecutityService.getSessionData());}
+  // Obtener todos los pagos
+  list(): Observable<Pay[]> {
+    return this.http.get<Pay[]>(`${environment.url_ms_pago}/index`);
+  }
 
-private token = this.theSecutityService.getSessionData();
+  // Obtener un pago por ID
+  view(id: number): Observable<Pay> {
+    return this.http.get<Pay>(`${environment.url_ms_pago}/show/${id}`);
+  }
 
-private headers = new HttpHeaders({
-'Authorization': 'Bearer ' + this.token
-});
+  // Actualizar un pago por ID
+  update(theService: Pay): Observable<Pay> {
+    return this.http.put<Pay>(
+      `${environment.url_ms_pago}/update/${theService.id}`,
+      theService
+    );
+  }
 
-list(): Observable<Pay[]> {
-return this.http.get<Pay[]>(`${environment.url_ms_negocio}/pays`, { headers: this.headers });
-}
-view(id:number):Observable<Pay>{
-return this.http.get<Pay>(`${environment.url_ms_negocio}/pays/${id}`, { headers: this.headers },
-);
-}
-create(thePay:Pay):Observable<Pay>{
-return this.http.post<Pay>(`${environment.url_ms_negocio}/pays/`, thePay,
-);
-}
-update(thePay:Pay):Observable<Pay>{
-return this.http.put<Pay>(`${environment.url_ms_negocio}/pays/${thePay.id}`, thePay,
-);
-}
+  // Eliminar un pago por ID
+  delete(id: number): Observable<Pay> {
+    return this.http.delete<Pay>(`${environment.url_ms_pago}/destroy/${id}`);
+  }
 
-delete(id:number){
-return this.http.delete<Pay>(`${environment.url_ms_negocio}/pays/${id}`,
-);
-}
+  // Pago por tarjeta de crédito
+  directPaymentCreditcard(theService: Pay): Observable<Pay> {
+    return this.http.post<Pay>(
+      `${environment.url_ms_pago}/directPaymentCreditcard`,
+      theService
+    );
+  }
+
+  // Pago por Daviplata
+  directPaymentDaviplata(theService: Pay): Observable<Pay> {
+    return this.http.post<Pay>(
+      `${environment.url_ms_pago}/directPaymentDaviplata`,
+      theService
+    );
+  }
+
+  // Pago por PSE
+  directPaymentPSE(theService: Pay): Observable<Pay> {
+    return this.http.post<Pay>(
+      `${environment.url_ms_pago}/directPaymentPSE`,
+      theService
+    );
+  }
 }

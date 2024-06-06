@@ -29,4 +29,17 @@ Route::prefix('payments')->group(function () {
 
     //PETICIÓN 3: PAGO POR PSE
     Route::post('directPaymentPSE', [PaymentsController::class, 'directPaymentPSE']);
+
+    //PETICIÓN 4: LISTAR TODOS LOS PAGOS
+    Route::get('index', [PaymentsController::class, 'index']);
+
+    //PETICIÓN 5: LISTAR UN PAGO POR ID
+    Route::get('show/{id}', [PaymentsController::class, 'show']);
+
+    //PETICIÓN 6: ACTUALIZAR UN PAGO POR ID
+    Route::put('update/{id}', [PaymentsController::class, 'update']);
+
+    //PETICIÓN 7: ELIMINAR UN PAGO POR ID
+    Route::delete('destroy/{id}', [PaymentsController::class, 'destroy']);
+
 });

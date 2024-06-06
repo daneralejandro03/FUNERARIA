@@ -76,6 +76,22 @@ export class ListComponent implements OnInit {
     this.list(this.site); // Actualiza la lista después de navegar a la página de actualización
   }
 
+  navigateToCremations(id: number) {
+    console.log("LLEGO HASTA ACA");
+
+    this.router.navigate(["cremations/list/"], {
+      queryParams: { wake_room_id: id },
+    });
+  }
+
+  navigateToBurials(id: number) {
+    console.log("LLEGO HASTA ACA");
+
+    this.router.navigate(["burials/list/"], {
+      queryParams: { wake_room_id: id },
+    });
+  }
+
   delete(id: number): void {
     console.log(id);
     Swal.fire({

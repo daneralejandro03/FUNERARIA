@@ -7,15 +7,15 @@ export default class ServicesController {
   public async store({ request }: HttpContextContract) {
     const body = await request.validate(ServiceValidator)
     //const body = request.body();
-    const theService: Service = await Service.create(body);
-    return theService;
+    const theService: Service = await Service.create(body)
+    return theService
   }
 
   //Read
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theService: Service = await Service.findOrFail(params.id)
-      await theService.load('burial')
+      await theService.load('burials')
       await theService.load('cremation')
       await theService.load('notifications')
       await theService.load('transfer')
@@ -49,7 +49,7 @@ export default class ServicesController {
     const theService: Service = await Service.findOrFail(params.id)
 
     if (
-      theService.burial ||
+      theService.burials ||
       theService.cremation ||
       theService.notifications ||
       theService.transfer ||

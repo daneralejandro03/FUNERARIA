@@ -1,6 +1,6 @@
 export class Pay {
-    id: number;
-    pay_day: Date;
-    amount: number;
-    subscription_id: number;
+  id: number;
+  paymentDate: Date;
+  amount: number;
+  subscription_id: number;
 }

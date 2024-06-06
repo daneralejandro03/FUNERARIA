@@ -9,7 +9,7 @@ import Burial from './Burial'
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
   public id: number
-  
+
   @column()
   public type: string
 
@@ -48,5 +48,5 @@ export default class Service extends BaseModel {
   @hasMany(() => Burial, {
     foreignKey: 'service_id',
   })
-  public burial: HasMany<typeof Burial>
+  public burials: HasMany<typeof Burial>
 }

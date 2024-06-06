@@ -433,4 +433,46 @@ class PaymentsController extends Controller
 
         return response()->json($response);
     }
+
+    // LISTAR TODOS LOS PAGOS
+    public function index()
+    {
+        $payments = Payment::all();
+        return response()->json($payments, 200);
+    }
+
+    // OBTENER UN PAGO POR ID
+
+    public function show($id)
+    {
+        $the_Payment = Payment::find($id);
+        if (is_null($the_Payment)) {
+            return response()->json(['message' => 'Payment not found'], 404);
+        } else {
+            return response()->json($the_Payment, 200);
+        }
+    }
+
+    // ACTUALIZAR UN PAGO POR ID
+
+    public function update(Request $request, $id)
+    {
+        $the_Payment = Payment::find($id);
+        if (is_null($the_Payment)) {
+            return response()->json(['message' => 'Payment not found'], 404);
+        }
+        $the_Payment->update($request->all());
+        return response($the_Payment, 200);
+    }
+
+    // ELIMINAR UN PAGO POR ID
+    public function destroy($id)
+    {
+        $the_Payment = Payment::find($id);
+        if (is_null($the_Payment)) {
+            return response()->json(['message' => 'Payment not found'], 404);
+        }
+        $the_Payment->delete();
+        return response()->json(null, 204);
+    }
 }

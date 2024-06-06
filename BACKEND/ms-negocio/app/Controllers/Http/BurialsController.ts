@@ -1,6 +1,6 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
-import Burial from 'App/Models/Burial';
-import BurialValidator from 'App/Validators/BurialValidator';
+import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Burial from 'App/Models/Burial'
+import BurialValidator from 'App/Validators/BurialValidator'
 
 export default class BurialsController {
   //Create

@@ -1,1 +1,59 @@
-<p>list works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <div class="row">
+                        <div class="col-3">
+                            <h3 class="mb-0">Cremaciones del {{wakeroom}}</h3>
+                        </div>
+                        <div class="col-9 text-right"> <!-- Ajuste aquí -->
+                            <button type="button" class="btn btn-success" (click)="create(wakeroom)">Crear</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-3">
+
+                    </div>
+                    <div class="col-6"></div>
+                    <div class="col-3">
+                        <!-- <button type="button" class="btn btn-success" (click)="*create()">Crear</button> -->
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- <h1>Pagos de {{ subscription }}</h1> -->
+                <div class="table-responsive"> <!-- Agrega esta línea -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="col-1">ID</th>
+                                <th class="col-3">TIPO DE URNA</th>
+                                <th class="col-3">DESTINO DE CENIZAS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cremation of cremations">
+                                <td>{{ cremation.id }}</td>
+                                <td>{{ cremation.urn_type }}</td>
+                                <td>{{ cremation.destiny_ashes }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary"
+                                        (click)="view(cremation.id)">Ver</button>
+                                    <button type="button" class="btn btn-warning"
+                                        (click)="update(cremation.id)">Editar</button>
+                                    <button type="button" class="btn btn-danger"
+                                        (click)="delete(cremation.id)">Eliminar</button>
+                                </td>
+                            </tr>
+                    </table>
+                </div> <!-- Agrega esta línea -->
+            </div>
+        </div>
+    </div>
+</div>
