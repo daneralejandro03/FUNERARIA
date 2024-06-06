@@ -5,6 +5,7 @@ import Cremation from './Cremation'
 import Notification from './Notification'
 import Transfer from './Transfer'
 import Burial from './Burial'
+import ExecutionService from './ExecutionService'
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
@@ -49,4 +50,9 @@ export default class Service extends BaseModel {
     foreignKey: 'service_id',
   })
   public burials: HasMany<typeof Burial>
+
+  @hasMany(() => ExecutionService, {
+    foreignKey: 'service_id',
+  })
+  public execution_services: HasMany<typeof ExecutionService>
 }

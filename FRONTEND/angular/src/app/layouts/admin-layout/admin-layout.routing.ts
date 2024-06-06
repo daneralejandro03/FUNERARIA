@@ -117,12 +117,11 @@ export const AdminLayoutRoutes: Routes = [
         (m) => m.WakeRoomsModule
       ),
   },
-
   {
-    path: "payment-methods",
+    path: "executionservices",
     loadChildren: () =>
-      import("src/app/pages/pays/payment-method/payment-method.component").then(
-        (m) => m.PaymentMethodComponent
+      import("src/app/pages/executionservices/executionservices.module").then(
+        (m) => m.ExecutionservicesModule
       ),
   },
 ];
