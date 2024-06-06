@@ -37,7 +37,8 @@
                   <td>{{ serviceplan.date_hiring }}</td>
                   <td>
                     <button type="button" class="btn btn-primary" (click)="view(serviceplan.id)">Ver</button>
-                    <button type="button" class="btn btn-warning" (click)="update(serviceplan.id)">Editar</button>
+                    <button *ngIf="isPlan" type="button" class="btn btn-warning" (click)="updateWithPlan(serviceplan.id, plan_id)">Editar</button>
+                    <button *ngIf="isService" type="button" class="btn btn-warning" (click)="updateWithService(serviceplan.id, service_id)">Editar</button>
                     <button type="button" class="btn btn-danger" (click)="delete(serviceplan.id)">Eliminar</button>
                   </td>
                 </tr>

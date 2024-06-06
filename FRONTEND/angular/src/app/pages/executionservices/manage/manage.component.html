@@ -61,7 +61,7 @@
                                 </div>
                                 <div class="col-8">
                                     <label for="plan">Seleccionar siniestro:</label>
-                                    <select class="form-control" id="plan" formControlName="incident_id" [(ngModel)]= "executionservice.incident_id" (change)="selectPlan($event.target.value)">
+                                    <select class="form-control" id="plan" formControlName="incident_id" [(ngModel)]= "executionservice.incident_id" (change)="selectIncident($event.target.value)">
                                         <option *ngFor="let incident of incidents"  [value]="incident.id" [selected]="incident.id === executionservice.incident_id">{{ incident.id }}</option>
                                     </select>
                                 </div>

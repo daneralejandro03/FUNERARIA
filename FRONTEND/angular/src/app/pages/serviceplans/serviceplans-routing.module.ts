@@ -9,11 +9,11 @@ const routes: Routes = [
     component: ListComponent
   },
   {
-    path: "create/:planId",
+    path: "create/plan/:planId",
     component: ManageComponent
   },
   {
-    path: "create/:serviceId",
+    path: "create/service/:serviceId",
     component: ManageComponent
   },
   {

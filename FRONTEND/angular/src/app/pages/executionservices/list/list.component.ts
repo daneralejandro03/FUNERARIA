@@ -96,18 +96,13 @@ export class ListComponent implements OnInit {
     this.router.navigate(["executionservices/create/service/"+service_id])
   }
 
-  update(id: number) {
-    this.router.navigate(["executionservices/update/"+id]);
+  updateWithIncident(id: number, incident_id: number) {
+    this.router.navigate(["executionservices/update/"+id], { queryParams: { incidentId: incident_id } } );
   }
-  
-  viewWithIncident(id: number, incidentId: number) {
-    this.router.navigate([`executionservices/view/${id}/incident/${incidentId}`]);
-  }
-  
-  viewWithService(id: number, serviceId: number) {
-    this.router.navigate([`executionservices/view/${id}/service/${serviceId}`]);
-  }
-  
+
+  updateWithService(id: number, service_id: number) {
+    this.router.navigate(["executionservices/update/"+id], { queryParams: { serviceId: service_id } } );
+  }  
 
   delete(id:number){
     console.log("Eliminando a: " + id);
