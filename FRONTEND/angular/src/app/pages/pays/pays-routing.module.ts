@@ -29,15 +29,15 @@ const routes: Routes = [
     component: PaymentMethodComponent,
   },
   {
-    path: "manage-credit-card",
+    path: "manage-credit-card/:id",
     component: ManageCreditCardComponent,
   },
   {
-    path: "manage-daviplata",
+    path: "manage-daviplata/:id",
     component: ManageDaviplataComponent,
   },
   {
-    path: "manage-pse",
+    path: "manage-pse/:id",
     component: ManagePseComponent,
   },
 ];

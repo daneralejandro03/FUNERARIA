@@ -1,1 +1,176 @@
-<p>manage-credit-card works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Card -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-secondary shadow border-0">
+                <div class="card-header bg-transparent">
+                    <div class="text-center mt-2">
+                        <h3 class="mb-0">Tarjeta de Crédito subscriptor {{ subscription_id }}</h3>
+                    </div>
+                </div>
+                <div class="card-body px-lg-5 py-lg-5">
+                    <form [formGroup]="theFormGroup">
+                        <input type="hidden" formControlName="subscription_id">
+                        <div class="form-group">
+                            <label class="form-control-label" for="subscription_id">ID de Suscripción</label>
+                            <input type="text" id="subscription_id" class="form-control"
+                                formControlName="subscription_id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="value">Cantidad</label>
+                            <input type="text" id="value" class="form-control" formControlName="value">
+                            <div
+                                *ngIf="getTheFormGroup.value.errors && (getTheFormGroup.value.dirty || getTheFormGroup.value.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.value.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="docType">Tipo de Documento</label>
+                            <select id="docType" class="form-control" formControlName="docType">
+                                <option value="CC">Cédula de Ciudadanía</option>
+                                <option value="NIT">NIT</option>
+                            </select>
+                            <div
+                                *ngIf="getTheFormGroup.docType.errors && (getTheFormGroup.docType.dirty || getTheFormGroup.docType.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.docType.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-control-label" for="docNumber">Número de Documento</label>
+                            <input type="text" id="docNumber" class="form-control" formControlName="docNumber">
+                            <div
+                                *ngIf="getTheFormGroup.docNumber.errors && (getTheFormGroup.docNumber.dirty || getTheFormGroup.docNumber.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.docNumber.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="name">Nombre Completo</label>
+                            <input type="text" id="name" class="form-control" formControlName="name">
+                            <div
+                                *ngIf="getTheFormGroup.name.errors && (getTheFormGroup.name.dirty || getTheFormGroup.name.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.name.errors.required" class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="lastName">Apellido Completo</label>
+                            <input type="text" id="lastName" class="form-control" formControlName="lastName">
+                            <div
+                                *ngIf="getTheFormGroup.lastName.errors && (getTheFormGroup.lastName.dirty || getTheFormGroup.lastName.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.lastName.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="email">Correo Electronico</label>
+                            <input type="text" id="email" class="form-control" formControlName="email">
+                            <div
+                                *ngIf="getTheFormGroup.email.errors && (getTheFormGroup.email.dirty || getTheFormGroup.email.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.email.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="cellPhone">Numero de Celular</label>
+                            <input type="text" id="cellPhone" class="form-control" formControlName="cellPhone">
+                            <div
+                                *ngIf="getTheFormGroup.cellPhone.errors && (getTheFormGroup.cellPhone.dirty || getTheFormGroup.cellPhone.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.cellPhone.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="phone">Telefono</label>
+                            <input type="text" id="phone" class="form-control" formControlName="phone">
+                            <div
+                                *ngIf="getTheFormGroup.phone.errors && (getTheFormGroup.phone.dirty || getTheFormGroup.phone.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.phone.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="cardNumber">Numero de Tarjeta</label>
+                            <input type="text" id="cardNumber" class="form-control" formControlName="cardNumber">
+                            <div
+                                *ngIf="getTheFormGroup.cardNumber.errors && (getTheFormGroup.cardNumber.dirty || getTheFormGroup.cardNumber.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.cardNumber.errors.required"
+                                    class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.cardNumber.errors.pattern" class="msnError">Solo
+                                    números</strong>
+                                <strong
+                                    *ngIf="getTheFormGroup.cardNumber.errors.minlength || getTheFormGroup.cardNumber.errors.maxlength"
+                                    class="msnError">Mínimo 16 caracteres</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="cardExpYear">Año de Expiración</label>
+                            <select id="cardExpYear" class="form-control" formControlName="cardExpYear">
+                                <option value="" disabled selected>Seleccione el año</option>
+                                <option *ngFor="let year of years" [value]="year">{{ year }}</option>
+                            </select>
+                            <div
+                                *ngIf="getTheFormGroup.cardExpYear.errors && (getTheFormGroup.cardExpYear.dirty || getTheFormGroup.cardExpYear.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.cardExpYear.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="cardExpMonth">Mes de Expiración</label>
+                            <select id="cardExpMonth" class="form-control" formControlName="cardExpMonth">
+                                <option value="" disabled selected>Seleccione el mes</option>
+                                <option *ngFor="let month of months" [value]="month.value">{{ month.name }}</option>
+                            </select>
+                            <div
+                                *ngIf="getTheFormGroup.cardExpMonth.errors && (getTheFormGroup.cardExpMonth.dirty || getTheFormGroup.cardExpMonth.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.cardExpMonth.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="cardCvc">CVC</label>
+                            <input type="text" id="cardCvc" class="form-control" formControlName="cardCvc">
+                            <div
+                                *ngIf="getTheFormGroup.cardCvc.errors && (getTheFormGroup.cardCvc.dirty || getTheFormGroup.cardCvc.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.cardCvc.errors.required"
+                                    class="msnError">Requerido</strong>
+                                <strong *ngIf="getTheFormGroup.cardCvc.errors.pattern" class="msnError">Solo
+                                    números</strong>
+                                <strong
+                                    *ngIf="getTheFormGroup.cardCvc.errors.minlength || getTheFormGroup.cardCvc.errors.maxlength"
+                                    class="msnError">Debe tener entre 3 y 4 caracteres</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="dues">Cuotas</label>
+                            <input type="text" id="dues" class="form-control" formControlName="dues">
+                            <div
+                                *ngIf="getTheFormGroup.dues.errors && (getTheFormGroup.dues.dirty || getTheFormGroup.dues.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.dues.errors.required" class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary mt-4" (click)="create()">Realizar Pago</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

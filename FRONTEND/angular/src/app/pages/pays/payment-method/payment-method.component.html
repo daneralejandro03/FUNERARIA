@@ -1,5 +1,28 @@
-<div class="payment-method-options">
-    <button (click)="selectMethod('Tarjeta de Crédito')" class="btn btn-primary">Tarjeta de Crédito</button>
-    <button (click)="selectMethod('Daviplata')" class="btn btn-primary">Daviplata</button>
-    <button (click)="selectMethod('PSE')" class="btn btn-primary">PSE</button>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card border-danger mb-3"> <!-- Agregado el cuadro blanco con borde rojizo -->
+                <div class="card-body">
+                    <div class="payment-method-options text-center my-4">
+                        <button (click)="selectMethod('Tarjeta de Crédito')" class="btn btn-outline-danger btn-lg m-2">
+                            <!-- Modificado el color del borde de los botones -->
+                            <i class="fas fa-credit-card"></i> Tarjeta de Crédito
+                        </button>
+                        <button (click)="selectMethod('Daviplata')" class="btn btn-outline-danger btn-lg m-2">
+                            <!-- Modificado el color del borde de los botones -->
+                            <i class="fas fa-wallet"></i> Daviplata
+                        </button>
+                        <button (click)="selectMethod('PSE')" class="btn btn-outline-danger btn-lg m-2">
+                            <!-- Modificado el color del borde de los botones -->
+                            <i class="fas fa-university"></i> PSE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

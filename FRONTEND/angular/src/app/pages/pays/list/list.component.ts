@@ -70,9 +70,8 @@ export class ListComponent implements OnInit {
 
   create(id: number) {
     console.log("Creando a: " + id);
-    this.router.navigate(["paymentmethod/" + id]);
+    this.router.navigate(["pays/paymentmethod", id]); // Asegúrate de que la ruta es correcta
     console.log("Navegando a: " + id);
-    this.list(id); // Actualiza la lista después de navegar a la página de creación
   }
 
   update(id: number) {
