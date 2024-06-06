@@ -67,6 +67,7 @@ export class ManageComponent implements OnInit {
   
     if(currentUrl.includes('view')){
       this.mode = 1;
+
     } else if(currentUrl.includes('create')){
       this.mode = 2;
       if (this.activateRoute.snapshot.params['incidentId']) {
@@ -81,7 +82,19 @@ export class ManageComponent implements OnInit {
         this.getIncidents();
       }
     } else if(currentUrl.includes('update')){
+      
       this.mode = 3;
+      if (this.activateRoute.snapshot.queryParams['incidentId']) {
+        this.incident_id = this.activateRoute.snapshot.queryParams['incidentId'];
+        this.isIncident = true;
+        this.isService = false;
+        this.getServices();
+      } else if (this.activateRoute.snapshot.queryParams['serviceId']) {
+        this.service_id = this.activateRoute.snapshot.queryParams['serviceId'];
+        this.isService = true;
+        this.isIncident = false;
+        this.getIncidents();
+      }
     }
   
     if(this.activateRoute.snapshot.params.id){
@@ -89,7 +102,6 @@ export class ManageComponent implements OnInit {
       this.getExecutionService(this.executionservice.id);
     }
   }
-  
 
   getExecutionService(id: number) {
     this.service.view(id).subscribe(data => {
@@ -103,14 +115,16 @@ export class ManageComponent implements OnInit {
         service_id: this.executionservice.service_id
     });
 
-    if (this.executionservice.incident_id) {
-      this.isIncident = true;
-      this.isService = false;
-      this.getServices();
-    } else if (this.executionservice.service_id) {
-      this.isService = true;
-      this.isIncident = false;
-      this.getIncidents();
+    if (this.mode == 1) {
+      if (this.executionservice.incident_id) {
+        this.isIncident = true;
+        this.isService = false;
+        this.getServices();
+      } else if (this.executionservice.service_id) {
+        this.isService = true;
+        this.isIncident = false;
+        this.getIncidents();
+      }
     }
 
       this.incident_id = this.executionservice.incident_id;
@@ -154,7 +168,7 @@ export class ManageComponent implements OnInit {
   }
 
   update() {
-    if (this.incident_id) {
+    if (this.isIncident) {
       this.executionservice.incident_id = this.incident_id;
       if (this.theFormGroup.invalid) {
         this.trySend = true;
@@ -170,7 +184,7 @@ export class ManageComponent implements OnInit {
       });
 
     } 
-    else if (this.service_id) {
+    else if (this.isService) {
       this.executionservice.service_id = this.service_id;
       if (this.theFormGroup.invalid) {
         this.trySend = true;
@@ -179,7 +193,7 @@ export class ManageComponent implements OnInit {
       }
 
       this.executionservice.service_id = this.service_id;
-  
+
       this.service.update(this.executionservice).subscribe(data => {
         Swal.fire("Actualización Exitosa", "Se ha creado un nuevo registro", "success");
         this.router.navigate(["executionservices/list"], { queryParams: this.incident_id ? { incidentId: this.incident_id } : { serviceId: this.service_id } });

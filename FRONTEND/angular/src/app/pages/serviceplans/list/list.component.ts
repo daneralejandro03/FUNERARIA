@@ -86,19 +86,21 @@ export class ListComponent implements OnInit {
     this.router.navigate(["serviceplans/view/"+id])
   }
 
-  createWithPlan(plan_id){
-
-    this.router.navigate(["serviceplans/create/"+plan_id])
+  createWithPlan(plan_id:number){
+    this.router.navigate(["serviceplans/create/plan/"+plan_id])
   }
 
-  createWithService(service_id){
-  
-    this.router.navigate(["serviceplans/create/"+service_id])
+  createWithService(service_id:number){
+    this.router.navigate(["serviceplans/create/service/"+service_id])
   }
 
-  update(id:number){
-    this.router.navigate(["serviceplans/update/"+id])
+  updateWithPlan(id: number, plan_id: number) {
+    this.router.navigate(["serviceplans/update/"+id], { queryParams: { planId: plan_id } } );
   }
+
+  updateWithService(id: number, service_id: number) {
+    this.router.navigate(["serviceplans/update/"+id], { queryParams: { serviceId: service_id } } );
+  } 
 
   delete(id:number){
     console.log("Eliminando a: " + id);

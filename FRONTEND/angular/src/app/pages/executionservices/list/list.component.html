@@ -37,7 +37,8 @@
                   <td>{{ executionservice.cost }}</td>
                   <td>
                     <button type="button" class="btn btn-primary" (click)="view(executionservice.id)">Ver</button>
-                    <button type="button" class="btn btn-warning" (click)="update(executionservice.id)">Editar</button>
+                    <button *ngIf="isIncident" type="button" class="btn btn-warning" (click)="updateWithIncident(executionservice.id, incident_id)">Editar</button>
+                    <button *ngIf="isService" type="button" class="btn btn-warning" (click)="updateWithService(executionservice.id, service_id)">Editar</button>
                     <button type="button" class="btn btn-danger" (click)="delete(executionservice.id)">Eliminar</button>
                   </td>
                 </tr>
