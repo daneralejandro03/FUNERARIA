@@ -79,27 +79,6 @@ export class ListComponent implements OnInit {
     this.router.navigate(["pays/update/" + id]);
   }
 
-  handleMethodSelection(method: string) {
-    console.log("Método de pago seleccionado:", method);
-    switch (method) {
-      case "Tarjeta de Crédito":
-        this.router.navigate(["/credit-card-payment"], {
-          queryParams: { subscription_id: this.subscription_id },
-        });
-        break;
-      case "Daviplata":
-        this.router.navigate(["/daviplata-payment"], {
-          queryParams: { subscription_id: this.subscription_id },
-        });
-        break;
-      case "PSE":
-        this.router.navigate(["/pse-payment"], {
-          queryParams: { subscription_id: this.subscription_id },
-        });
-        break;
-    }
-  }
-
   delete(id: number) {
     console.log("Eliminando a: " + id);
     Swal.fire({
