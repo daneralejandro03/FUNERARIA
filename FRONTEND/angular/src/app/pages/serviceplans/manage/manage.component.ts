@@ -44,18 +44,27 @@ export class ManageComponent implements OnInit {
       plan_id: null,
       service_id: null,
     };
-
-    this.configFormGroup();
   }
 
   configFormGroup() {
-    this.theFormGroup = this.theFormBuilder.group({
-      date_hiring: ['',[Validators.required]],
-      status_hiring: ['', [Validators.required]],
-      date_expiration: ['', [Validators.required]],
-      plan_id: [null],
-      service_id: [null]
-    });
+    if(this.isPlan){
+      this.theFormGroup = this.theFormBuilder.group({
+        date_hiring: ['',[Validators.required]],
+        status_hiring: ['', [Validators.required]],
+        date_expiration: ['', [Validators.required]],
+        plan_id: [''],
+        service_id: ['', [Validators.required]]
+      });
+    }
+    else{
+      this.theFormGroup = this.theFormBuilder.group({
+        date_hiring: ['',[Validators.required]],
+        status_hiring: ['', [Validators.required]],
+        date_expiration: ['', [Validators.required]],
+        plan_id: ['', [Validators.required]],
+        service_id: ['']
+      });
+    }
   }
 
   get getTheFormGroup() {
@@ -100,6 +109,8 @@ export class ManageComponent implements OnInit {
       this.serviceplan.id = +this.activateRoute.snapshot.params.id;
       this.getServicePlan(this.serviceplan.id);
     }
+
+    this.configFormGroup();
   }
   
   

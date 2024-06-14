@@ -45,17 +45,30 @@ export class ManageComponent implements OnInit {
       service_id: null,
     };
 
-    this.configFormGroup();
+    
   }
 
   configFormGroup() {
-    this.theFormGroup = this.theFormBuilder.group({
-      cost: ['',[Validators.required]],
-      duration: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      incident_id: [''],
-      service_id: ['']
-    });
+
+    if(this.isIncident){
+      this.theFormGroup = this.theFormBuilder.group({
+        cost: ['',[Validators.required]],
+        duration: ['', [Validators.required]],
+        state: ['', [Validators.required]],
+        service_id: ['', [Validators.required]],
+        incident_id: ['']
+      });
+    }
+    else{
+      this.theFormGroup = this.theFormBuilder.group({
+        cost: ['',[Validators.required]],
+        duration: ['', [Validators.required]],
+        state: ['', [Validators.required]],
+        incident_id: ['', [Validators.required]],
+        service_id: ['']
+      });
+    }
+    
   }
 
   get getTheFormGroup() {
@@ -101,6 +114,8 @@ export class ManageComponent implements OnInit {
       this.executionservice.id = this.activateRoute.snapshot.params.id;
       this.getExecutionService(this.executionservice.id);
     }
+
+    this.configFormGroup();
   }
 
   getExecutionService(id: number) {

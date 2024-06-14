@@ -52,13 +52,13 @@ export class ManageComponent implements OnInit {
   configFormGroup(){
     this.theFormGroup = this.theFormBuilder.group({
       
-      type: ['', [Validators.required]],
+      type: ['', [Validators.required, Validators.minLength(5)]],
       start_date: ['', [Validators.required]],
       end_date: ['', [Validators.required]],
-      place_origin: ['', [Validators.required]],
-      destination: ['', [Validators.required]],
+      place_origin: ['', [Validators.required, Validators.minLength(5)]],
+      destination: ['', [Validators.required, Validators.minLength(5)]],
       distance: ['', [Validators.required]],
-      type_vehicle: ['', [Validators.required]],
+      type_vehicle: ['', [Validators.required, Validators.minLength(5)]],
       service_id: ['']
     });
   }

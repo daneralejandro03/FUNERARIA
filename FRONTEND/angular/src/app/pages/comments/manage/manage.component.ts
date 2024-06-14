@@ -39,7 +39,7 @@ configFormGroup(){
   this.theFormGroup = this.theFormBuilder.group({
 //Primer elemento del vector, valor por defecto
 //Lista seran las reglas
-  message: ['',[Validators.required]],
+  message: ['',[Validators.required, Validators.minLength(1)]],
   send_date: ['', [Validators.required]],
   incident_id: [''],
   });
@@ -64,7 +64,8 @@ ngOnInit(): void {
   }else if(currentUrl.includes('create')){
   this.mode = 2;
   this.incidentId = this.activateRoute.snapshot.params['incidentId'];
-
+  console.log("El incidentId es:" + this.incidentId);
+  
   }else if(currentUrl.includes('update')){
   this.mode = 3;
   }

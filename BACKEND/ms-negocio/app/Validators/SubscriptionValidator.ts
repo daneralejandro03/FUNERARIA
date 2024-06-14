@@ -5,7 +5,7 @@ export default class SubscriptionValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    subscription_type: schema.string([rules.minLength(10)]),
+    subscription_type: schema.string([rules.minLength(5), rules.required()]),
     start_date: schema.date({format: 'yyyy-MM-dd'}),
     end_date: schema.date({format: 'yyyy-MM-dd'}),
     state: schema.boolean([rules.required()]),

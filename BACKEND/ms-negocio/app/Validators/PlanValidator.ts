@@ -5,7 +5,7 @@ export default class PlanValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    description: schema.string([rules.minLength(10)]),
+    description: schema.string([rules.minLength(5), rules.maxLength(50)]),
     price: schema.number([rules.range(10000,100000)]),
     duration: schema.number([rules.range(3,12)]),
   })

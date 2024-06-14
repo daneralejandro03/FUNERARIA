@@ -7,7 +7,7 @@ export const environment = {
   url_ms_negocio: "http://127.0.0.1:3333",
   url_ms_security: "http://localhost:8080",
   url_api_colombia: "https://api-colombia.com/api/v1",
-  url_ms_pago: "http://127.0.0.1:8000/api/payments",
+  url_ms_pago: "http://127.0.0.1:8000/api/payments"
 };
 
 /*
