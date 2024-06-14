@@ -40,6 +40,7 @@
                   <input type="text" class="form-control" [(ngModel)]="theEmployee.position" [disabled]="mode==1" formControlName="position">
                   <div *ngIf="getTheFormGroup.position.errors && (getTheFormGroup.position.dirty || getTheFormGroup.position.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.position.errors.required" class="msnError">Requerido</strong>
+                    <strong *ngIf="getTheFormGroup.position.errors.min" class="msnError">La longitud minima debe ser 5</strong>
                   </div>
                 </div>
               </div>
@@ -49,6 +50,8 @@
                   <input type="number" class="form-control" [(ngModel)]="theEmployee.salary" [disabled]="mode==1" formControlName="salary">
                   <div *ngIf="getTheFormGroup.salary.errors && (getTheFormGroup.salary.dirty || getTheFormGroup.salary.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.salary.errors.required" class="msnError">Requerido</strong>
+                    <strong *ngIf="getTheFormGroup.salary.errors.min" class="msnError">Valor minimo debe ser 10000</strong>
+                    <strong *ngIf="getTheFormGroup.salary.errors.max" class="msnError">Valor minimo debe ser 100000</strong>
                   </div>
                 </div>
               </div>
@@ -68,7 +71,6 @@
                     <input type="password" class="form-control" [(ngModel)]="theUser.password" [disabled]="mode==1" formControlName="password">
                     <div *ngIf="getTheFormGroup.password.errors && (getTheFormGroup.password.dirty || getTheFormGroup.password.touched || trySend)">
                       <strong *ngIf="getTheFormGroup.password.errors.required" class="msnError">Requerido</strong>
-                      <strong *ngIf="getTheFormGroup.password.errors.minlength" class="msnError">Valor mínimo debe ser 3</strong>
                     </div>
                   </div>
                 </div>

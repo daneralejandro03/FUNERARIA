@@ -30,8 +30,8 @@
                                     <input type="text" class="form-control" [(ngModel)]="plan.description" [disabled]="mode==1" formControlName="description">
                                     <div *ngIf="getTheFormGroup.description.errors && (getTheFormGroup.description.dirty || getTheFormGroup.description.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.description.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.description.errors.minLength" class="msnError">El mínimo aceptado es 5</strong>
-                                        <strong *ngIf="getTheFormGroup.description.errors.minLength" class="msnError">El máximo aceptado es 100</strong>
+                                        <strong *ngIf="getTheFormGroup.description.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
+                                        <strong *ngIf="getTheFormGroup.description.errors.maxlength" class="msnError">La longitud maxima debe ser 50</strong>
                                     </div>
                                 </div>
                             </div>

@@ -23,6 +23,7 @@
                   <div
                     *ngIf="getTheFormGroup.type.errors && (getTheFormGroup.type.dirty || getTheFormGroup.type.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.type.errors.required" class="msnError">Requerido</strong>
+                    <strong *ngIf="getTheFormGroup.type.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
                   </div>
                 </div>
               </div>
@@ -34,7 +35,7 @@
                     formControlName="start_date">
                   <div
                     *ngIf="getTheFormGroup.start_date.errors && (getTheFormGroup.start_date.dirty || getTheFormGroup.start_date.touched || trySend)">
-                    <strong *ngIf="getTheFormGroup.name.start_date.required" class="msnError">Requerido</strong>
+                    <strong *ngIf="getTheFormGroup.start_date.required" class="msnError">Requerido</strong>
                   </div>
                 </div>
               </div>
@@ -58,6 +59,7 @@
                   <div
                     *ngIf="getTheFormGroup.place_origin.errors && (getTheFormGroup.place_origin.dirty || getTheFormGroup.place_origin.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.place_origin.errors.required" class="msnError">Requerido</strong>
+                    <strong *ngIf="getTheFormGroup.place_origin.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
                   </div>
                 </div>
               </div>
@@ -71,6 +73,7 @@
                     <strong *ngIf="getTheFormGroup.destination.errors.required" class="msnError">Requerido</strong>
                     <strong *ngIf="getTheFormGroup.destination.errors.email" class="msnError">Debe ser un email
                       válido</strong>
+                      <strong *ngIf="getTheFormGroup.destination.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
                   </div>
                 </div>
               </div>
@@ -82,7 +85,7 @@
                   <div
                     *ngIf="getTheFormGroup.distance.errors && (getTheFormGroup.distance.dirty || getTheFormGroup.distance.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.distance.errors.required" class="msnError">Requerido</strong>
-                    <strong *ngIf="getTheFormGroup.distance.errors.minlength" class="msnError">Valor mínimo debe ser
+                    <strong *ngIf="getTheFormGroup.distance.errors.min" class="msnError">Valor mínimo debe ser
                       3</strong>
                   </div>
                 </div>
@@ -95,8 +98,7 @@
                   <div
                     *ngIf="getTheFormGroup.type_vehicle.errors && (getTheFormGroup.type_vehicle.dirty || getTheFormGroup.type_vehicle.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.type_vehicle.errors.required" class="msnError">Requerido</strong>
-                    <strong *ngIf="getTheFormGroup.type_vehicle.errors.minlength" class="msnError">Valor mínimo debe ser
-                      3</strong>
+                    <strong *ngIf="getTheFormGroup.type_vehicle.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
                   </div>
                 </div>
               </div>

@@ -5,7 +5,7 @@ export default class BeneficiaryValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    beneficiary_status: schema.string([rules.required(), rules.minLength(2)]),
+    beneficiary_status: schema.string([rules.required(), rules.minLength(5)]),
     customer_id: schema.number([rules.exists({ table: 'customers', column: 'id'})]),
     owner_id: schema.number([rules.exists({ table: 'owners', column: 'id'})]),
   })

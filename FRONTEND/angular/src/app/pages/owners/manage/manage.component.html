@@ -40,7 +40,7 @@
                                 <div class="col-8">
                                     <input type="text" class="form-control" [(ngModel)]="user.name" [disabled]="mode==1" formControlName="name">
                                     <div *ngIf="getTheFormGroup.name.errors && (getTheFormGroup.name.dirty || getTheFormGroup.name.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.name.errors.min" class="msnError">Valor minimo debe ser 1</strong>
+                                        <strong *ngIf="getTheFormGroup.name.errors.minlength" class="msnError">La longitud minima debe ser 3</strong>
                                         <strong *ngIf="getTheFormGroup.name.errors.required" class="msnError">Requerido</strong>
                                     </div>
                                 </div>
@@ -53,6 +53,7 @@
                                     <input type="email" class="form-control" [(ngModel)]="user.email" [disabled]="mode==1" formControlName="email">
                                     <div *ngIf="getTheFormGroup.email.errors && (getTheFormGroup.email.dirty || getTheFormGroup.email.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.email.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.email.errors.email" class="msnError">Debe ser un email</strong>
                                     </div>
                                 </div>
                             </div>
@@ -75,6 +76,7 @@
                                     <input type="text" class="form-control" [(ngModel)]="customer.address" [disabled]="mode==1" formControlName="address">
                                     <div *ngIf="getTheFormGroup.address.errors && (getTheFormGroup.address.dirty || getTheFormGroup.address.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.address.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.address.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
                                     </div>
                                 </div>
                             </div>
@@ -86,6 +88,7 @@
                                     <input type="text" class="form-control" [(ngModel)]="customer.phone_number" [disabled]="mode==1" formControlName="phone_number">
                                     <div *ngIf="getTheFormGroup.phone_number.errors && (getTheFormGroup.phone_number.dirty || getTheFormGroup.phone_number.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.phone_number.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.phone_number.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
                                     </div>
                                 </div>
                             </div>
@@ -97,6 +100,7 @@
                                     <input type="text" class="form-control" [(ngModel)]="owner.contract_status" [disabled]="mode==1" formControlName="contract_status">
                                     <div *ngIf="getTheFormGroup.contract_status.errors && (getTheFormGroup.contract_status.dirty || getTheFormGroup.contract_status.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.contract_status.errors.required" class="msnError">Requerido</strong>
+                                        <strong *ngIf="getTheFormGroup.contract_status.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
                                     </div>
                                 </div>
                             </div>

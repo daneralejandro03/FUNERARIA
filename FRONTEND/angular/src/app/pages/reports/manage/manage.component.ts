@@ -44,19 +44,30 @@ export class ManageComponent implements OnInit {
       customer_id: null,
       incident_id: null
     };
-
-    this.configFormGroup();
   }
 
   configFormGroup() {
-    this.theFormGroup = this.theFormBuilder.group({
-      reporting_date: ['', [Validators.required]],
-      description: ['', [Validators.required]],
-      state: [''],
-      customer_id: [''],
-      incident_id: ['']
-
-    });
+    if(this.isIncident){
+      this.theFormGroup = this.theFormBuilder.group({
+        reporting_date: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+        state: [''],
+        customer_id: ['', [Validators.required]],
+        incident_id: ['']
+  
+      });
+    }
+    else{
+      this.theFormGroup = this.theFormBuilder.group({
+        reporting_date: ['', [Validators.required]],
+        description: ['', [Validators.required]],
+        state: [''],
+        incident_id: ['', [Validators.required]],
+        customer_id: ['']
+  
+      });
+    }
+    
   }
 
   get getTheFormGroup() {
@@ -89,6 +100,8 @@ export class ManageComponent implements OnInit {
       this.report.id = this.activateRoute.snapshot.params.id;
       this.getReport(this.report.id);
     }
+
+    this.configFormGroup();
   }
 
 
