@@ -10,7 +10,11 @@ import { AuthGuard } from "src/app/guards/auth.guard";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "dashboard", component: DashboardComponent },
-  { path: "user-profile", canActivate:[AuthGuard], component: UserProfileComponent },
+  {
+    path: "user-profile",
+    canActivate: [AuthGuard],
+    component: UserProfileComponent,
+  },
   { path: "tables", component: TablesComponent },
   { path: "icons", component: IconsComponent },
   { path: "maps", component: MapsComponent },
@@ -146,7 +150,7 @@ export const AdminLayoutRoutes: Routes = [
       import("src/app/pages/comments/comments.module").then(
         (m) => m.CommentsModule
       ),
-  }
+  },
   {
     path: "deceaseds",
     loadChildren: () =>

@@ -7,7 +7,7 @@ export const environment = {
   url_ms_negocio: "http://127.0.0.1:3333",
   url_ms_security: "http://localhost:8080",
   url_api_colombia: "https://api-colombia.com/api/v1",
-  url_ms_pago: "http://127.0.0.1:8000/api/payments"
+  url_ms_pago: "http://127.0.0.1:8000/api/payments",
   url_sustentación:
     "	https://f7179fa1-1f3e-458a-b2b4-83dadf5610c8.mock.pstmn.io",
 };
