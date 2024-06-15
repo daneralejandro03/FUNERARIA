@@ -210,10 +210,10 @@ class PaymentsController extends Controller
             'email' => 'required|string|email|max:50',
             'cellPhone' => 'required|string|max:10',
             'phone' => 'required|string|max:10',
-            'cardNumber' => 'nullable|string|max:16',
-            'cardExpYear' => 'nullable|string|max:4',
-            'cardExpMonth' => 'nullable|string|max:2',
-            'cardCvc' => 'nullable|string|max:4',
+            'cardNumber' => 'required|string|max:16',
+            'cardExpYear' => 'required|string|max:4',
+            'cardExpMonth' => 'required|string|max:2',
+            'cardCvc' => 'required|string|max:4',
             'dues' => 'required|string',
         ]);
 
@@ -280,19 +280,19 @@ class PaymentsController extends Controller
             'email' => 'required|string|email|max:50',
             'indCountry' => 'required|string|max:3',
             'phone' => 'required|string|max:10',
-            'country' => 'nullable|string|max:255',
+            'country' => 'required|string|max:255',
             'city' => 'required|string|max:255',
             'address' => 'required|string|max:255',
-            'ip' => 'nullable|string|max:16',
-            'currency' => 'nullable|string|max:3',
-            'description' => 'nullable|string|max:255',
+            'ip' => 'string|max:16',
+            'currency' => 'string|max:3',
+            'description' => 'string|max:255',
             'value' => 'required|string|max:255',
-            'tax' => 'nullable|string|max:11',
-            'taxBase' => 'nullable|string|max:11',
-            'testMode' => 'nullable|string',
-            'urlResponse' => 'nullable|string|max:255',
-            'urlConfirmation' => 'nullable|string|max:255',
-            'methodConfirmation' => 'nullable|string|max:255',
+            'tax' => 'string|max:11',
+            'taxBase' => 'string|max:11',
+            'testMode' => $this->test,
+            'urlResponse' => 'string|max:255',
+            'urlConfirmation' => 'string|max:255',
+            'methodConfirmation' => 'required|string|max:255',
         ]);
 
         Log::info("PASE LA VALIDACIÓN" . $validated['subscription_id']);
@@ -356,10 +356,10 @@ class PaymentsController extends Controller
             'docType' => 'required|string|max:4',
             'docNumber' => 'required|string|max:20',
             'name' => 'required|string|max:50',
-            'lastName' => 'nullable|string|max:50',
+            'lastName' => 'required|string|max:50',
             'email' => 'required|string|email|max:50',
             'cellPhone' => 'required|string|max:10',
-            'ip' => 'required|string|max:16',
+            'ip' => 'nullable|string',
             'urlResponse' => 'required|string|max:255',
             'phone' => 'nullable|string|max:10',
             'tax' => 'nullable|string|max:11',
@@ -383,6 +383,8 @@ class PaymentsController extends Controller
             'extra9' => 'nullable|string|max:255',
             'extra10' => 'nullable|string|max:255',
         ]);
+
+        $validated['ip'] = $request->ip(); //, // IP del cliente
 
         Log::info("PASE LA VALIDACIÓN" . $validated['subscription_id']);
 

@@ -15,6 +15,7 @@ def validate_email_data(data):
 @app.route('/send_email', methods=['POST'])
 def send_email():
     correo = request.get_json()
+    print(correo)
     if not validate_email_data(correo):
         return jsonify({"error": "Datos de correo electrónico incompletos"}), 400
 

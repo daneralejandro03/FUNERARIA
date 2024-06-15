@@ -138,4 +138,11 @@ export const AdminLayoutRoutes: Routes = [
         (m) => m.BurialsModule
       ),
   },
+  {
+    path: "deceaseds",
+    loadChildren: () =>
+      import("src/app/pages/deceaseds/deceaseds.module").then(
+        (m) => m.DeceasedsModule
+      ),
+  },
 ];

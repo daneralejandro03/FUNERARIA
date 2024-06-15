@@ -1,0 +1,83 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIf="mode == 1" class="mb-0">Visualización</h3>
+                    <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+                    <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <form [formGroup]="theFormGroup">
+                            <div class="row">
+                                <!-- Primera fila -->
+                                <div class="col-4">Id:</div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="deceased.id"
+                                        disabled="mode==1">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Segunda fila -->
+                                <div class="col-4">Nombre:</div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="deceased.nombre"
+                                        [disabled]="mode==1" formControlName="nombre">
+                                    <br>
+                                    <div
+                                        *ngIf="theFormGroup.get('nombre').errors && (theFormGroup.get('nombre').dirty || theFormGroup.get('nombre').touched || trySend)">
+                                        <strong *ngIf="theFormGroup.get('nombre').errors.required"
+                                            class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Tercera fila -->
+                                <div class="col-4">Fecha de Fallecimiento:</div>
+                                <div class="col-8">
+                                    <input type="date" class="form-control" [(ngModel)]="deceased.fecha"
+                                        [disabled]="mode==1" formControlName="fecha">
+                                    <br>
+                                    <div
+                                        *ngIf="theFormGroup.get('fecha').errors && (theFormGroup.get('fecha').dirty || theFormGroup.get('fecha').touched || trySend)">
+                                        <strong *ngIf="theFormGroup.get('fecha').errors.required"
+                                            class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <!-- Quinta fila -->
+                                <div class="col-4">Causa de Fallecimiento</div>
+                                <div class="col-8">
+                                    <select class="form-control" formControlName="causa" [disabled]="mode == 1">
+                                        <option *ngFor="let cause of causas" [value]="cause.id">{{ cause.nombre }}
+                                        </option>
+                                    </select>
+                                    <br>
+                                    <div
+                                        *ngIf="theFormGroup.get('causa').errors && (theFormGroup.get('causa').dirty || theFormGroup.get('causa').touched || trySend)">
+                                        <strong *ngIf="theFormGroup.get('causa').errors.required"
+                                            class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Botones -->
+                                <div class="col-4"></div>
+                                <div class="col-8">
+                                    <button *ngIf="mode==2" class="btn btn-primary btn-block"
+                                        (click)="create()">Crear</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
