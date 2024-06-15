@@ -20,7 +20,6 @@ export default class ServicesController {
       await theService.load('notifications')
       await theService.load('transfer')
       await theService.load('servicesplan')
-      await theService.load('execution_services')
       return theService
     } else {
       const data = request.all()

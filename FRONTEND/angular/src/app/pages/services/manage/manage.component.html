@@ -29,8 +29,8 @@
                                 <div class="col-8">
                                     <input type="text" class="form-control" [(ngModel)]="serviceEntity.type" [disabled]="mode==1" formControlName="type">
                                     <div *ngIf="getTheFormGroup.type.errors && (getTheFormGroup.type.dirty || getTheFormGroup.type.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.type.errors.minlength" class="msnError">El mínimo aceptado es 10</strong>
-                                        <strong *ngIf="getTheFormGroup.type.errors.maxlength" class="msnError">El máximo aceptado es 20</strong>
+                                        <strong *ngIf="getTheFormGroup.type.errors.required" class="msnError">El mínimo aceptado es 10</strong>
+                                        <strong *ngIf="getTheFormGroup.type.errors.minLength" class="msnError">El máximo aceptado es 100</strong>
                                         <strong *ngIf="getTheFormGroup.type.errors.required" class="msnError">Requerido</strong>
                                     </div>
                                 </div>

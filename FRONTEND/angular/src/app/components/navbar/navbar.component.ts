@@ -1,9 +1,6 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
 import { ROUTES } from '../sidebar/sidebar.component';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { User } from 'src/app/models/user.model';
-import { Subscription } from 'rxjs';
-import { SecurityService } from 'src/app/services/security.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,24 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-
-  theUser:User;
-  subscription:Subscription;
-
   public focus;
   public listTitles: any[];
   public location: Location;
-  constructor(location: Location,  private element: ElementRef, 
-                                   private router: Router,
-                                   private theSecurityService: SecurityService ) {
+  constructor(location: Location,  private element: ElementRef, private router: Router) {
     this.location = location;
   }
 
   ngOnInit() {
     this.listTitles = ROUTES.filter(listTitle => listTitle);
-    this.subscription = this.theSecurityService.getUser().subscribe(data => {
-      this.theUser = data;
-    });
   }
   getTitle(){
     var titlee = this.location.prepareExternalUrl(this.location.path());
@@ -43,14 +31,6 @@ export class NavbarComponent implements OnInit {
         }
     }
     return 'Dashboard';
-  }
-
-  getTheSecurityService(){
-    return this.theSecurityService;
-  }
-
-  logout(){
-    this.theSecurityService.logout();
   }
 
 }

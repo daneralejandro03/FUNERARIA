@@ -53,11 +53,11 @@ export class ManageComponent implements OnInit {
       //Primer elemento del vector, valor por defecto
       //Lista seran las reglas
       identificationCard: ['',[Validators.required]],
-      name: ['', [Validators.required, Validators.minLength(5)]],
-      privileges: ['', [Validators.required, Validators.minLength(5)]],
-      responsabilities: ['', [Validators.required, Validators.minLength(5)]],
-      email: ['', [Validators.required, Validators.minLength(5), Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(5)]],
+      name: ['', [Validators.required, Validators.minLength(3)]],
+      privileges: ['', [Validators.required, Validators.minLength(3)]],
+      responsabilities: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
 
@@ -96,6 +96,9 @@ export class ManageComponent implements OnInit {
       this.serviceUser.view(this.theAdministrator.user_id).subscribe(data=>{
         this.theUser = data;
       })
+
+
+      console.log("Administrator: " + JSON.stringify(this.theAdministrator))
     })    
   }
 
@@ -134,8 +137,6 @@ export class ManageComponent implements OnInit {
     this.serviceUser.update(this.theUser).subscribe(data=>{
       this.service.update(this.theAdministrator).subscribe(data=>{
       
-        console.log(JSON.stringify(this.theAdministrator));
-        
         Swal.fire("Actualización Exitosa", "Se ha actualizado un nuevo registro", "success");
         
         this.router.navigate(["administrators/list"]);

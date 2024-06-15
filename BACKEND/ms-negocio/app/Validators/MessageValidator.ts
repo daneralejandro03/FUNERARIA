@@ -5,7 +5,7 @@ export default class MessageValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    information: schema.string([rules.required()]),
+    information: schema.string([rules.minLength(1), rules.required()]),
     user_id: schema.string([rules.required()]),
     chat_id: schema.number([rules.exists({ table: 'chats', column: 'id'})]),
   })

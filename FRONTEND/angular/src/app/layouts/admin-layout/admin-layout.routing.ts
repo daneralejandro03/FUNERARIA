@@ -6,17 +6,15 @@ import { MapsComponent } from "../../pages/maps/maps.component";
 import { UserProfileComponent } from "../../pages/user-profile/user-profile.component";
 import { TablesComponent } from "../../pages/tables/tables.component";
 import * as path from "path";
-import { AuthGuard } from "src/app/guards/auth.guard";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "dashboard", component: DashboardComponent },
-  { path: "user-profile", canActivate:[AuthGuard], component: UserProfileComponent },
+  { path: "user-profile", component: UserProfileComponent },
   { path: "tables", component: TablesComponent },
   { path: "icons", component: IconsComponent },
   { path: "maps", component: MapsComponent },
   {
     path: "owners",
-    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/owners/owners.module").then((m) => m.OwnersModule),
   },
@@ -141,10 +139,10 @@ export const AdminLayoutRoutes: Routes = [
       ),
   },
   {
-    path: "comments",
+    path: "deceaseds",
     loadChildren: () =>
-      import("src/app/pages/comments/comments.module").then(
-        (m) => m.CommentsModule
+      import("src/app/pages/deceaseds/deceaseds.module").then(
+        (m) => m.DeceasedsModule
       ),
-  }
+  },
 ];

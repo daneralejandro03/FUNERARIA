@@ -54,10 +54,10 @@ export class ManageComponent implements OnInit {
       //Lista seran las reglas
       identificationCard: ['',[Validators.required]],
       name: ['', [Validators.required, Validators.minLength(3)]],
-      position: ['', [Validators.required, Validators.minLength(5)]],
-      salary: ['', [Validators.required, Validators.min(10000), Validators.max(100000)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      position: ['', [Validators.required, Validators.minLength(3)]],
+      salary: ['', [Validators.required, Validators.minLength(3)]],
+      email: ['', [Validators.required, Validators.minLength(3)]],
+      password: ['', [Validators.required, Validators.minLength(3)]],
     });
   }
 

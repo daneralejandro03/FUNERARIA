@@ -33,15 +33,14 @@
                                     </div>
                                 </div>
                             </div>
-                            
                             <div class="row">
                                 <div class="col-4">
-                                    Causa:
+                                    Lugar:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="incident.cause_decease" [disabled]="mode==1" formControlName="cause_decease">
-                                    <div *ngIf="getTheFormGroup.cause_decease.errors && (getTheFormGroup.cause_decease.dirty || getTheFormGroup.cause_decease.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.cause_decease.errors.required" class="msnError">Requerido</strong>
+                                    <input type="text" class="form-control" [(ngModel)]="incident.place_decease" [disabled]="mode==1" formControlName="place_decease">
+                                    <div *ngIf="getTheFormGroup.place_decease.errors && (getTheFormGroup.place_decease.dirty || getTheFormGroup.place_decease.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.price.place_decease.required" class="msnError">Requerido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -50,9 +49,9 @@
                                     Causa:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="incident.place_decease" [disabled]="mode==1" formControlName="place_decease">
-                                    <div *ngIf="getTheFormGroup.place_decease.errors && (getTheFormGroup.place_decease.dirty || getTheFormGroup.place_decease.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.place_decease.errors.required" class="msnError">Requerido</strong>
+                                    <input type="text" class="form-control" [(ngModel)]="incident.cause_decease" [disabled]="mode==1" formControlName="cause_decease">
+                                    <div *ngIf="getTheFormGroup.cause_decease.errors && (getTheFormGroup.cause_decease.dirty || getTheFormGroup.cause_decease.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.cause_decease.errors.required" class="msnError">Requerido</strong>
                                     </div>
                                 </div>
                             </div>

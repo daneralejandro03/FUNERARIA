@@ -5,7 +5,7 @@ export default class CommentValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    message: schema.string([rules.required(), rules.minLength(1)]),
+    message: schema.string([rules.minLength(1)]),
     send_date: schema.date({format: 'yyyy-MM-dd'}),
     incident_id: schema.number([rules.exists({ table: 'incidents', column: 'id'})]),
   })

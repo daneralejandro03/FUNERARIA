@@ -32,8 +32,6 @@
                                         *ngIf="theFormGroup.get('name').errors && (theFormGroup.get('name').dirty || theFormGroup.get('name').touched || trySend)">
                                         <strong *ngIf="theFormGroup.get('name').errors.required"
                                             class="msnError">Requerido</strong>
-                                        <strong *ngIf="theFormGroup.get('name').errors.minlength"
-                                            class="msnError">La longitud minima debe ser 1</strong>
                                     </div>
                                 </div>
                             </div>

@@ -1,1 +1,155 @@
-<p>manage-daviplata works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Card -->
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-secondary shadow border-0">
+                <div class="card-header bg-transparent">
+                    <div class="text-center mt-2">
+                        <h3 class="mb-0">Daviplata subscriptor {{ subscription_id }}</h3>
+                    </div>
+                </div>
+                <div class="card-body px-lg-5 py-lg-5">
+                    <form [formGroup]="theFormGroup">
+                        <input type="hidden" formControlName="subscription_id">
+                        <div class="form-group">
+                            <label class="form-control-label" for="subscription_id">ID de Suscripción</label>
+                            <input type="text" id="subscription_id" class="form-control"
+                                formControlName="subscription_id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="docType">Tipo de Documento</label>
+                            <select id="docType" class="form-control" formControlName="docType">
+                                <option value="CC">Cédula de Ciudadanía</option>
+                                <option value="NIT">NIT</option>
+                            </select>
+                            <div
+                                *ngIf="getTheFormGroup.docType.errors && (getTheFormGroup.docType.dirty || getTheFormGroup.docType.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.docType.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="document">Número de Documento</label>
+                            <input type="text" id="document" class="form-control" formControlName="document">
+                            <div
+                                *ngIf="getTheFormGroup.document.errors && (getTheFormGroup.document.dirty || getTheFormGroup.document.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.document.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="name">Nombre Completo</label>
+                            <input type="text" id="name" class="form-control" formControlName="name">
+                            <div
+                                *ngIf="getTheFormGroup.name.errors && (getTheFormGroup.name.dirty || getTheFormGroup.name.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.name.errors.required" class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="lastName">Apellido Completo</label>
+                            <input type="text" id="lastName" class="form-control" formControlName="lastName">
+                            <div
+                                *ngIf="getTheFormGroup.lastName.errors && (getTheFormGroup.lastName.dirty || getTheFormGroup.lastName.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.lastName.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="email">Correo Electronico</label>
+                            <input type="text" id="email" class="form-control" formControlName="email">
+                            <div
+                                *ngIf="getTheFormGroup.email.errors && (getTheFormGroup.email.dirty || getTheFormGroup.email.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.email.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="indCountry">Indicativo País</label>
+                            <input type="text" id="indCountry" class="form-control" formControlName="indCountry"
+                                readonly value="COL">
+                            <div
+                                *ngIf="getTheFormGroup.indCountry.errors && (getTheFormGroup.indCountry.dirty || getTheFormGroup.indCountry.touched || trySend)">
+                                <strong class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="phone">Numero de Celular</label>
+                            <input type="text" id="phone" class="form-control" formControlName="phone">
+                            <div
+                                *ngIf="getTheFormGroup.phone.errors && (getTheFormGroup.phone.dirty || getTheFormGroup.phone.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.phone.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="country">País</label>
+                            <input type="text" id="country" class="form-control" formControlName="country" readonly
+                                value="CO">
+                            <div
+                                *ngIf="getTheFormGroup.country.errors && (getTheFormGroup.country.dirty || getTheFormGroup.country.touched || trySend)">
+                                <strong class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="city">Ciudad</label>
+                            <input type="text" id="city" class="form-control" formControlName="city">
+                            <div
+                                *ngIf="getTheFormGroup.city.errors && (getTheFormGroup.city.dirty || getTheFormGroup.city.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.city.errors.required" class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="address">Dirección</label>
+                            <input type="text" id="address" class="form-control" formControlName="address">
+                            <div
+                                *ngIf="getTheFormGroup.address.errors && (getTheFormGroup.address.dirty || getTheFormGroup.address.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.address.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="value">Cantidad</label>
+                            <input type="text" id="value" class="form-control" formControlName="value">
+                            <div
+                                *ngIf="getTheFormGroup.value.errors && (getTheFormGroup.value.dirty || getTheFormGroup.value.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.value.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label" for="methodConfirmation">Método de Confirmación</label>
+                            <select id="methodConfirmation" class="form-control" formControlName="methodConfirmation">
+                                <option value="POST">Confirmar por POST</option>
+                                <option value="GET">Confirmar por GET</option>
+                            </select>
+                            <div
+                                *ngIf="getTheFormGroup.methodConfirmation.errors && (getTheFormGroup.methodConfirmation.dirty || getTheFormGroup.methodConfirmation.touched || trySend)">
+                                <strong *ngIf="getTheFormGroup.methodConfirmation.errors.required"
+                                    class="msnError">Requerido</strong>
+                            </div>
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary mt-4" (click)="create()">Realizar Pago</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

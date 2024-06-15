@@ -106,7 +106,7 @@ export class ManageCreditCardComponent implements OnInit {
   }
 
   create() {
-    this.clearValidators();
+    //this.clearValidators();
     this.trySend = true;
     if (this.theFormGroup.invalid) {
       Swal.fire(

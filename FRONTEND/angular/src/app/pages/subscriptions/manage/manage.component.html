@@ -33,8 +33,6 @@
                                         *ngIf="getTheFormGroup.subscription_type.errors && (getTheFormGroup.subscription_type.dirty || getTheFormGroup.subscription_type.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.subscription_type.errors.required"
                                             class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.subscription_type.errors.minlength"
-                                            class="msnError">Valor minimo debe ser 5</strong>
                                     </div>
                                 </div>
                             </div>
@@ -84,18 +82,18 @@
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                  Plan:
+                                    Estado:
                                 </div>
                                 <div class="col-8">
-                                  <label for="service">Seleccionar Plan:</label>
-                                  <select class="form-control" id="plan" formControlName="plan_id" [(ngModel)]="subscription.plan_id" (change)="selectPlan($event.target.value)">
-                                    <option *ngFor="let plan of plans" [value]="plan.id" [selected]="plan.id === subscription.plan_id">{{ plan.description }}</option>
-                                  </select>
-                                  <div *ngIf="getTheFormGroup.plan_id.errors && (getTheFormGroup.plan_id.dirty || getTheFormGroup.plan_id.touched || trySend)">
-                                    <strong *ngIf="getTheFormGroup.plan_id.errors.required" class="msnError">Requerido</strong>
-                                  </div>
+                                    <label for="plan">Seleccionar Plan:</label>
+                                    <select class="form-control" id="plan" formControlName="plan_id"
+                                        (change)="selectPlan($event.target.value)">
+                                        <option *ngFor="let plan of plans" [value]="plan.id"
+                                            [selected]="plan.id === subscription.plan_id">{{ plan.description }}
+                                        </option>
+                                    </select>
                                 </div>
-                              </div>  
+                            </div>
                             <div class="row">
                                 <div class="col-4"></div>
                                 <div class="col-8">

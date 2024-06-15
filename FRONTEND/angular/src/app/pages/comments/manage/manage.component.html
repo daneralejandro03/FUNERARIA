@@ -30,7 +30,6 @@
                                     <input type="text" class="form-control" [(ngModel)]="comment.message" [disabled]="mode==1" formControlName="message">
                                     <div *ngIf="getTheFormGroup.message.errors && (getTheFormGroup.message.dirty || getTheFormGroup.message.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.message.errors.required" class="msnError">Requerido</strong>
-                                        <strong *ngIf="getTheFormGroup.message.errors.minlength" class="msnError">La longitud minima debe ser 1</strong>
                                     </div>
                                 </div>
                             </div>

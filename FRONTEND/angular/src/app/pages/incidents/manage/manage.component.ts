@@ -27,14 +27,20 @@ export class ManageComponent implements OnInit {
     this.incident={
       id:0,
       date_decease: null,
-      place_decease: null,
-      cause_decease: null
+      place_decease: "",
+      cause_decease: ""
     }
     this.configFormGroup();
   }
 
+  //FormBuilder: sirve para crear un grupo de reglas, clase para definir las reglas
+
+  //Instancia del FormBuilder, sirve para usar las reglas.
+
   configFormGroup(){
     this.theFormGroup = this.theFormBuilder.group({
+      //Primer elemento del vector, valor por defecto
+      //Lista seran las reglas
       date_decease: ['', [Validators.required]],
       place_decease: ['', [Validators.required]],
       cause_decease: ['', [Validators.required]]
@@ -44,6 +50,12 @@ export class ManageComponent implements OnInit {
   get getTheFormGroup(){
     return this.theFormGroup.controls;
   }
+
+  /*
+  getTheaterData(){
+    this.theater.capacity = this.getTheFormGroup.capacity.value;
+    this.theater.location = this.getTheFormGroup.location.value;
+  }*/
 
   ngOnInit(): void {
     const currentUrl = this.activateRoute.snapshot.url.join("/");

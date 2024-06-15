@@ -29,7 +29,7 @@
                 <div class="col-8">
                   <input type="text" class="form-control" [(ngModel)]="theUser.name" [disabled]="mode==1" formControlName="name">
                   <div *ngIf="getTheFormGroup.name.errors && (getTheFormGroup.name.dirty || getTheFormGroup.name.touched || trySend)">
-                    <strong *ngIf="getTheFormGroup.name.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
+                    <strong *ngIf="getTheFormGroup.name.errors.minlength" class="msnError">Valor minimo debe ser 3</strong>
                     <strong *ngIf="getTheFormGroup.name.errors.required" class="msnError">Requerido</strong>
                   </div>
                 </div>
@@ -40,7 +40,6 @@
                   <input type="text" class="form-control" [(ngModel)]="theAdministrator.privileges" [disabled]="mode==1" formControlName="privileges">
                   <div *ngIf="getTheFormGroup.privileges.errors && (getTheFormGroup.privileges.dirty || getTheFormGroup.privileges.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.privileges.errors.required" class="msnError">Requerido</strong>
-                    <strong *ngIf="getTheFormGroup.privileges.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
                   </div>
                 </div>
               </div>
@@ -50,7 +49,6 @@
                   <input type="text" class="form-control" [(ngModel)]="theAdministrator.responsabilities" [disabled]="mode==1" formControlName="responsabilities">
                   <div *ngIf="getTheFormGroup.responsabilities.errors && (getTheFormGroup.responsabilities.dirty || getTheFormGroup.responsabilities.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.responsabilities.errors.required" class="msnError">Requerido</strong>
-                    <strong *ngIf="getTheFormGroup.responsabilities.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
                   </div>
                 </div>
               </div>
@@ -61,7 +59,6 @@
                   <div *ngIf="getTheFormGroup.email.errors && (getTheFormGroup.email.dirty || getTheFormGroup.email.touched || trySend)">
                     <strong *ngIf="getTheFormGroup.email.errors.required" class="msnError">Requerido</strong>
                     <strong *ngIf="getTheFormGroup.email.errors.email" class="msnError">Debe ser un email válido</strong>
-                    <strong *ngIf="getTheFormGroup.email.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
                   </div>
                 </div>
               </div>
@@ -71,7 +68,7 @@
                     <input type="password" class="form-control" [(ngModel)]="theUser.password" [disabled]="mode==1" formControlName="password">
                     <div *ngIf="getTheFormGroup.password.errors && (getTheFormGroup.password.dirty || getTheFormGroup.password.touched || trySend)">
                       <strong *ngIf="getTheFormGroup.password.errors.required" class="msnError">Requerido</strong>
-                      <strong *ngIf="getTheFormGroup.password.errors.minlength" class="msnError">La longitud minima debe ser 5</strong>
+                      <strong *ngIf="getTheFormGroup.password.errors.minlength" class="msnError">Valor mínimo debe ser 3</strong>
                     </div>
                   </div>
                 </div>

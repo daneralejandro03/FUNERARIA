@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 
 import { AppComponent } from "./app.component";
@@ -13,8 +13,6 @@ import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { AppRoutingModule } from "./app.routing";
 import { ComponentsModule } from "./components/components.module";
 import { Login2faComponent } from "./pages/login2fa/login2fa.component";
-import { AuthGuard } from "./guards/auth.guard";
-import { AuthInterceptor } from "./interceptors/auth.interceptor";
 
 @NgModule({
   imports: [
@@ -32,11 +30,7 @@ import { AuthInterceptor } from "./interceptors/auth.interceptor";
     AuthLayoutComponent,
     Login2faComponent,
   ],
-  providers: [AuthGuard,{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true,
-  }],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

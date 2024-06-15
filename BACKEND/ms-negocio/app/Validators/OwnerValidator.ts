@@ -5,7 +5,7 @@ export default class OwnerValidator {
   constructor(protected ctx: HttpContextContract) {}
 
   public schema = schema.create({
-    contract_status: schema.string([rules.required(), rules.minLength(5)]),
+    contract_status: schema.string([rules.required(), rules.minLength(4)]),
     customer_id: schema.number([rules.exists({ table: 'customers', column: 'id'})]),
   })
 

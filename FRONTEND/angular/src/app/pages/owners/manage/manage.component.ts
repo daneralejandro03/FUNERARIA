@@ -59,12 +59,12 @@ export class ManageComponent implements OnInit {
       //Lista seran las reglas
       identificationCard: ['',[Validators.required]],
       name: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      address: ['', [Validators.required, Validators.minLength(5)]],
-      phone_number: ['', [Validators.required, Validators.minLength(5)]],
+      address: ['', [Validators.required]],
+      phone_number: ['', [Validators.required]],
       user_id: [''],
-      contract_status: ['', [Validators.required, Validators.minLength(5)]],
+      contract_status: ['', [Validators.required]],
       customer_id: ['']
     });
   }

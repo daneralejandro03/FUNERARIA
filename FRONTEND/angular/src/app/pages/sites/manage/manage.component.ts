@@ -12,8 +12,8 @@ import Swal from "sweetalert2";
   styleUrls: ["./manage.component.scss"],
 })
 export class ManageComponent implements OnInit {
-  departments: any[] = [];
-  cities: any[] = [];
+  departments: any[];
+  cities: any[];
   mode: number; // 1: view, 2: create, 3: update
   site: Site;
   theFormGroup: FormGroup;
@@ -25,6 +25,10 @@ export class ManageComponent implements OnInit {
     private router: Router,
     private theFormBuilder: FormBuilder
   ) {
+    this.departments = [];
+
+    this.cities = [];
+
     this.trySend = false;
 
     this.mode = 1;

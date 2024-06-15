@@ -47,11 +47,13 @@ export class ManageComponent implements OnInit {
     this.theFormGroup = this.theFormBuilder.group({
       //Primer elemento del vector, valor por defecto
       //Lista seran las reglas
-      subscription_type: ["", [Validators.required, Validators.minLength(5)]],
+      subscription_type: ["", [Validators.required]],
       start_date: ["", [Validators.required]],
       end_date: ["", [Validators.required]],
-      plan_id: ["", [Validators.required]],
-      state: [""]
+      state: [""],
+      plan_id: [""],
+      //customer_id: ['', [Validators.required]],
+      //plan_id: ['', [Validators.required]]
     });
   }
 

@@ -58,13 +58,13 @@ export class ManageComponent implements OnInit {
 
 configFormGroup(){
   this.theFormGroup = this.theFormBuilder.group({
-      beneficiary_status: ['',[Validators.required, Validators.minLength(5)]],
+      beneficiary_status: ['',[Validators.required]],
       name: ['', [Validators.required, Validators.minLength(3)]],
       identificationCard: ['',[Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      address: ['', [Validators.required, Validators.minLength(5)]],
-      phone_number: ['', [Validators.required, Validators.minLength(5)]]
+      address: ['', [Validators.required]],
+      phone_number: ['', [Validators.required]]
   });
 }
 

@@ -64,9 +64,6 @@
                                   <select class="form-control" id="customer" formControlName="customer_id" [(ngModel)]="report.customer_id" (change)="selectCustomer($event.target.value)">
                                     <option *ngFor="let customer of customers" [value]="customer.id" [selected]="customer.id === report.customer_id">{{ customer.name }}</option>
                                   </select>
-                                  <div *ngIf="getTheFormGroup.customer_id.errors && (getTheFormGroup.customer_id.dirty || getTheFormGroup.customer_id.touched || trySend)">
-                                    <strong *ngIf="getTheFormGroup.customer_id.errors.required" class="msnError">Requerido</strong>
-                                  </div>
                                 </div>
                               </div>            
                               <div *ngIf="isCustomer" class="row">
@@ -78,9 +75,6 @@
                                   <select class="form-control" id="incident" formControlName="incident_id" [(ngModel)]="report.incident_id" (change)="selectIncident($event.target.value)">
                                     <option *ngFor="let incident of incidents" [value]="incident.id" [selected]="incident.id === report.incident_id">{{ incident.id }}</option>
                                   </select>
-                                  <div *ngIf="getTheFormGroup.incident_id.errors && (getTheFormGroup.incident_id.dirty || getTheFormGroup.incident_id.touched || trySend)">
-                                    <strong *ngIf="getTheFormGroup.incident_id.errors.required" class="msnError">Requerido</strong>
-                                  </div>
                                 </div>
                               </div>                                                         
                         <div class="row">
