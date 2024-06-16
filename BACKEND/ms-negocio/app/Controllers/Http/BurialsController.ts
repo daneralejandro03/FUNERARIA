@@ -33,11 +33,17 @@ export default class BurialsController {
   public async update({ params, request }: HttpContextContract) {
     const theBurial: Burial = await Burial.findOrFail(params.id)
     const body = request.body()
+
+    // Actualiza los campos del modelo con los datos de la solicitud
     theBurial.location = body.location
     theBurial.cementery = body.cementery
     theBurial.burial_type = body.burial_type
     theBurial.wakeRoom = body.wakeRoom_id
     theBurial.service = body.service_id
+
+    // Asegúrate de cargar las relaciones necesarias
+    await theBurial.load('wakeRoom')
+    await theBurial.load('service')
 
     return await theBurial.save()
   }
