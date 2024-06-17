@@ -75,8 +75,9 @@
                   </div>
                 </div>
   
-                <div class="row mt-4">
-                  <div class="col">
+                <div class="row">
+                  <div class="col-4"></div>
+                  <div class="col-8">
                     <button *ngIf="mode != 1" class="btn btn-success btn-block" (click)="mode == 2 ? create() : update()">
                       {{ mode == 2 ? 'Crear' : 'Actualizar' }}
                     </button>

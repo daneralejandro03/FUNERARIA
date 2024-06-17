@@ -12,13 +12,13 @@
               <h3 class="mb-0" *ngIf="isCustomer">Reportes de {{ customer_id }}</h3>
               <h3 class="mb-0" *ngIf="isIncident">Reportes de {{ incident_id }}</h3>
             </div>
-            <div class="col-6"></div>
-            <div class="col-3">
+            <div class="col-8 text-right">
               <button *ngIf="isCustomer" type="button" class="btn btn-success" (click)="createWithCustomer(customer_id)">Crear</button>
               <button *ngIf="isIncident" type="button" class="btn btn-success" (click)="createWithIncident(incident_id)">Crear</button>
             </div>
           </div>
         </div>
+      </div>
         <div class="card-body">
           <!--<h1 *ngIf="isCustomer">Planes de {{ plan_id }}</h1>
           <h1 *ngIf="isIncident">Servicios de {{ service_id }}</h1>-->
@@ -50,4 +50,3 @@
       </div>
     </div>
   </div>
-</div>

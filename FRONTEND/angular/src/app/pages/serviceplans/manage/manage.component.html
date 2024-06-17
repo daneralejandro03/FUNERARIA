@@ -27,7 +27,10 @@
                                     Estado contrato:
                                 </div>
                                 <div class="col-8">
-                                    <input type="checkbox" class="form-control" [(ngModel)]="serviceplan.status_hiring" [disabled]="mode==1" formControlName="status_hiring">
+                                    <div class="form-check">
+                                        <input type="checkbox" id="estadoCheckbox" class="form-check-input" [(ngModel)]="serviceplan.status_hiring" [disabled]="mode==1" formControlName="status_hiring">
+                                        <label class="form-check-label" for="estadoCheckbox">Estado</label>
+                                    </div>
                                     <div *ngIf="getTheFormGroup.status_hiring.errors && (getTheFormGroup.status_hiring.dirty || getTheFormGroup.status_hiring.touched || trySend)">
                                         <strong *ngIf="getTheFormGroup.status_hiring.errors.required" class="msnError">Requerido</strong>
                                     </div>

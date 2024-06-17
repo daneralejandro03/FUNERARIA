@@ -12,13 +12,13 @@
               <h3 class="mb-0" *ngIf="isPlan">Servicios planes de {{ plan_id }}</h3>
               <h3 class="mb-0" *ngIf="isService">Servicios planes de {{ service_id }}</h3>
             </div>
-            <div class="col-6"></div>
-            <div class="col-3">
+            <div class="col-8 text-right">
               <button *ngIf="isPlan" type="button" class="btn btn-success" (click)="createWithPlan(plan_id)">Crear</button>
               <button *ngIf="isService" type="button" class="btn btn-success" (click)="createWithService(service_id)">Crear</button>
             </div>
           </div>
         </div>
+      </div>
         <div class="card-body">
           <div class="table-responsive">
             <table class="table">
@@ -49,5 +49,4 @@
       </div>
     </div>
   </div>
-</div>
 
