@@ -1,0 +1,67 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Primera fila -->
+                            <div class="col-lg-3 col-md-4 col-sm-6">Id:</div>
+                            <div class="col-lg-9 col-md-8 col-sm-6">
+                                <input type="text" class="form-control" [(ngModel)]="user._id" disabled>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <!-- Segunda fila -->
+                            <div class="col-lg-3 col-md-4 col-sm-6">Nombre:</div>
+                            <div class="col-lg-9 col-md-8 col-sm-6">
+                                <input type="text" class="form-control" [(ngModel)]="user.name" disabled>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <!-- Tercera fila -->
+                            <div class="col-lg-3 col-md-4 col-sm-6">Capacidad:</div>
+                            <div class="col-lg-9 col-md-8 col-sm-6">
+                                <input type="text" class="form-control" [(ngModel)]="user.identificationCard" disabled>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <!-- Cuarta fila -->
+                            <div class="col-lg-3 col-md-4 col-sm-6">Email:</div>
+                            <div class="col-lg-9 col-md-8 col-sm-6">
+                                <input type="text" class="form-control" [(ngModel)]="user.email" disabled>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <!-- Quinta fila -->
+                            <div class="col-lg-3 col-md-4 col-sm-6">Rol:</div>
+                            <div class="col-lg-9 col-md-8 col-sm-6">
+                                <ng-container *ngIf="user.role">
+                                    <input type="text" class="form-control" [(ngModel)]="user.role.name" disabled>
+                                    <button class="btn btn-danger mr-2 mt-2" (click)="removeRole()">Eliminar
+                                        Rol</button>
+                                </ng-container>
+                                <ng-container *ngIf="!user.role">
+                                    <p>No tiene rol asignado</p>
+                                </ng-container>
+                            </div>
+                        </div>
+                        <!-- Sección para asignar un nuevo rol -->
+                        <div class="row mt-4">
+                            <div class="col-lg-3 col-md-4 col-sm-6">Seleccionar Rol:</div>
+                            <div class="col-lg-9 col-md-8 col-sm-6">
+                                <select class="form-control" [(ngModel)]="selectedRoleId">
+                                    <option *ngFor="let role of roles" [value]="role._id">{{ role.name }}</option>
+                                </select>
+                                <button class="btn btn-primary mt-2" (click)="assignRole()">Asignar Rol</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

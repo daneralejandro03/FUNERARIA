@@ -1,19 +1,18 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { Role } from '../models/role.model';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { environment } from "src/environments/environment";
+import { Role } from "../models/role.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class RoleService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     });
   }
 
@@ -25,12 +24,18 @@ export class RoleService {
     return this.http.get<Role>(`${environment.url_ms_security}/roles/${id}`);
   }
 
-  create(role: Role): Observable<Role> {
-    return this.http.post<Role>(`${environment.url_ms_security}/roles`, role, { headers: this.getHeaders() });
+  create(theRole: Role): Observable<Role> {
+    return this.http.post<Role>(
+      `${environment.url_ms_security}/roles`,
+      theRole
+    );
   }
 
-  update(id: string, role: Role): Observable<Role> {
-    return this.http.put<Role>(`${environment.url_ms_security}/roles/${id}`, role, { headers: this.getHeaders() });
+  update(theRole: Role): Observable<Role> {
+    return this.http.put<Role>(
+      `${environment.url_ms_security}/roles/${theRole._id}`,
+      theRole
+    );
   }
 
   delete(id: string): Observable<void> {

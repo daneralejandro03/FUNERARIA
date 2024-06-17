@@ -4,6 +4,7 @@ import com.ucaldas.mssecurity.Models.Permission;
 import com.ucaldas.mssecurity.Repositories.PermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,15 +36,16 @@ public class PermissionsController {
         return thePermission;
     }
 
-    @PutMapping("{id}")
-    public Permission update(@PathVariable String id, @RequestBody Permission theNewPermission) {
-        Permission theActualPermission = this.thePermissionRepository
-                .findById(id)
-                .orElse(null);
-        if (theActualPermission != null) {
-            return this.thePermissionRepository.save(theActualPermission);
+    @PutMapping("/{id}")
+    public ResponseEntity<Permission> update(@PathVariable String id, @RequestBody Permission updatedPermission) {
+        Permission existingPermission = thePermissionRepository.findById(id).orElse(null);
+        if (existingPermission != null) {
+            existingPermission.setUrl(updatedPermission.getUrl());
+            existingPermission.setMethod(updatedPermission.getMethod());
+            Permission updated = thePermissionRepository.save(existingPermission);
+            return ResponseEntity.ok().body(updated);
         } else {
-            return null;
+            return ResponseEntity.notFound().build(); // Manejo de permiso no encontrado
         }
     }
 

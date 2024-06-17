@@ -158,4 +158,28 @@ export const AdminLayoutRoutes: Routes = [
         (m) => m.DeceasedsModule
       ),
   },
+  {
+    path: "permissions",
+    loadChildren: () =>
+      import("src/app/pages/permissions/permissions.module").then(
+        (m) => m.PermissionsModule
+      ),
+  },
+  {
+    path: "users",
+    loadChildren: () =>
+      import("src/app/pages/users/users.module").then((m) => m.UsersModule),
+  },
+  {
+    path: "roles",
+    loadChildren: () =>
+      import("src/app/pages/roles/roles.module").then((m) => m.RolesModule),
+  },
+  {
+    path: "rolepermissions",
+    loadChildren: () =>
+      import("src/app/pages/role-permission/role-permission.module").then(
+        (m) => m.RolePermissionModule
+      ),
+  },
 ];

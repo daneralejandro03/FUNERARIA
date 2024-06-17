@@ -36,8 +36,18 @@ export class ManageComponent implements OnInit {
     this.mode = 1;
     this.rolePermission = {
       _id: "",
-      role: { _id: "", name: "", description: "" },
-      permission: { _id: "", url: "", method: "" },
+      idRole: "",
+      idPermission: "",
+      role: {
+        _id: "",
+        name: "",
+        description: "",
+      },
+      permission: {
+        _id: "",
+        url: "",
+        method: "",
+      },
     };
     this.configFormGroup();
     this.loadRoles();
@@ -76,8 +86,8 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      role: [null, [Validators.required]],
-      permission: [null, [Validators.required]],
+      idRole: ["", [Validators.required]],
+      idPermission: ["", [Validators.required]],
     });
   }
 
@@ -88,6 +98,10 @@ export class ManageComponent implements OnInit {
   getRolePermission(id: string) {
     this.rolePermissionService.findByRole(id).subscribe((data) => {
       this.rolePermission = data[0];
+      this.theFormGroup.patchValue({
+        idRole: this.rolePermission.idRole, // Corrected to idRole
+        idPermission: this.rolePermission.idPermission, // Corrected to idPermission
+      });
     });
   }
 
@@ -101,18 +115,17 @@ export class ManageComponent implements OnInit {
       );
       return;
     }
+    const roleId = this.getTheFormGroup.idRole.value;
+    const permissionId = this.getTheFormGroup.idPermission.value;
     this.rolePermissionService
-      .create(
-        this.getTheFormGroup.role.value,
-        this.getTheFormGroup.permission.value
-      )
+      .create(roleId, permissionId)
       .subscribe((data) => {
         Swal.fire(
           "Creación Exitosa",
           "Se ha creado una nueva asignación",
           "success"
         );
-        this.router.navigate(["role-permission/list"]);
+        this.router.navigate(["rolepermissions/list"]);
       });
   }
 
@@ -126,18 +139,17 @@ export class ManageComponent implements OnInit {
       );
       return;
     }
+    const roleId = this.getTheFormGroup.idRole.value;
+    const permissionId = this.getTheFormGroup.idPermission.value;
     this.rolePermissionService
-      .create(
-        this.getTheFormGroup.role.value,
-        this.getTheFormGroup.permission.value
-      )
+      .create(roleId, permissionId) // Assuming you have an update method in your service
       .subscribe((data) => {
         Swal.fire(
           "Actualización Exitosa",
           "Se ha actualizado la asignación",
           "success"
         );
-        this.router.navigate(["role-permission/list"]);
+        this.router.navigate(["rolepermissions/list"]);
       });
   }
 }

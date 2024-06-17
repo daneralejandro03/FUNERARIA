@@ -54,4 +54,9 @@ public class RolePermissionController {
     public List<RolePermission> findByRole(@PathVariable String roleId){
         return this.theRolePermissionRepository.getPermissionsByRole(roleId);
     }
+
+    @GetMapping
+    public List<RolePermission> findAll() {
+        return this.theRolePermissionRepository.findAll();
+    }
 }
