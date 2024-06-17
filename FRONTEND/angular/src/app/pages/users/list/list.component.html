@@ -13,33 +13,36 @@
                 </div>
 
                 <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NOMBRE</th>
-                                <th>IDENTIFICACIÓN</th>
-                                <th>CORREO</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let user of users">
-                                <td>{{ user._id }}</td>
-                                <td>{{ user.name }}</td>
-                                <td>{{ user.identificationCard }}</td>
-                                <td>{{ user.email }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary" (click)="view(user._id)">Ver</button>
-                                    <button type="button" class="btn btn-info"
-                                        (click)="navigateToRoles(user._id)">Role</button>
-                                </td>
-                            </tr>
-                            <tr *ngIf="users.length === 0">
-                                <td colspan="4" class="text-center">No hay permisos para mostrar.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>NOMBRE</th>
+                                    <th>IDENTIFICACIÓN</th>
+                                    <th>CORREO</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of users">
+                                    <td>{{ user._id }}</td>
+                                    <td>{{ user.name }}</td>
+                                    <td>{{ user.identificationCard }}</td>
+                                    <td>{{ user.email }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="view(user._id)">Ver</button>
+                                        <button type="button" class="btn btn-info"
+                                            (click)="navigateToRoles(user._id)">Role</button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="users.length === 0">
+                                    <td colspan="4" class="text-center">No hay permisos para mostrar.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

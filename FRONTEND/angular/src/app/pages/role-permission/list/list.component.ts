@@ -60,11 +60,6 @@ export class ListComponent implements OnInit {
     this.router.navigate(["rolepermissions/create"]);
   }
 
-  update(id: string) {
-    console.log(id);
-    this.router.navigate(["rolepermissions/update/" + id]);
-  }
-
   view(id: string) {
     console.log(id);
     this.router.navigate(["rolepermissions/view/" + id]);

@@ -1,69 +1,66 @@
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
-  <!-- Header content if needed -->
+  <!-- Contenido del encabezado si es necesario -->
 </div>
 
-<!-- Page content -->
+<!-- Contenido de la página -->
 <div class="container-fluid mt--7">
-  <!-- Card with form -->
+  <!-- Tarjeta con formulario -->
   <div class="row">
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
-          <!-- Dynamic header based on mode -->
+          <!-- Encabezado dinámico basado en el modo -->
           <h3 *ngIf="mode === 1" class="mb-0">Visualización</h3>
           <h3 *ngIf="mode === 2" class="mb-0">Crear</h3>
-          <h3 *ngIf="mode === 3" class="mb-0">Actualizar</h3>
         </div>
         <div class="card-body">
-          <!-- Form to manage role and permission -->
-          <form class="form" [formGroup]="theFormGroup" (ngSubmit)="mode === 2 ? create() : update()">
+          <!-- Formulario para gestionar rol y permiso -->
+          <form class="form" [formGroup]="theFormGroup" (ngSubmit)="create()">
             <div class="container">
-              <!-- ID field -->
+              <!-- Campo de ID -->
               <div class="row">
                 <div class="col-4">ID:</div>
                 <div class="col-8">{{ rolePermission._id }}</div>
               </div>
-              <!-- Role selection -->
+              <!-- Selección de Rol -->
               <div class="row">
                 <div class="col-4">Rol:</div>
                 <div class="col-8">
-                  <select class="form-control" [(ngModel)]="rolePermission.role._id" [disabled]="mode === 1"
+                  <select class="form-control" [(ngModel)]="rolePermission.idRole" [disabled]="mode === 1"
                     formControlName="idRole">
                     <option *ngFor="let role of roles" [value]="role._id">{{ role.name }}</option>
                   </select>
                   <br>
-                  <!-- Error message for role selection -->
+                  <!-- Mensaje de error para selección de rol -->
                   <div
-                    *ngIf="theFormGroup.get('idRole').invalid && (theFormGroup.get('idRole').dirty || theFormGroup.get('idRole').touched || trySend)">
-                    <strong *ngIf="theFormGroup.get('idRole').errors.required" class="text-danger">Campo
-                      requerido</strong>
+                    *ngIf="getTheFormGroup.idRole.invalid && (getTheFormGroup.idRole.dirty || getTheFormGroup.idRole.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.idRole.errors?.required" class="text-danger">Campo requerido</strong>
                   </div>
                 </div>
               </div>
-              <!-- Permission selection -->
+              <!-- Selección de Permiso -->
               <div class="row">
                 <div class="col-4">Permiso:</div>
                 <div class="col-8">
-                  <select class="form-control" [(ngModel)]="rolePermission.permission._id" [disabled]="mode === 1"
+                  <select class="form-control" [(ngModel)]="rolePermission.idPermission" [disabled]="mode === 1"
                     formControlName="idPermission">
                     <option *ngFor="let permission of permissions" [value]="permission._id">{{ permission.url }}
                     </option>
                   </select>
                   <br>
-                  <!-- Error message for permission selection -->
+                  <!-- Mensaje de error para selección de permiso -->
                   <div
-                    *ngIf="theFormGroup.get('idPermission').invalid && (theFormGroup.get('idPermission').dirty || theFormGroup.get('idPermission').touched || trySend)">
-                    <strong *ngIf="theFormGroup.get('idPermission').errors.required" class="text-danger">Campo
+                    *ngIf="getTheFormGroup.idPermission.invalid && (getTheFormGroup.idPermission.dirty || getTheFormGroup.idPermission.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.idPermission.errors?.required" class="text-danger">Campo
                       requerido</strong>
                   </div>
                 </div>
               </div>
-              <!-- Action buttons (Create or Update) -->
-              <div class="row">
+              <!-- Botones de acción (Crear o Cancelar) -->
+              <div class="row mt-4">
                 <div class="col-4"></div>
                 <div class="col-8">
                   <button *ngIf="mode === 2" type="submit" class="btn btn-primary btn-block">Crear</button>
-                  <button *ngIf="mode === 3" type="submit" class="btn btn-primary btn-block">Actualizar</button>
                 </div>
               </div>
             </div>
