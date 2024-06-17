@@ -15,7 +15,7 @@ import Swal from "sweetalert2";
   styleUrls: ["./manage.component.scss"],
 })
 export class ManageComponent implements OnInit {
-  mode: number; // 1 -> View, 2 -> Create, 3 -> Update
+  mode: number; // 1 -> View, 2 -> Create
   rolePermission: RolePermission;
   roles: Role[];
   permissions: Permission[];
@@ -28,56 +28,65 @@ export class ManageComponent implements OnInit {
     private roleService: RoleService,
     private permissionService: PermissionService,
     private router: Router,
-    private theFormBuilder: FormBuilder
+    private formBuilder: FormBuilder
   ) {
     this.roles = [];
     this.permissions = [];
     this.trySend = false;
-    this.mode = 1;
+    this.mode = 1; // Por defecto en modo de visualización
     this.rolePermission = {
       _id: "",
-      role: { _id: "", name: "", description: "" },
-      permission: { _id: "", url: "", method: "" },
+      idRole: "",
+      idPermission: "",
+      role: {
+        _id: "",
+        name: "",
+        description: "",
+      },
+      permission: {
+        _id: "",
+        url: "",
+        method: "",
+      },
     };
-    this.configFormGroup();
-    this.loadRoles();
-    this.loadPermissions();
   }
 
   ngOnInit(): void {
     const currentUrl = this.activateRoute.snapshot.url.join("/");
     const id = this.activateRoute.snapshot.params.id;
-
-    if (id) {
-      this.rolePermission._id = id;
-      this.getRolePermission(this.rolePermission._id);
-    }
+    console.log("Current URL: ", currentUrl);
+    console.log("ID: ", id);
 
     if (currentUrl.includes("view")) {
       this.mode = 1;
     } else if (currentUrl.includes("create")) {
       this.mode = 2;
-    } else if (currentUrl.includes("update")) {
-      this.mode = 3;
     }
+
+    if (id && this.mode === 1) {
+      this.getRoleIdFromRolePermission(id);
+    }
+
+    this.theFormGroup = this.formBuilder.group({
+      idRole: ["", [Validators.required]],
+      idPermission: ["", [Validators.required]],
+    });
+
+    this.loadRoles();
+    this.loadPermissions();
   }
 
   loadRoles() {
     this.roleService.list().subscribe((data) => {
       this.roles = data;
+      console.log("Roles: ", JSON.stringify(this.roles));
     });
   }
 
   loadPermissions() {
     this.permissionService.list().subscribe((data) => {
       this.permissions = data;
-    });
-  }
-
-  configFormGroup() {
-    this.theFormGroup = this.theFormBuilder.group({
-      role: [null, [Validators.required]],
-      permission: [null, [Validators.required]],
+      console.log("Permissions: ", JSON.stringify(this.permissions));
     });
   }
 
@@ -85,9 +94,26 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls;
   }
 
-  getRolePermission(id: string) {
-    this.rolePermissionService.findByRole(id).subscribe((data) => {
-      this.rolePermission = data[0];
+  getRoleIdFromRolePermission(rolePermissionId: string) {
+    this.rolePermissionService
+      .findByRole(rolePermissionId)
+      .subscribe((data) => {
+        if (data && data.length > 0) {
+          const roleId = data[0].role._id; // Obtenemos el id del rol desde el rolpermiso
+          this.getRolePermission(roleId);
+        }
+      });
+  }
+
+  getRolePermission(roleId: string) {
+    this.rolePermissionService.findByRole(roleId).subscribe((data) => {
+      if (data && data.length > 0) {
+        this.rolePermission = data[0];
+        this.theFormGroup.patchValue({
+          idRole: this.rolePermission.role._id,
+          idPermission: this.rolePermission.permission._id,
+        });
+      }
     });
   }
 
@@ -101,43 +127,17 @@ export class ManageComponent implements OnInit {
       );
       return;
     }
+    const roleId = this.getTheFormGroup.idRole.value;
+    const permissionId = this.getTheFormGroup.idPermission.value;
     this.rolePermissionService
-      .create(
-        this.getTheFormGroup.role.value,
-        this.getTheFormGroup.permission.value
-      )
+      .create(roleId, permissionId)
       .subscribe((data) => {
         Swal.fire(
           "Creación Exitosa",
           "Se ha creado una nueva asignación",
           "success"
         );
-        this.router.navigate(["role-permission/list"]);
-      });
-  }
-
-  update() {
-    if (this.theFormGroup.invalid) {
-      this.trySend = true;
-      Swal.fire(
-        "Formulario Incompleto",
-        "Ingrese los datos solicitados",
-        "error"
-      );
-      return;
-    }
-    this.rolePermissionService
-      .create(
-        this.getTheFormGroup.role.value,
-        this.getTheFormGroup.permission.value
-      )
-      .subscribe((data) => {
-        Swal.fire(
-          "Actualización Exitosa",
-          "Se ha actualizado la asignación",
-          "success"
-        );
-        this.router.navigate(["role-permission/list"]);
+        this.router.navigate(["rolepermissions/list"]);
       });
   }
 }

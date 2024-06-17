@@ -1,5 +1,5 @@
 export class Permission {
-  _id: string;
+  _id?: string;
   url: string;
   method: string;
 }

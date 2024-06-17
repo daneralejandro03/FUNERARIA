@@ -383,7 +383,6 @@ class PaymentsController extends Controller
             'extra9' => 'nullable|string|max:255',
             'extra10' => 'nullable|string|max:255',
         ]);
-
         $validated['ip'] = $request->ip(); //, // IP del cliente
 
         Log::info("PASE LA VALIDACIÓN" . $validated['subscription_id']);

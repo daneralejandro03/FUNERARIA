@@ -1,52 +1,66 @@
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+  <!-- Contenido del encabezado si es necesario -->
 </div>
-<!-- Page content -->
+
+<!-- Contenido de la página -->
 <div class="container-fluid mt--7">
-  <!-- Table -->
+  <!-- Tarjeta con formulario -->
   <div class="row">
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
+          <!-- Encabezado dinámico basado en el modo -->
           <h3 *ngIf="mode === 1" class="mb-0">Visualización</h3>
           <h3 *ngIf="mode === 2" class="mb-0">Crear</h3>
-          <h3 *ngIf="mode === 3" class="mb-0">Actualizar</h3>
         </div>
         <div class="card-body">
-          <form class="form" [formGroup]="theFormGroup">
+          <!-- Formulario para gestionar rol y permiso -->
+          <form class="form" [formGroup]="theFormGroup" (ngSubmit)="create()">
             <div class="container">
+              <!-- Campo de ID -->
               <div class="row">
                 <div class="col-4">ID:</div>
                 <div class="col-8">{{ rolePermission._id }}</div>
               </div>
+              <!-- Selección de Rol -->
               <div class="row">
                 <div class="col-4">Rol:</div>
                 <div class="col-8">
-                  <select class="form-control" [(ngModel)]="rolePermission.role._id" [disabled]="mode === 1" formControlName="role">
+                  <select class="form-control" [(ngModel)]="rolePermission.idRole" [disabled]="mode === 1"
+                    formControlName="idRole">
                     <option *ngFor="let role of roles" [value]="role._id">{{ role.name }}</option>
                   </select>
                   <br>
-                  <div *ngIf="getTheFormGroup.role.errors && (getTheFormGroup.role.dirty || getTheFormGroup.role.touched || trySend)">
-                    <strong *ngIf="getTheFormGroup.role.errors.required" class="msnError">Requerido</strong>
+                  <!-- Mensaje de error para selección de rol -->
+                  <div
+                    *ngIf="getTheFormGroup.idRole.invalid && (getTheFormGroup.idRole.dirty || getTheFormGroup.idRole.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.idRole.errors?.required" class="text-danger">Campo requerido</strong>
                   </div>
                 </div>
               </div>
+              <!-- Selección de Permiso -->
               <div class="row">
                 <div class="col-4">Permiso:</div>
                 <div class="col-8">
-                  <select class="form-control" [(ngModel)]="rolePermission.permission._id" [disabled]="mode === 1" formControlName="permission">
-                    <option *ngFor="let permission of permissions" [value]="permission._id">{{ permission.name }}</option>
+                  <select class="form-control" [(ngModel)]="rolePermission.idPermission" [disabled]="mode === 1"
+                    formControlName="idPermission">
+                    <option *ngFor="let permission of permissions" [value]="permission._id">{{ permission.url }}
+                    </option>
                   </select>
                   <br>
-                  <div *ngIf="getTheFormGroup.permission.errors && (getTheFormGroup.permission.dirty || getTheFormGroup.permission.touched || trySend)">
-                    <strong *ngIf="getTheFormGroup.permission.errors.required" class="msnError">Requerido</strong>
+                  <!-- Mensaje de error para selección de permiso -->
+                  <div
+                    *ngIf="getTheFormGroup.idPermission.invalid && (getTheFormGroup.idPermission.dirty || getTheFormGroup.idPermission.touched || trySend)">
+                    <strong *ngIf="getTheFormGroup.idPermission.errors?.required" class="text-danger">Campo
+                      requerido</strong>
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <!-- Botones de acción (Crear o Cancelar) -->
+              <div class="row mt-4">
                 <div class="col-4"></div>
                 <div class="col-8">
-                  <button *ngIf="mode === 2" class="btn btn-primary btn-block" (click)="create()">Crear</button>
-                  <button *ngIf="mode === 3" class="btn btn-primary btn-block" (click)="update()">Actualizar</button>
+                  <button *ngIf="mode === 2" type="submit" class="btn btn-primary btn-block">Crear</button>
                 </div>
               </div>
             </div>

@@ -1,0 +1,48 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIf="mode === 1" class="mb-0">Visualización</h3>
+                    <h3 *ngIf="mode === 2" class="mb-0">Crear</h3>
+                    <h3 *ngIf="mode === 3" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <!-- Primera fila -->
+                            <div class="col-4">Id:</div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" [(ngModel)]="user._id" disabled="mode === 1">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Segunda fila -->
+                            <div class="col-4">Nombre:</div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" [(ngModel)]="user.name">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Tercera fila -->
+                            <div class="col-4">Capacidad:</div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" [(ngModel)]="user.identificationCard">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- Tercera fila -->
+                            <div class="col-4">Email:</div>
+                            <div class="col-8">
+                                <input type="text" class="form-control" [(ngModel)]="user.email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

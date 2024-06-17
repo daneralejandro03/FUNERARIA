@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { RolePermission } from '../models/role-permission.model';
-import { environment } from 'src/environments/environment';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { RolePermission } from "../models/role-permission.model";
+import { environment } from "src/environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class RolePermissionService {
   private apiUrl = `${environment.url_ms_security}/role-permission`;
@@ -21,7 +21,10 @@ export class RolePermissionService {
   }
 
   create(roleId: string, permissionId: string): Observable<RolePermission> {
-    return this.http.post<RolePermission>(`${this.apiUrl}/role/${roleId}/permission/${permissionId}`, {});
+    return this.http.post<RolePermission>(
+      `${this.apiUrl}/role/${roleId}/permission/${permissionId}`,
+      {}
+    );
   }
 
   delete(id: string): Observable<void> {

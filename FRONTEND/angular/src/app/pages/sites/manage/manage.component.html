@@ -92,6 +92,7 @@
                                 <div class="col-8">
                                     <select class="form-control" [(ngModel)]="site.city_id" [disabled]="mode==1"
                                         formControlName="city_id">
+                                        <option *ngIf="mode== 2" [value]="">Seleccione una ciudad</option>
                                         <option *ngFor="let city of cities" [value]="city.id">{{ city.name }}</option>
                                     </select>
                                     <br>
