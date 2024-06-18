@@ -1,0 +1,35 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 class="mb-0">Permisos del rol {{roleId}}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>URL</th>
+                                    <th>METODO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let Permission of listPermissions">
+                                    <td>{{ Permission._id }}</td>
+                                    <td>{{ Permission.url }}</td>
+                                    <td>{{ Permission.method }}</td>
+                                    <td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

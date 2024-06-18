@@ -51,8 +51,6 @@ export class PermissionManageComponent implements OnInit {
       this.mode = 1;
     } else if (currentURL.includes("create")) {
       this.mode = 2;
-    } else if (currentURL.includes("update")) {
-      this.mode = 3;
     }
 
     if (this.activeRoute.snapshot.params.id) {

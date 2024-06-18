@@ -24,6 +24,7 @@ export class ListComponent implements OnInit {
     this.service.findAll().subscribe(
       (data: RolePermission[]) => {
         this.rolePermissions = data;
+        console.log(JSON.stringify(this.rolePermissions));
       },
       (error) => {
         console.error("Error fetching role permissions", error);
@@ -63,5 +64,10 @@ export class ListComponent implements OnInit {
   view(id: string) {
     console.log(id);
     this.router.navigate(["rolepermissions/view/" + id]);
+  }
+
+  redirectToListPermissions(id: string) {
+    console.log(id);
+    this.router.navigate(["rolepermissions/listPermissions/" + id]);
   }
 }

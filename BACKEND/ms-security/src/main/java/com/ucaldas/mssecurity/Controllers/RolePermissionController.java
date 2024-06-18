@@ -8,9 +8,11 @@ import com.ucaldas.mssecurity.Repositories.RolePermissionRepository;
 import com.ucaldas.mssecurity.Repositories.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin
 @RestController
@@ -37,6 +39,13 @@ public class RolePermissionController {
         }else {
             return null;
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<RolePermission> findById(@PathVariable String id) {
+        Optional<RolePermission> rolePermission = theRolePermissionRepository.findById(id);
+        return rolePermission.map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)

@@ -52,34 +52,39 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const currentUrl = this.activateRoute.snapshot.url.join("/");
-    const id = this.activateRoute.snapshot.params.id;
-    console.log("Current URL: ", currentUrl);
-    console.log("ID: ", id);
+    const currentURL = this.activateRoute.snapshot.url.join("/");
 
-    if (currentUrl.includes("view")) {
+    if (currentURL.includes("view")) {
       this.mode = 1;
-    } else if (currentUrl.includes("create")) {
+    } else if (currentURL.includes("create")) {
       this.mode = 2;
+    } else if (currentURL.includes("update")) {
+      this.mode = 3;
     }
 
-    if (id && this.mode === 1) {
-      this.getRoleIdFromRolePermission(id);
-    }
+    this.configFormGroup();
 
+    this.loadRoles();
+    this.loadPermissions();
+
+    if (this.activateRoute.snapshot.params.id) {
+      this.rolePermission._id = this.activateRoute.snapshot.params.id;
+      this.getRolePermission(this.rolePermission._id);
+    }
+  }
+
+  configFormGroup() {
     this.theFormGroup = this.formBuilder.group({
       idRole: ["", [Validators.required]],
       idPermission: ["", [Validators.required]],
     });
-
-    this.loadRoles();
-    this.loadPermissions();
   }
 
   loadRoles() {
     this.roleService.list().subscribe((data) => {
       this.roles = data;
       console.log("Roles: ", JSON.stringify(this.roles));
+      this.setRolePermission();
     });
   }
 
@@ -87,34 +92,34 @@ export class ManageComponent implements OnInit {
     this.permissionService.list().subscribe((data) => {
       this.permissions = data;
       console.log("Permissions: ", JSON.stringify(this.permissions));
+      this.setRolePermission();
     });
+  }
+
+  getRolePermission(id: string) {
+    this.rolePermissionService.view(id).subscribe((data) => {
+      this.rolePermission = data;
+      console.log("RolePermission -> " + JSON.stringify(this.rolePermission));
+      // Llenar el formulario con los datos obtenidos del servidor
+      this.setRolePermission();
+    });
+  }
+
+  setRolePermission() {
+    if (
+      this.roles.length > 0 &&
+      this.permissions.length > 0 &&
+      this.rolePermission._id
+    ) {
+      this.theFormGroup.patchValue({
+        idRole: this.rolePermission.role._id,
+        idPermission: this.rolePermission.permission._id,
+      });
+    }
   }
 
   get getTheFormGroup() {
     return this.theFormGroup.controls;
-  }
-
-  getRoleIdFromRolePermission(rolePermissionId: string) {
-    this.rolePermissionService
-      .findByRole(rolePermissionId)
-      .subscribe((data) => {
-        if (data && data.length > 0) {
-          const roleId = data[0].role._id; // Obtenemos el id del rol desde el rolpermiso
-          this.getRolePermission(roleId);
-        }
-      });
-  }
-
-  getRolePermission(roleId: string) {
-    this.rolePermissionService.findByRole(roleId).subscribe((data) => {
-      if (data && data.length > 0) {
-        this.rolePermission = data[0];
-        this.theFormGroup.patchValue({
-          idRole: this.rolePermission.role._id,
-          idPermission: this.rolePermission.permission._id,
-        });
-      }
-    });
   }
 
   create() {
@@ -139,5 +144,9 @@ export class ManageComponent implements OnInit {
         );
         this.router.navigate(["rolepermissions/list"]);
       });
+  }
+
+  cancel() {
+    this.router.navigate(["rolepermissions/list"]);
   }
 }

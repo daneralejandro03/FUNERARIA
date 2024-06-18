@@ -26,8 +26,7 @@
               <div class="row">
                 <div class="col-4">Rol:</div>
                 <div class="col-8">
-                  <select class="form-control" [(ngModel)]="rolePermission.idRole" [disabled]="mode === 1"
-                    formControlName="idRole">
+                  <select class="form-control" formControlName="idRole" [disabled]="mode === 1">
                     <option *ngFor="let role of roles" [value]="role._id">{{ role.name }}</option>
                   </select>
                   <br>
@@ -42,8 +41,7 @@
               <div class="row">
                 <div class="col-4">Permiso:</div>
                 <div class="col-8">
-                  <select class="form-control" [(ngModel)]="rolePermission.idPermission" [disabled]="mode === 1"
-                    formControlName="idPermission">
+                  <select class="form-control" formControlName="idPermission" [disabled]="mode === 1">
                     <option *ngFor="let permission of permissions" [value]="permission._id">{{ permission.url }}
                     </option>
                   </select>

@@ -16,6 +16,10 @@ export class RolePermissionService {
     return this.http.get<RolePermission[]>(`${this.apiUrl}`);
   }
 
+  view(id: string): Observable<RolePermission> {
+    return this.http.get<RolePermission>(`${this.apiUrl}/${id}`);
+  }
+
   findByRole(roleId: string): Observable<RolePermission[]> {
     return this.http.get<RolePermission[]>(`${this.apiUrl}/role/${roleId}`);
   }

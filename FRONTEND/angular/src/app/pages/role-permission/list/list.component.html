@@ -25,11 +25,12 @@
               <tbody>
                 <tr *ngFor="let rolePermission of rolePermissions">
                   <td>{{ rolePermission._id }}</td>
-                  <td>{{ rolePermission.role.name }}</td>
+                  <td>Id: {{rolePermission.role._id }} - Nombre: {{ rolePermission.role.name }}</td>
                   <td>{{ rolePermission.permission?.url }}</td>
                   <td>
                     <button type="button" class="btn btn-primary" (click)="view(rolePermission._id)">Ver</button>
-                    <button type="button" class="btn btn-warning" (click)="update(rolePermission._id)">Editar</button>
+                    <button type="button" class="btn btn-warning"
+                      (click)="redirectToListPermissions(rolePermission.role._id)">Permisos del rol</button>
                     <button type="button" class="btn btn-danger" (click)="delete(rolePermission._id)">Eliminar</button>
                   </td>
                 </tr>
