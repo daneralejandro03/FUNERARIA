@@ -37,6 +37,8 @@ export class Login2faComponent implements OnInit {
       next: (data) => {
         this.user_id = data.user_id;
         this.session.user_id = this.user_id;
+        console.log("Session: " + JSON.stringify(this.session));
+        
         
         this.theSecurityService.login2FA(this.session).subscribe({
           next: (data) => {
@@ -46,7 +48,7 @@ export class Login2faComponent implements OnInit {
           },
           error: (error) => {
             if(error.status === 401){
-              Swal.fire("Error Autenticación", "Usuario o Contraseña invalidos", "error");
+              Swal.fire("Error Autenticación", "Token Invalido", "error");
             }
           }
         })

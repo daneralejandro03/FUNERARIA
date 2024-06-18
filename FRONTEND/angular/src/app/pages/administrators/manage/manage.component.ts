@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Administrator } from 'src/app/models/administrator.model';
 import { User } from 'src/app/models/user.model';
 import { AdministratorService } from 'src/app/services/administrator.service';
+import { SecurityService } from 'src/app/services/security.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -23,6 +24,7 @@ export class ManageComponent implements OnInit {
   constructor(private activateRoute: ActivatedRoute,
               private service: AdministratorService,
               private serviceUser: UserService,
+              private securityService: SecurityService,
               private router: Router,
               private theFormBuilder: FormBuilder) { 
 
@@ -105,6 +107,10 @@ export class ManageComponent implements OnInit {
       Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
       return;
     }
+
+    let exits = false;
+
+    
 
     this.serviceUser.create(this.theUser).subscribe(data=>{
       if(data){

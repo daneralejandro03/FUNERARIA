@@ -115,6 +115,9 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <p>Cambio de contraseña</p>
+            </div>
             <hr class="my-4" />
             <!-- Address -->
             <h6 class="heading-small text-muted mb-4">Contact information</h6>
@@ -158,6 +161,39 @@
               </div>
             </div>
           </form>
+          <hr class="my-4" />
+          <div>
+            <h6 class="heading-small text-muted mb-4">Cambio de contraseña</h6>
+            <div class="pl-lg-4">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-address">Correo Electronico</label>
+                    <input id="input-email" class="form-control form-control-alternative" [(ngModel)]="email" placeholder="Email" type="email">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-city">Contraseña</label>
+                    <input type="password" id="input-password" class="form-control form-control-alternative" [(ngModel)]="password" placeholder="Password">
+                  </div>
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="input-country">Nueva Contraseña</label>
+                    <input type="password" id="input-new-password" class="form-control form-control-alternative" [(ngModel)]="newPassword" placeholder="New Password">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group">
+                  <button (click)="changePassword()" class="btn btn-default ml-3">Cambiar contraseña</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

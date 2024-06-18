@@ -15,6 +15,8 @@ import { ComponentsModule } from "./components/components.module";
 import { Login2faComponent } from "./pages/login2fa/login2fa.component";
 import { AuthGuard } from "./guards/auth.guard";
 import { AuthInterceptor } from "./interceptors/auth.interceptor";
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './pages/reset-password/reset-password.component';
 
 @NgModule({
   imports: [
@@ -31,6 +33,8 @@ import { AuthInterceptor } from "./interceptors/auth.interceptor";
     AdminLayoutComponent,
     AuthLayoutComponent,
     Login2faComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
   ],
   providers: [AuthGuard,{
     provide: HTTP_INTERCEPTORS,

@@ -88,18 +88,12 @@ public class SecurityController {
 
         String token = "";
         User actualUser = theUserRepository.getUsersByEmail(theUser.getEmail());
-
         if (actualUser != null && actualUser.getPassword().equals(theEncryptionService.convertSHA256(theUser.getPassword()))) {
-
             token = this.thejwtService.generateToken(actualUser);
             theSessionService.verifySession(actualUser);
-
             theNotificationService.generateAndSend2FA(actualUser, token);
-
             respuesta = true;
-
             return respuesta;
-
         }
         else if (actualUser!= null && !actualUser.getPassword().equals(theEncryptionService.convertSHA256(theUser.getPassword()))){
             erroresDeAutorizacion(actualUser);
@@ -131,27 +125,28 @@ public class SecurityController {
     }*/
 
     @PostMapping("login/2FA/{idUser}")
-    public HashMap<String, Object> login2FA(@PathVariable String idUser, @RequestBody Session theSession) {
+    public ResponseEntity<HashMap<String, Object>> login2FA(@PathVariable String idUser, @RequestBody Session theSession) {
 
         HashMap<String, Object> responseMap = new HashMap<>();
-        System.out.println(theSession.getToken2FA());
         Session actualSession = theSessionRepository.getSessionByUser(idUser);
         User actualUser = theUserRepository.getUsersById(idUser);
-        String token = actualSession.getToken();
 
-        if (actualSession != null) {
+        if (actualSession != null && actualUser != null) {
             if (actualSession.getToken2FA() == theSession.getToken2FA()) {
                 actualUser.setPassword("");
                 responseMap.put("user", actualUser);
-                responseMap.put("token", token);
-                return responseMap;
+                responseMap.put("token", actualSession.getToken());
+                return new ResponseEntity<>(responseMap, HttpStatus.OK);
             } else {
                 erroresDeAutorizacion(actualUser);
-                return responseMap;
+                // Aquí devolvemos el error 401
+                return new ResponseEntity<>(responseMap, HttpStatus.UNAUTHORIZED);
             }
         }
-        return responseMap;
+        // Si actualSession es null, también deberías manejar este caso
+        return new ResponseEntity<>(responseMap, HttpStatus.BAD_REQUEST);
     }
+
 
     @GetMapping("getUserId")
     public Map<String, String> getUserByEmail(String email){
@@ -183,15 +178,20 @@ public class SecurityController {
     }
 
     @PostMapping("/forgot-password")
-    public void forgotPassword(@RequestBody Map<String, String> requestBody) {
+    public boolean forgotPassword(@RequestBody Map<String, String> requestBody) {
+        boolean response = false;
         String email = requestBody.get("email");
         User user = theUserRepository.getUsersByEmail(email);
         if (user != null) {
             // Generar token de restablecimiento de contraseña
             String resetToken = thejwtService.generatePasswordResetToken(user);
             // Enviar correo electrónico con el token
+            System.out.println("Llega el email:" + email);
             theNotificationService.sendPasswordResetEmail(user.getEmail(), resetToken);
+            response = true;
         }
+
+        return response;
     }
 
     @PostMapping("/reset-password")
@@ -218,12 +218,12 @@ public class SecurityController {
         }
     }
 
-    @PostMapping("/change-password")
+    /*@PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestBody Map<String, String> requestBody) {
         String email = requestBody.get("email");
         String currentPassword = requestBody.get("currentPassword");
         String newPassword = requestBody.get("newPassword");
-
+        System.out.println("LLEGANDO ANDO");
         User user = theUserRepository.getUsersByEmail(email);
         if (user != null && user.getPassword().equals(theEncryptionService.convertSHA256(currentPassword))) {
             user.setPassword(theEncryptionService.convertSHA256(newPassword));
@@ -231,6 +231,23 @@ public class SecurityController {
             return ResponseEntity.ok("Contraseña cambiada exitosamente");
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+        }
+    }*/
+
+    @PostMapping("/change-password")
+    public boolean changePassword(@RequestBody Map<String, String> requestBody) {
+        boolean response = false;
+        String email = requestBody.get("email");
+        String currentPassword = requestBody.get("currentPassword");
+        String newPassword = requestBody.get("newPassword");
+        User user = theUserRepository.getUsersByEmail(email);
+        if (user != null && user.getPassword().equals(theEncryptionService.convertSHA256(currentPassword))) {
+            user.setPassword(theEncryptionService.convertSHA256(newPassword));
+            theUserRepository.save(user);
+            response = true;
+            return response;
+        } else {
+            return response;
         }
     }
 

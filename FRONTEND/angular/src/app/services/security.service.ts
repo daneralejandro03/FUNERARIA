@@ -57,6 +57,18 @@ export class SecurityService {
     return this.http.post<Session>(`${environment.url_ms_security}/api/public/security/login/2FA/${session.user_id}`, session);
   }
 
+  forgotPassword(email: string): Observable<any>{
+    return this.http.post<any>(`${environment.url_ms_security}/api/public/security/forgot-password`, {email: email})
+  }
+
+  resetPassword(token: string, newPassword: string): Observable<any>{
+    return this.http.post<any>(`${environment.url_ms_security}/api/public/security/reset-password`, { token: token, newPassword: newPassword })
+  }
+
+  changePassword(email: string, password: string, newPassword: string): Observable<any>{
+    return this.http.post<any>(`${environment.url_ms_security}/api/public/security/change-password`, { email: email, currentPassword: password, newPassword: newPassword })
+  }
+
   getUserId(email: string): Observable<any> {
     return this.http.get<any>(`${environment.url_ms_security}/api/public/security/getUserId?email=${email}`);
   }
