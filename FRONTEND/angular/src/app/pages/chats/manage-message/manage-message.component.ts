@@ -13,6 +13,7 @@ import { WebSocketService } from "src/app/services/web-socket.service";
 export class ManageMessageComponent implements OnInit, OnDestroy {
   chatId: number;
   messages: Message[];
+  message: Message;
   userData: User;
   newMessage: string;
 
@@ -24,6 +25,12 @@ export class ManageMessageComponent implements OnInit, OnDestroy {
     this.chatId = 0;
     this.messages = [];
     this.newMessage = "";
+    this.message={
+      id: 0,
+      information: "",
+      chat_id: null,
+      user_id: null
+    }
   }
 
   ngOnInit() {
@@ -51,6 +58,12 @@ export class ManageMessageComponent implements OnInit, OnDestroy {
     this.webSocketService.deleteMessage.subscribe((message: any) => {
       this.messages = this.messages.filter((m) => m.id !== message.id);
     });
+
+    this.webSocketService.viewChat(this.chatId).subscribe(response=>{
+      console.log(JSON.stringify(response["messages"]));
+      this.messages = response["messages"];
+      
+    })
   }
 
   ngOnDestroy() {
@@ -68,7 +81,18 @@ export class ManageMessageComponent implements OnInit, OnDestroy {
       console.log(JSON.stringify(message));
 
       this.webSocketService.sendMessage(this.chatId, message);
+      this.storeMessage();
       this.newMessage = "";
     }
+  }
+
+  storeMessage(){
+    this.message.information = this.newMessage;
+    this.message.chat_id = this.chatId;
+    this.message.user_id = this.userData._id;
+
+    this.webSocketService.create(this.message).subscribe(response =>{
+      
+    })
   }
 }

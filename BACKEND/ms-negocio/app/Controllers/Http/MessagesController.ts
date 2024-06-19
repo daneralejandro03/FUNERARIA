@@ -3,13 +3,12 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Message from 'App/Models/Message'
 import Ws from 'App/Services/Ws'
-import axios from 'axios'
-import Env from '@ioc:Adonis/Core/Env'
-import Incident from 'App/Models/Incident'
 
 export default class MessagesController {
   // Create
   public async store({ request }: HttpContextContract) {
+    console.log("LLEGOOOOOOO");
+    
     try {
       const { information, user_id, chat_id } = request.only(['information', 'user_id', 'chat_id'])
 
@@ -21,6 +20,7 @@ export default class MessagesController {
 
       // Emitir un evento de WebSocket para el nuevo mensaje al chat correspondiente
       Ws.io.to(`chat_${theMessage.chat_id}`).emit('new_message', theMessage)
+      
       console.log('Mensaje creado:', theMessage)
 
       return theMessage
