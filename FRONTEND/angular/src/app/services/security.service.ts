@@ -69,6 +69,15 @@ export class SecurityService {
     return this.http.post<any>(`${environment.url_ms_security}/api/public/security/change-password`, { email: email, currentPassword: password, newPassword: newPassword })
   }
 
+  getUserByEmail(email: string): Observable<any>{
+    return this.http.get<any>(`${environment.url_ms_security}/api/public/security/user-by-email?email=${email}`)
+
+  }
+
+  sendContactMessage(subject: string, plainText: string): Observable<any>{
+    return this.http.post<any>(`${environment.url_ms_security}/api/public/security/send-contact`, { subject: subject, plainText: plainText })
+  }
+
   getUserId(email: string): Observable<any> {
     return this.http.get<any>(`${environment.url_ms_security}/api/public/security/getUserId?email=${email}`);
   }
