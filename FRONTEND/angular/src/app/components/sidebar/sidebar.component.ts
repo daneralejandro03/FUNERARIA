@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { User } from "src/app/models/user.model";
 import { SecurityService } from "src/app/services/security.service";
+import { WebSocketService } from "src/app/services/web-socket.service";
 
 declare interface RouteInfo {
   path: string;
@@ -107,7 +108,8 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private theSecurityService: SecurityService
+    private theSecurityService: SecurityService,
+    private theWebSocketService: WebSocketService
   ) {}
 
   ngOnInit() {

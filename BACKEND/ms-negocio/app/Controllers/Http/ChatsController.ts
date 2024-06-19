@@ -1,22 +1,26 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Chat from 'App/Models/Chat'
 import ChatValidator from 'App/Validators/ChatValidator'
+import Ws from 'App/Services/Ws'
 
 export default class ChatsController {
-  //Create
+  // Create
   public async store({ request }: HttpContextContract) {
-    const body = await request.validate(ChatValidator);
-    //const body = request.body();
-    const theChat: Chat = await Chat.create(body);
-    return theChat;
+    const body = await request.validate(ChatValidator)
+    const theChat = await Chat.create(body)
+
+    // Emitir un evento de WebSocket para el nuevo chat
+    Ws.io.emit('new_chat', theChat)
+
+    return theChat
   }
 
-  //Read
+  // Read
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      const theChat = await Chat.findOrFail(params.id);
-      await theChat.load('messages');
-      await theChat.load('incident');
+      const theChat = await Chat.findOrFail(params.id)
+      await theChat.load('messages')
+      await theChat.load('incident')
       return theChat
     } else {
       const data = request.all()
@@ -25,27 +29,35 @@ export default class ChatsController {
         const perPage = request.input('per_page', 20)
         return await Chat.query().paginate(page, perPage)
       } else {
-        return await Chat.query()
+        return await Chat.all()
       }
     }
   }
 
-  //Update
+  // Update
   public async update({ params, request }: HttpContextContract) {
-    const theChat: Chat = await Chat.findOrFail(params.id)
-    const body = request.body()
-    theChat.start_date = body.start_date
-    theChat.state = body.state
-    theChat.incident_id = body.incident_id
+    const theChat = await Chat.findOrFail(params.id)
+    const body = request.only(['start_date', 'state', 'incident_id'])
 
-    return await theChat.save()
+    theChat.merge(body)
+    await theChat.save()
+
+    // Emitir un evento de WebSocket para el chat actualizado
+    Ws.io.emit('update_chat', theChat)
+
+    return theChat
   }
 
-  //Delete
+  // Delete
   public async delete({ params, response }: HttpContextContract) {
-    const theChat: Chat = await Chat.findOrFail(params.id)
+    const theChat = await Chat.findOrFail(params.id)
+    await theChat.delete()
+
     response.status(204)
 
-    return await theChat.delete()
+    // Emitir un evento de WebSocket para el chat eliminado
+    Ws.io.emit('delete_chat', { id: params.id })
+
+    return
   }
 }

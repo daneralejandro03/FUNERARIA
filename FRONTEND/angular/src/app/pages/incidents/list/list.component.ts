@@ -56,6 +56,12 @@ export class ListComponent implements OnInit {
     });
   }
 
+  listChats(id: number) {
+    this.router.navigate(["chats/list/"], {
+      queryParams: { incidentId: id },
+    });
+  }
+
   delete(id: number) {
     console.log("Eliminando a: " + id);
     Swal.fire({

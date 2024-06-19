@@ -1,0 +1,90 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIf="mode == 1" class="mb-0">Visualización</h3>
+                    <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+                    <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <form [formGroup]="theFormGroup">
+                            <div class="row">
+                                <!-- Primera fila -->
+                                <div class="col-4">Id:</div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control" [(ngModel)]="chat.id"
+                                        [disabled]="mode == 1">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!-- Segunda fila -->
+                                <div class="col-4">
+                                    Fecha de inicio:
+                                </div>
+                                <div class="col-8">
+                                    <!-- Usar solo el valor del modelo para el input datetime-local -->
+                                    <input type="datetime-local" class="form-control" [(ngModel)]="chat.start_date "
+                                        name="start_date" [value]="chat.start_date" [disabled]="mode == 1">
+                                    <!-- Validación de errores -->
+                                    <div
+                                        *ngIf="getTheFormGroup.start_date.errors && (getTheFormGroup.start_date.dirty || getTheFormGroup.start_date.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.start_date.errors.required"
+                                            class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4">
+                                    Estado:
+                                </div>
+                                <div class="col-8">
+                                    <div class="form-check">
+                                        <input type="checkbox" id="estadoCheckbox" class="form-check-input"
+                                            [(ngModel)]="chat.state" name="state" [disabled]="mode == 1">
+                                        <label class="form-check-label" for="estadoCheckbox">Estado</label>
+                                    </div>
+                                    <!-- Validación de errores -->
+                                    <div
+                                        *ngIf="getTheFormGroup.state.errors && (getTheFormGroup.state.dirty || getTheFormGroup.state.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.state.errors.required"
+                                            class="msnError">Requerido</strong>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    Selecciona un incidente
+                                </div>
+                                <div class="col-8">
+                                    <select class="form-control" formControlName="incident_id"
+                                        [(ngModel)]="chat.incident.id">
+                                        <option *ngFor="let incident of incidents" [ngValue]="incident.id">
+                                            {{incident.id}} - {{incident.cause_decease}}
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-4"></div>
+                                <div class="col-8">
+                                    <!-- Botón de crear o actualizar dependiendo del modo -->
+                                    <button *ngIf="mode == 2" class="btn btn-primary btn-block"
+                                        (click)="create()">Crear</button>
+                                    <button *ngIf="mode == 3" class="btn btn-primary btn-block"
+                                        (click)="update()">Actualizar</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
