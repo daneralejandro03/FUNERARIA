@@ -7,251 +7,96 @@
     </div>
   </div>
 </div>
+
 <div class="container-fluid mt-5">
+  <!-- Misión -->
   <div class="row">
-    <div class="col-xl-12 mb-5 mb-xl-0">
+    <div class="col-lg-12 mb-4">
       <div class="card bg-gradient-default shadow">
         <div class="card-header bg-transparent">
-          <div class="row align-items-center">
-            <div class="col">
-<<<<<<< HEAD
-              <h6 class="text-uppercase text-light ls-1 mb-1">Overview</h6>
-              <h2 class="text-white mb-0">Sales value</h2>
-            </div>
-            <div class="col">
-              <ul class="nav nav-pills justify-content-end">
-                <li class="nav-item mr-2 mr-md-0" data-toggle="chart" data-target="#chart-sales"
-                  (click)="data=datasets[0];updateOptions()">
-                  <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{'active':clicked===true}"
-                    data-toggle="tab" (click)="clicked=true;clicked1=false">
-                    <span class="d-none d-md-block">Month</span>
-                    <span class="d-md-none">M</span>
-                  </a>
-                </li>
-                <li class="nav-item" data-toggle="chart" data-target="#chart-sales"
-                  (click)="data=datasets[1];updateOptions()">
-                  <a href="javascript:void(0)" class="nav-link py-2 px-3" [ngClass]="{'active':clicked1===true}"
-                    data-toggle="tab" (click)="clicked=false;clicked1=true">
-                    <span class="d-none d-md-block">Week</span>
-                    <span class="d-md-none">W</span>
-                  </a>
-                </li>
-              </ul>
-=======
-              <h2 class="text-white mb-0">Misión</h2>
->>>>>>> cb322f825bf19994e885a60f2c037154cced47a0
-            </div>
-          </div>
+          <h2 class="text-white mb-0">Misión</h2>
         </div>
-        <div class="card-body">
-<<<<<<< HEAD
-          <p class="text-white">Nuestra misión es proporcionar servicios de alta calidad que mejoren la vida de nuestros
-            clientes y la comunidad.</p>
-=======
-          <p class="text-white">Nuestra misión es proporcionar servicios de alta calidad que mejoren la vida de nuestros clientes y la comunidad.</p>
->>>>>>> cb322f825bf19994e885a60f2c037154cced47a0
+        <div class="card-body text-white">
+          <p>Nuestra misión es proporcionar servicios de alta calidad que mejoren la vida de nuestros clientes y la
+            comunidad.</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="col-xl-12 mb-5 mb-xl-0">
+
+  <!-- Visión -->
+  <div class="row">
+    <div class="col-lg-12 mb-4">
       <div class="card shadow">
         <div class="card-header border-0">
-          <div class="row align-items-center">
-            <div class="col">
-              <h2 class="mb-0">Visión</h2>
-            </div>
-          </div>
+          <h2 class="mb-0">Visión</h2>
         </div>
         <div class="card-body">
-<<<<<<< HEAD
           <p>Ser reconocidos como líderes en nuestro sector, impulsando la innovación y la excelencia en todos nuestros
             proyectos.</p>
-=======
-          <p>Ser reconocidos como líderes en nuestro sector, impulsando la innovación y la excelencia en todos nuestros proyectos.</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="col-xl-12">
+
+  <!-- Planes -->
+  <div class="row">
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="text">Planes</h2>
+          <div class="plan">
+            <h3 class="text">Plan unipersonal</h3>
+            <p>Descripción del plan unipersonal...</p>
+          </div>
+          <div class="plan">
+            <h3 class="text">Plan familiar</h3>
+            <p>Descripción del plan familiar...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Servicios -->
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="text">Servicios</h2>
+          <div class="service">
+            <p class="text">Sepultura</p>
+          </div>
+          <div class="service">
+            <p class="text">Transporte</p>
+          </div>
+          <div class="service">
+            <p class="text">Cremación</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contacto -->
+  <div class="row">
+    <div class="col-lg-12">
       <div class="card shadow">
         <div class="card-header border-0">
-          <div class="row align-items-center">
-            <div class="col">
-              <h2 class="mb-0">Contáctenos</h2>
-            </div>
-          </div>
+          <h2 class="mb-0">Contáctenos</h2>
         </div>
         <div class="card-body">
           <form>
             <div class="form-group">
               <label for="name">Nombre</label>
-              <input type="text" class="form-control" id="name" placeholder="Tu nombre" [(ngModel)]="subject">
+              <input type="text" class="form-control" id="name" placeholder="Tu nombre">
             </div>
             <div class="form-group">
               <label for="email">Correo Electrónico</label>
-              <input type="email" class="form-control" id="email" placeholder="Tu correo electrónico" [(ngModel)]="plainText">
+              <input type="email" class="form-control" id="email" placeholder="Tu correo electrónico">
             </div>
-            <!--<div class="form-group">
-              <label for="subject">Asunto</label>
-              <input type="text" class="form-control" id="subject" placeholder="Asunto del mensaje">
-            </div>
-            <div class="form-group">
-              <label for="message">Mensaje</label>
-              <textarea class="form-control" id="message" rows="4" placeholder="Tu mensaje"></textarea>
-            </div>-->
             <button (click)="sendContactMessage()" type="submit" class="btn btn-primary">Enviar</button>
           </form>
->>>>>>> cb322f825bf19994e885a60f2c037154cced47a0
-        </div>
-      </div>
-    </div>
-  </div>
-<<<<<<< HEAD
-  <div class="row mt-5">
-    <div class="col-xl-12">
-      <div class="card shadow">
-        <div class="card-header border-0">
-          <div class="row align-items-center">
-            <div class="col">
-              <h2 class="mb-0">Contáctenos</h2>
-            </div>
-          </div>
-        </div>
-        <div class="card-body">
-          <form>
-            <div class="form-group">
-              <label for="name">Nombre</label>
-              <input type="text" class="form-control" id="name" placeholder="Tu nombre" [(ngModel)]="subject">
-            </div>
-            <div class="form-group">
-              <label for="email">Correo Electrónico</label>
-              <input type="email" class="form-control" id="email" placeholder="Tu correo electrónico"
-                [(ngModel)]="plainText">
-            </div>
-            <!--<div class="form-group">
-              <label for="subject">Asunto</label>
-              <input type="text" class="form-control" id="subject" placeholder="Asunto del mensaje">
-            </div>
-          </div>
-        </div>
-        <div class="table-responsive">
-          <!-- Projects table -->
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th scope="col">Referral</th>
-                  <th scope="col">Visitors</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">
-                    Facebook
-                  </th>
-                  <td>
-                    1,480
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="mr-2">60%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-danger" role="progressbar" aria-valuenow="60"
-                            aria-valuemin="0" aria-valuemax="100" style="width: 60%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    Facebook
-                  </th>
-                  <td>
-                    5,480
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="mr-2">70%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-success" role="progressbar" aria-valuenow="70"
-                            aria-valuemin="0" aria-valuemax="100" style="width: 70%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    Google
-                  </th>
-                  <td>
-                    4,807
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="mr-2">80%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-primary" role="progressbar" aria-valuenow="80"
-                            aria-valuemin="0" aria-valuemax="100" style="width: 80%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    Instagram
-                  </th>
-                  <td>
-                    3,678
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="mr-2">75%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-info" role="progressbar" aria-valuenow="75"
-                            aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    twitter
-                  </th>
-                  <td>
-                    2,645
-                  </td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <span class="mr-2">30%</span>
-                      <div>
-                        <div class="progress">
-                          <div class="progress-bar bg-gradient-warning" role="progressbar" aria-valuenow="30"
-                            aria-valuemin="0" aria-valuemax="100" style="width: 30%;"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
         </div>
       </div>
     </div>
   </div>
 </div>
-=======
-</div>
-
-
->>>>>>> cb322f825bf19994e885a60f2c037154cced47a0

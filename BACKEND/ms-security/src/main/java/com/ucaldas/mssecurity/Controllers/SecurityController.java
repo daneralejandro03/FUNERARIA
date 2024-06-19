@@ -276,7 +276,7 @@ public class SecurityController {
     public void sendContactMessage(@RequestBody Map<String, String> requestBody) {
         String subject = requestBody.get("subject");
         String plainText = requestBody.get("plainText");
-        String email = "jaime.cardona40549@ucaldas.edu.co";
+        String email = "daneralejandro03@gmail.com";
         Map<String, Object> emailContent = new HashMap<>();
         emailContent.put("address", email);
         emailContent.put("subject", subject);
