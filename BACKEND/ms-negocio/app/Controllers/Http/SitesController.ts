@@ -1,7 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Site from 'App/Models/Site'
 import SiteValidator from 'App/Validators/SiteValidator'
-import ApiColombiaService from 'App/service/ApiColombiaService'
+import ApiColombiaService from 'App/Services/ApiColombiaService'
+import Ws from 'App/Services/Ws'
 
 export default class SitesController {
   // Create
@@ -37,6 +38,7 @@ export default class SitesController {
 
   // Read
   public async find({ request, params }: HttpContextContract) {
+    Ws.io.emit('news', { hello: 'Listaron desde otro lugar a Sitios' })
     if (params.id) {
       let theSite: Site = await Site.findOrFail(params.id)
       await theSite.load('wakeRoom')

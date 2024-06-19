@@ -17,34 +17,35 @@
           </div>
         </div>
       </div>
-        <div class="card-body">
-          <div class="table-responsive">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="col-1">ID</th>
-                  <th class="col-3">FECHA</th>
-                  <th class="col-3">LUGAR</th>
-                  <th class="col-5">OPCIONES</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let incident of incidents">
-                  <td>{{ incident.id }}</td>
-                  <td>{{ incident.date_decease }}</td>
-                  <td>{{ incident.place_decease }}</td>
-                  <td>
-                      <button type="button" class="btn btn-primary" (click)="view(incident.id)">Ver</button>
-                      <button type="button" class="btn btn-warning" (click)="update(incident.id)">Editar</button>
-                      <button type="button" class="btn btn-danger" (click)="delete(incident.id)">Eliminar</button>
-                      <button type="button" class="btn btn-info" (click)="listReports(incident.id)">Reportes</button>
-                      <button type="button" class="btn btn-info" (click)="listComments(incident.id)">Comentarios</button>
-                      <button type="button" class="btn btn-info" (click)="listExecutionServices(incident.id)">Ejecuciones</button>
-                  </td>
-                </tr>
-            </table>
-          </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th class="col-1">ID</th>
+                <th class="col-3">FECHA</th>
+                <th class="col-3">LUGAR</th>
+                <th class="col-5">OPCIONES</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let incident of incidents">
+                <td>{{ incident.id }}</td>
+                <td>{{ incident.date_decease }}</td>
+                <td>{{ incident.place_decease }}</td>
+                <td>
+                  <button type="button" class="btn btn-primary" (click)="view(incident.id)">Ver</button>
+                  <button type="button" class="btn btn-warning" (click)="update(incident.id)">Editar</button>
+                  <button type="button" class="btn btn-danger" (click)="delete(incident.id)">Eliminar</button>
+                  <button type="button" class="btn btn-info" (click)="listReports(incident.id)">Reportes</button>
+                  <button type="button" class="btn btn-info" (click)="listComments(incident.id)">Comentarios</button>
+                  <button type="button" class="btn btn-info"
+                    (click)="listExecutionServices(incident.id)">Ejecuciones</button>
+                </td>
+              </tr>
+          </table>
         </div>
       </div>
     </div>
   </div>
+</div>

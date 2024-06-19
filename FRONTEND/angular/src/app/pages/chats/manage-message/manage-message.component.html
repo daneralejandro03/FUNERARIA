@@ -1,0 +1,26 @@
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+        <!-- Header content if needed -->
+    </div>
+
+    <div class="chat-container">
+        <div class="messages">
+            <!-- Mensajes del chat -->
+            <div *ngFor="let message of messages" class="message">
+                <div class="message-content">
+                    {{ message.information }}
+                </div>
+                <div class="message-meta">
+                    <!-- Aquí puedes agregar detalles adicionales del mensaje, como fecha, autor, etc. -->
+                </div>
+            </div>
+        </div>
+
+        <div class="message-input">
+            <!-- Input para escribir mensajes -->
+            <input [(ngModel)]="newMessage" placeholder="Type your message..." class="form-control" />
+            <button (click)="sendMessage()" class="btn btn-primary">Send</button>
+        </div>
+    </div>
+</div>

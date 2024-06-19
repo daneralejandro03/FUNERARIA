@@ -182,4 +182,9 @@ export const AdminLayoutRoutes: Routes = [
         (m) => m.RolePermissionModule
       ),
   },
+  {
+    path: "chats",
+    loadChildren: () =>
+      import("src/app/pages/chats/chats.module").then((m) => m.ChatsModule),
+  },
 ];

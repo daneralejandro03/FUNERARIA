@@ -1,3 +1,4 @@
+<!-- funeral-service.component.html -->
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
   <div class="container-fluid">
     <div class="header-body">
@@ -7,67 +8,139 @@
     </div>
   </div>
 </div>
+
 <div class="container-fluid mt-5">
+  <!-- Misión -->
   <div class="row">
-    <div class="col-xl-12 mb-5 mb-xl-0">
+    <div class="col-lg-12 mb-4">
       <div class="card bg-gradient-default shadow">
         <div class="card-header bg-transparent">
-          <div class="row align-items-center">
-            <div class="col">
-              <h2 class="text-white mb-0">Misión</h2>
-            </div>
-          </div>
+          <h2 class="text-white mb-0">Misión</h2>
         </div>
-        <div class="card-body">
-          <p class="text-white">Nuestra misión es proporcionar servicios de alta calidad que mejoren la vida de nuestros clientes y la comunidad.</p>
+        <div class="card-body text-white">
+          <p>Nuestra misión es proporcionar servicios de alta calidad que mejoren la vida de nuestros clientes y la
+            comunidad.</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="col-xl-12 mb-5 mb-xl-0">
+
+  <!-- Visión -->
+  <div class="row">
+    <div class="col-lg-12 mb-4">
       <div class="card shadow">
         <div class="card-header border-0">
-          <div class="row align-items-center">
-            <div class="col">
-              <h2 class="mb-0">Visión</h2>
-            </div>
-          </div>
+          <h2 class="mb-0">Visión</h2>
         </div>
         <div class="card-body">
-          <p>Ser reconocidos como líderes en nuestro sector, impulsando la innovación y la excelencia en todos nuestros proyectos.</p>
+          <p>Ser reconocidos como líderes en nuestro sector, impulsando la innovación y la excelencia en todos nuestros
+            proyectos.</p>
         </div>
       </div>
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="col-xl-12">
+
+  <!-- Valores -->
+  <div class="row">
+    <div class="col-lg-12 mb-4">
       <div class="card shadow">
         <div class="card-header border-0">
-          <div class="row align-items-center">
-            <div class="col">
-              <h2 class="mb-0">Contáctenos</h2>
-            </div>
+          <h2 class="mb-0">Valores</h2>
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>Honestidad</li>
+            <li>Dignidad humana</li>
+            <li>Desarrollo integral de talento humano</li>
+            <li>Vocación del servicio y acompañamiento</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Planes y Servicios -->
+  <div class="row">
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="text">Planes</h2>
+          <div class="plan">
+            <h3 class="text">Plan unipersonal</h3>
+            <p>Descripción del plan unipersonal...</p>
           </div>
+          <div class="plan">
+            <h3 class="text">Plan familiar</h3>
+            <p>Descripción del plan familiar...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-6 mb-4">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="text">Servicios</h2>
+          <div class="service">
+            <p class="text">Sepultura</p>
+          </div>
+          <div class="service">
+            <p class="text">Transporte</p>
+          </div>
+          <div class="service">
+            <p class="text">Cremación</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Preguntas frecuentes -->
+  <div class="row">
+    <div class="col-lg-12 mb-4">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h2 class="mb-0">Preguntas frecuentes</h2>
+        </div>
+        <div class="card-body">
+          <div class="question">
+            <h3>¿Desde qué edad se puede empezar a pagar la prevención exequial?</h3>
+            <p>Respuesta...</p>
+          </div>
+          <div class="question">
+            <h3>¿Tengo posibilidad de añadir a mi familia a mi plan exequial?</h3>
+            <p>Respuesta...</p>
+          </div>
+          <div class="question">
+            <h3>¿Cada cuanto debo de pagar mi plan exequial?</h3>
+            <p>Respuesta...</p>
+          </div>
+          <div class="question">
+            <h3>¿Tendré la asesoría necesaria para cuando haga uso de mi plan exequial?</h3>
+            <p>Respuesta...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contacto -->
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card shadow">
+        <div class="card-header border-0">
+          <h2 class="mb-0">Contáctenos</h2>
         </div>
         <div class="card-body">
           <form>
             <div class="form-group">
               <label for="name">Nombre</label>
-              <input type="text" class="form-control" id="name" placeholder="Tu nombre" [(ngModel)]="subject">
+              <input type="text" class="form-control" id="name" placeholder="Tu nombre">
             </div>
             <div class="form-group">
               <label for="email">Correo Electrónico</label>
-              <input type="email" class="form-control" id="email" placeholder="Tu correo electrónico" [(ngModel)]="plainText">
+              <input type="email" class="form-control" id="email" placeholder="Tu correo electrónico">
             </div>
-            <!--<div class="form-group">
-              <label for="subject">Asunto</label>
-              <input type="text" class="form-control" id="subject" placeholder="Asunto del mensaje">
-            </div>
-            <div class="form-group">
-              <label for="message">Mensaje</label>
-              <textarea class="form-control" id="message" rows="4" placeholder="Tu mensaje"></textarea>
-            </div>-->
             <button (click)="sendContactMessage()" type="submit" class="btn btn-primary">Enviar</button>
           </form>
         </div>
@@ -75,5 +148,3 @@
     </div>
   </div>
 </div>
-
-

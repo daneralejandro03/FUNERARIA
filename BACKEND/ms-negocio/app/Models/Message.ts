@@ -22,7 +22,7 @@ export default class Message extends BaseModel {
   public updatedAt: DateTime
 
   @belongsTo(() => Chat, {
-    foreignKey: 'chat_id' 
+    foreignKey: 'chat_id',
   })
-  public chat: BelongsTo<typeof Chat> 
+  public chat: BelongsTo<typeof Chat>
 }

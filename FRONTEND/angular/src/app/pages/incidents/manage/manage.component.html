@@ -2,7 +2,7 @@
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
-  <!-- Table -->
+    <!-- Table -->
     <div class="row">
         <div class="col">
             <div class="card shadow">
@@ -12,7 +12,7 @@
                     <h3 *ngIF="mode==1" class="mb-0">Actualizar</h3>
                 </div>
                 <div class="card-body">
-                    <form class="form" [formGroup] = "theFormGroup">
+                    <form class="form" [formGroup]="theFormGroup">
                         <div class="container">
                             <div class="row">
                                 <div class="col-4">
@@ -27,21 +27,29 @@
                                     Fecha:
                                 </div>
                                 <div class="col-8">
-                                    <input type="date" class="form-control" [value]="incident.date_decease | date:'yyyy-MM-dd'" [(ngModel)]="incident.date_decease" [disabled]="mode==1" formControlName="date_decease">
-                                    <div *ngIf="getTheFormGroup.date_decease.errors && (getTheFormGroup.date_decease.dirty || getTheFormGroup.date_decease.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.date_decease.errors.required" class="msnError">Requerido</strong>
+                                    <input type="date" class="form-control"
+                                        [value]="incident.date_decease | date:'yyyy-MM-dd'"
+                                        [(ngModel)]="incident.date_decease" [disabled]="mode==1"
+                                        formControlName="date_decease">
+                                    <div
+                                        *ngIf="getTheFormGroup.date_decease.errors && (getTheFormGroup.date_decease.dirty || getTheFormGroup.date_decease.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.date_decease.errors.required"
+                                            class="msnError">Requerido</strong>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-4">
                                     Causa:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="incident.cause_decease" [disabled]="mode==1" formControlName="cause_decease">
-                                    <div *ngIf="getTheFormGroup.cause_decease.errors && (getTheFormGroup.cause_decease.dirty || getTheFormGroup.cause_decease.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.cause_decease.errors.required" class="msnError">Requerido</strong>
+                                    <input type="text" class="form-control" [(ngModel)]="incident.cause_decease"
+                                        [disabled]="mode==1" formControlName="cause_decease">
+                                    <div
+                                        *ngIf="getTheFormGroup.cause_decease.errors && (getTheFormGroup.cause_decease.dirty || getTheFormGroup.cause_decease.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.cause_decease.errors.required"
+                                            class="msnError">Requerido</strong>
                                     </div>
                                 </div>
                             </div>
@@ -50,19 +58,24 @@
                                     Causa:
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control" [(ngModel)]="incident.place_decease" [disabled]="mode==1" formControlName="place_decease">
-                                    <div *ngIf="getTheFormGroup.place_decease.errors && (getTheFormGroup.place_decease.dirty || getTheFormGroup.place_decease.touched || trySend)">
-                                        <strong *ngIf="getTheFormGroup.place_decease.errors.required" class="msnError">Requerido</strong>
+                                    <input type="text" class="form-control" [(ngModel)]="incident.place_decease"
+                                        [disabled]="mode==1" formControlName="place_decease">
+                                    <div
+                                        *ngIf="getTheFormGroup.place_decease.errors && (getTheFormGroup.place_decease.dirty || getTheFormGroup.place_decease.touched || trySend)">
+                                        <strong *ngIf="getTheFormGroup.place_decease.errors.required"
+                                            class="msnError">Requerido</strong>
                                     </div>
                                 </div>
                             </div>
-                        <div class="row">
-                            <div class="col-4"></div>
-                            <div class="col-8">
-                              <button *ngIf="mode==2" class="btn btn-primary btn-block" (click)="create()">Crear</button>
-                              <button *ngIf="mode==3" class="btn btn-primary btn-block" (click)="update()">Actualizar</button>
+                            <div class=" row">
+                                <div class="col-4"></div>
+                                <div class="col-8">
+                                    <button *ngIf="mode==2" class="btn btn-primary btn-block"
+                                        (click)="create()">Crear</button>
+                                    <button *ngIf="mode==3" class="btn btn-primary btn-block"
+                                        (click)="update()">Actualizar</button>
+                                </div>
                             </div>
-                        </div>
                         </div>
                     </form>
                 </div>

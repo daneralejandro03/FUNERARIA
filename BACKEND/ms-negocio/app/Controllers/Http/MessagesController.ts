@@ -1,20 +1,36 @@
-import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Incident from 'App/Models/Incident'
+// app/Controllers/Http/MessagesController.ts
+
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Message from 'App/Models/Message'
+import Ws from 'App/Services/Ws'
 import axios from 'axios'
 import Env from '@ioc:Adonis/Core/Env'
-import MessageValidator from 'App/Validators/MessageValidator'
+import Incident from 'App/Models/Incident'
 
 export default class MessagesController {
-  //Create
+  // Create
   public async store({ request }: HttpContextContract) {
-    //const body = await request.body()
-    const body = await request.validate(MessageValidator)
-    const theMessage: Message = await Message.create(body)
-    return theMessage
+    try {
+      const { information, user_id, chat_id } = request.only(['information', 'user_id', 'chat_id'])
+
+      const theMessage: Message = await Message.create({
+        information,
+        user_id,
+        chat_id,
+      })
+
+      // Emitir un evento de WebSocket para el nuevo mensaje al chat correspondiente
+      Ws.io.to(`chat_${theMessage.chat_id}`).emit('new_message', theMessage)
+      console.log('Mensaje creado:', theMessage)
+
+      return theMessage
+    } catch (error) {
+      console.error('Error al crear el mensaje:', error)
+      throw new Error('No se pudo crear el mensaje')
+    }
   }
 
-  //Read
+  // Read
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
       let theMessage: Message = await Message.findOrFail(params.id);
@@ -32,22 +48,43 @@ export default class MessagesController {
     }
   }
 
-  //Update
+  // Update
   public async update({ params, request }: HttpContextContract) {
-    const theMessage: Message = await Message.findOrFail(params.id)
-    const body = request.body()
-    theMessage.information = body.information
-    theMessage.chat = body.chat_id
-    theMessage.user_id = body.user_id
+    try {
+      const theMessage: Message = await Message.findOrFail(params.id)
+      const { information, user_id, chat_id } = request.only(['information', 'user_id', 'chat_id'])
 
-    return await theMessage.save()
+      theMessage.information = information
+      theMessage.chat_id = chat_id
+      theMessage.user_id = user_id
+
+      await theMessage.save()
+
+      // Emitir un evento de WebSocket para el mensaje actualizado al chat correspondiente
+      Ws.io.to(`chat_${theMessage.chat_id}`).emit('update_message', theMessage)
+
+      return theMessage
+    } catch (error) {
+      console.error('Error al actualizar el mensaje:', error)
+      throw new Error('No se pudo actualizar el mensaje')
+    }
   }
 
-  //Delete
+  // Delete
   public async delete({ params, response }: HttpContextContract) {
-    const theMessage: Message = await Message.findOrFail(params.id)
-    response.status(204)
+    try {
+      const theMessage: Message = await Message.findOrFail(params.id)
+      await theMessage.delete()
 
-    return await theMessage.delete()
+      response.status(204)
+
+      // Emitir un evento de WebSocket para el mensaje eliminado al chat correspondiente
+      Ws.io.to(`chat_${theMessage.chat_id}`).emit('delete_message', { id: params.id })
+
+      return response
+    } catch (error) {
+      console.error('Error al eliminar el mensaje:', error)
+      throw new Error('No se pudo eliminar el mensaje')
+    }
   }
 }
