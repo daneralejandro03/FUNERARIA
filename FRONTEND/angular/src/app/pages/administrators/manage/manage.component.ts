@@ -108,25 +108,29 @@ export class ManageComponent implements OnInit {
       return;
     }
 
-    let exits = false;
-
+    this.securityService.getUserByEmail(this.theUser.email).subscribe(response =>{
+      if(response){
+        Swal.fire("Duplicación de Email", "Debe usar otro email", "error");
+      }
+      else{
+        this.serviceUser.create(this.theUser).subscribe(data=>{
+          if(data){
+            this.theAdministrator.user_id = data._id;
+            console.log(data._id);
     
-
-    this.serviceUser.create(this.theUser).subscribe(data=>{
-      if(data){
-        this.theAdministrator.user_id = data._id;
-        console.log(data._id);
-
-        this.theAdministrator.user_id = data._id;
-        console.log(JSON.stringify(this.theAdministrator));
-        
-        this.service.create(this.theAdministrator).subscribe(data=>{
-          Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
-          this.router.navigate(["administrators/list"]);
-        });
-
+            this.theAdministrator.user_id = data._id;
+            console.log(JSON.stringify(this.theAdministrator));
+            
+            this.service.create(this.theAdministrator).subscribe(data=>{
+              Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
+              this.router.navigate(["administrators/list"]);
+            });
+    
+          }
+        })
       }
     })
+    
   }
 
   update(){

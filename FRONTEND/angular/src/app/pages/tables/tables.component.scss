@@ -1,0 +1,136 @@
+/* funeral-service.component.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #8C4B32;
+    padding: 20px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+.hero {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.hero img {
+    width: 100%;
+    height: auto;
+}
+
+.hero-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.hero-text h2 {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.about, .login, .plans, .services, .faq, .contact {
+    padding: 40px 20px;
+}
+
+.about h2, .login h2, .plans h2, .services h2, .faq h2, .contact h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.about-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.mission, .vision {
+    width: 45%;
+}
+
+.values {
+    text-align: center;
+}
+
+.values ul {
+    list-style: none;
+    padding: 0;
+}
+
+.login form, .contact form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login input, .contact input, .contact textarea {
+    margin: 10px 0;
+    padding: 10px;
+    width: 80%;
+    max-width: 400px;
+}
+
+.login button, .contact button {
+    padding: 10px 20px;
+    background-color: #8C4B32;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.plans, .services {
+    display: flex;
+    justify-content: space-around;
+}
+
+.plan, .service {
+    width: 30%;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #8C4B32;
+    border-radius: 10px;
+}
+
+.faq .question {
+    background-color: #F4F4F4;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+footer {
+    background-color: #8C4B32;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+footer .social {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+footer .social a {
+    margin: 0 10px;
+}
+
+footer .social img {
+    width: 30px;
+    height: 30px;
+}

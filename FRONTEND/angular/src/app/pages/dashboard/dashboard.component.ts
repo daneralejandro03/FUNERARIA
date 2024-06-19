@@ -23,6 +23,13 @@ export class DashboardComponent implements OnInit {
   public clicked: boolean = true;
   public clicked1: boolean = false;
 
+  public subject: string;
+  public plainText: string;
+
+  constructor(private theSecurityService: SecurityService){
+
+  }
+
   ngOnInit() {
 
     this.datasets = [
@@ -56,6 +63,12 @@ export class DashboardComponent implements OnInit {
   public updateOptions() {
     this.salesChart.data.datasets[0].data = this.data;
     this.salesChart.update();
+  }
+
+  public sendContactMessage(){
+    this.theSecurityService.sendContactMessage(this.subject, this.plainText).subscribe(response =>{
+      
+    })
   }
 
 }

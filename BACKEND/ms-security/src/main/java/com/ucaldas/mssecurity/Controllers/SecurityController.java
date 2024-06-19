@@ -160,6 +160,21 @@ public class SecurityController {
         return response;
     }
 
+    @GetMapping("user-by-email")
+    public boolean getUserByEmail2(String email){
+        boolean response = false;
+        User theUser = theUserRepository.getUsersByEmail(email);
+
+        if (theUser != null){
+            response = true;
+        }
+        else {
+            response = false;
+        }
+
+        return response;
+    }
+
 
     public void erroresDeAutorizacion(User theUser){
         Statistic statistic = this.theStatisticRepository.getStatisticByIdUser(theUser.get_id());
@@ -255,6 +270,18 @@ public class SecurityController {
     public  boolean permissionsValidation(final HttpServletRequest request, @RequestBody Permission thePermission){
         boolean success = this.theValidatorService.validationRolePermission(request, thePermission.getUrl(), thePermission.getMethod());
         return success;
+    }
+
+    @PostMapping("send-contact")
+    public void sendContactMessage(@RequestBody Map<String, String> requestBody) {
+        String subject = requestBody.get("subject");
+        String plainText = requestBody.get("plainText");
+        String email = "jaime.cardona40549@ucaldas.edu.co";
+        Map<String, Object> emailContent = new HashMap<>();
+        emailContent.put("address", email);
+        emailContent.put("subject", subject);
+        emailContent.put("plainText", plainText);
+        theNotificationService.sendEmail(emailContent);
     }
 
 }
