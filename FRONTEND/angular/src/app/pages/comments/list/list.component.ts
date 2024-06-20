@@ -22,19 +22,20 @@ export class ListComponent implements OnInit {
               private incidentService: IncidentService
             ) {
     this.comments = [];
+    this.incident_id = null;
    }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params =>{
-      let incidentId = params['incidentId']; 
+      let incidentId = params['incidentId'];   
       this.list(incidentId);
     })
   }
 
-  list(incidentId:number){
+  list(incidentId:number){  
     this.incidentService.view(incidentId).subscribe(data=>{
       this.incident_id = incidentId;
-          
+       
       this.comments = data["comments"];
       this.commentsAux = [];
   

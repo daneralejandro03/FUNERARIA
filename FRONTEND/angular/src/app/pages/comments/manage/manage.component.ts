@@ -57,6 +57,8 @@ this.theater.location = this.getTheFormGroup.location.value;
 
 ngOnInit(): void {
 
+  console.log("LLEGO AL NG");
+  
   const currentUrl = this.activateRoute.snapshot.url.join("/");
 
   if(currentUrl.includes('view')){

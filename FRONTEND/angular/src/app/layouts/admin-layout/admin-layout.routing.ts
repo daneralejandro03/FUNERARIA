@@ -26,6 +26,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "beneficiaries",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/beneficiaries/beneficiaries.module").then(
         (m) => m.BeneficiariesModule
@@ -33,6 +34,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "customers",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/customers/customers.module").then(
         (m) => m.CustomersModule
@@ -40,6 +42,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "subscriptions",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/subscriptions/subscriptions.module").then(
         (m) => m.SubscriptionsModule
@@ -47,11 +50,13 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "plans",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/plans/plans.module").then((m) => m.PlansModule),
   },
   {
     path: "services",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/services/services.module").then(
         (m) => m.ServicesModule
@@ -59,6 +64,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "administrators",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/administrators/administrators.module").then(
         (m) => m.AdministratorsModule
@@ -66,6 +72,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "employees",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/employees/employees.module").then(
         (m) => m.EmployeesModule
@@ -73,16 +80,19 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "pays",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/pays/pays.module").then((m) => m.PaysModule),
   },
   {
     path: "sites",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/sites/sites.module").then((m) => m.SitesModule),
   },
   {
     path: "serviceplans",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/serviceplans/serviceplans.module").then(
         (m) => m.ServiceplansModule
@@ -90,6 +100,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "notifications",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/notifications/notifications.module").then(
         (m) => m.NotificationsModule
@@ -97,6 +108,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "transfers",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/transfers/transfers.module").then(
         (m) => m.TransfersModule
@@ -104,6 +116,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "incidents",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/incidents/incidents.module").then(
         (m) => m.IncidentsModule
@@ -111,6 +124,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "reports",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/reports/reports.module").then(
         (m) => m.ReportsModule
@@ -118,6 +132,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "wakerooms",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/wake-rooms/wake-rooms.module").then(
         (m) => m.WakeRoomsModule
@@ -125,6 +140,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "executionservices",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/executionservices/executionservices.module").then(
         (m) => m.ExecutionservicesModule
@@ -132,6 +148,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "cremations",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/cremations/cremations.module").then(
         (m) => m.CremationsModule
@@ -139,6 +156,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "burials",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/burials/burials.module").then(
         (m) => m.BurialsModule
@@ -146,6 +164,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "comments",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/comments/comments.module").then(
         (m) => m.CommentsModule
@@ -153,6 +172,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "deceaseds",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/deceaseds/deceaseds.module").then(
         (m) => m.DeceasedsModule
@@ -160,6 +180,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "permissions",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/permissions/permissions.module").then(
         (m) => m.PermissionsModule
@@ -167,16 +188,19 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "users",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/users/users.module").then((m) => m.UsersModule),
   },
   {
     path: "roles",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/roles/roles.module").then((m) => m.RolesModule),
   },
   {
     path: "rolepermissions",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/role-permission/role-permission.module").then(
         (m) => m.RolePermissionModule
@@ -184,6 +208,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "chats",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("src/app/pages/chats/chats.module").then((m) => m.ChatsModule),
   },

@@ -140,7 +140,15 @@ export class ManageComponent implements OnInit {
       return;
     }
 
-    
+    /*this.securityService.getUserByEmail(this.theUser.email).subscribe(response =>{
+      if(response){
+        Swal.fire("Duplicación de Email", "Debe usar otro email", "error");
+      }
+      else{
+        
+      }
+    });*/
+
     this.serviceUser.update(this.theUser).subscribe(data=>{
       this.service.update(this.theAdministrator).subscribe(data=>{
       
@@ -149,7 +157,7 @@ export class ManageComponent implements OnInit {
         Swal.fire("Actualización Exitosa", "Se ha actualizado un nuevo registro", "success");
         
         this.router.navigate(["administrators/list"]);
-      });
+      })
     });
   }
 

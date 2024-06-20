@@ -46,7 +46,7 @@ export class ListComponent implements OnInit {
 
   listComments(id: number) {
     this.router.navigate(["comments/list/"], {
-      queryParams: { incidentd: id },
+      queryParams: { incidentId: id },
     });
   }
 

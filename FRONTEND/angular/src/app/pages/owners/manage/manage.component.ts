@@ -6,6 +6,7 @@ import { Owner } from 'src/app/models/owner.model';
 import { User } from 'src/app/models/user.model';
 import { CustomerService } from 'src/app/services/customer.service';
 import { OwnerService } from 'src/app/services/owner.service';
+import { SecurityService } from 'src/app/services/security.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -27,6 +28,7 @@ export class ManageComponent implements OnInit {
               private service: OwnerService,
               private userService: UserService,
               private customerService: CustomerService,
+              private securityService: SecurityService,
               private router: Router,
               private theFormBuilder: FormBuilder) { 
               
@@ -121,27 +123,34 @@ export class ManageComponent implements OnInit {
       return;
     }
 
-    this.userService.create(this.user).subscribe(data=>{
-      if(data){
-        let user_id = data._id;
-        this.customer.user_id = user_id;
-  
-        if(data){
-          this.customerService.create(this.customer).subscribe(data=>{
-  
-            if(data){
-              let customer_id = data.id;
-              this.owner.customer_id = customer_id;
+    this.securityService.getUserByEmail(this.user.email).subscribe(response =>{
+      if(response){
+        Swal.fire("Duplicación de Email", "Debe usar otro email", "error");
+      }
+      else{
+        this.userService.create(this.user).subscribe(data=>{
+          if(data){
+            let user_id = data._id;
+            this.customer.user_id = user_id;
       
-              this.service.create(this.owner).subscribe(data=>{
-                Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
-                this.router.navigate(["owners/list"]);
+            if(data){
+              this.customerService.create(this.customer).subscribe(data=>{
+      
+                if(data){
+                  let customer_id = data.id;
+                  this.owner.customer_id = customer_id;
+          
+                  this.service.create(this.owner).subscribe(data=>{
+                    Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
+                    this.router.navigate(["owners/list"]);
+                  })
+                }
               })
             }
-          })
-        }
-      }      
-    })
+          }      
+        });
+      }
+    });
   }
 
   update(){
@@ -150,6 +159,17 @@ export class ManageComponent implements OnInit {
       Swal.fire("Formulario incompleto.", "Ingrese correctamente los datos solicitados", "error");
       return;
     }
+
+    /*this.securityService.getUserByEmail(this.user.email).subscribe(response =>{
+      if(response){
+        Swal.fire("Duplicación de Email", "Debe usar otro email", "error");
+      }
+      else{
+
+        
+      }
+    })*/
+
     this.userService.update(this.user).subscribe(data=>{
       if(data){
         let user_id = data._id;
@@ -170,7 +190,6 @@ export class ManageComponent implements OnInit {
           })
         }
       }      
-    })
+    });
   }
-
 }

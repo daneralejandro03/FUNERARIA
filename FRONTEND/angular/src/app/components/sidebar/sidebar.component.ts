@@ -92,6 +92,12 @@ export const ROUTES: RouteInfo[] = [
     icon: "ni-send text-danger",
     class: "1",
   },
+  {
+    path: "/chats/list",
+    title: "Chats",
+    icon: "ni-chat-round text-blue",
+    class: "1",
+  },
 ];
 
 @Component({
@@ -128,5 +134,9 @@ export class SidebarComponent implements OnInit {
 
   administradores() {
     this.router.navigate(["administrators/list/"]);
+  }
+
+  logout(){
+    this.theSecurityService.logout();
   }
 }

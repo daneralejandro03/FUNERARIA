@@ -4,9 +4,9 @@ import WakeRoomValidator from 'App/Validators/WakeRoomValidator'
 
 export default class WakeRoomsController {
   public async store({ request }: HttpContextContract) {
-    const body = await request.validate(WakeRoomValidator)
-    const theWakeRoom: WakeRoom = await WakeRoom.create(body)
-    return theWakeRoom
+    const body = await request.validate(WakeRoomValidator);
+    const theWakeRoom: WakeRoom = await WakeRoom.create(body);
+    return theWakeRoom;
   }
 
   //Read

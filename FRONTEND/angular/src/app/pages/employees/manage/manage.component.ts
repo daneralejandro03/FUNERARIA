@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Employee } from 'src/app/models/employee.model';
 import { User } from 'src/app/models/user.model';
 import { EmployeeService } from 'src/app/services/employee.service';
+import { SecurityService } from 'src/app/services/security.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
@@ -23,6 +24,7 @@ export class ManageComponent implements OnInit {
   constructor(private activateRoute: ActivatedRoute,
               private service: EmployeeService,
               private serviceUser: UserService,
+              private securityService: SecurityService,
               private router: Router,
               private theFormBuilder: FormBuilder) { 
 
@@ -106,17 +108,24 @@ export class ManageComponent implements OnInit {
       return;
     }
 
-    this.serviceUser.create(this.theUser).subscribe(data=>{
-      if(data){
-        this.theEmployee.user_id = data._id;
-        
-        this.service.create(this.theEmployee).subscribe(data=>{
-          Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
-          this.router.navigate(["employees/list"]);
-        });
-
+    this.securityService.getUserByEmail(this.theUser.email).subscribe(response =>{
+      if(response){
+        Swal.fire("Duplicación de Email", "Debe usar otro email", "error");
       }
-    })
+      else{
+        this.serviceUser.create(this.theUser).subscribe(data=>{
+          if(data){
+            this.theEmployee.user_id = data._id;
+            
+            this.service.create(this.theEmployee).subscribe(data=>{
+              Swal.fire("Creación Exitosa", "Se ha creado un nuevo registro", "success");
+              this.router.navigate(["employees/list"]);
+            });
+    
+          }
+        });
+      }
+    });
   }
 
   update(){
@@ -126,7 +135,15 @@ export class ManageComponent implements OnInit {
       return;
     }
 
-    
+    /*this.securityService.getUserByEmail(this.theUser.email).subscribe(response =>{
+      if(response){
+        Swal.fire("Duplicación de Email", "Debe usar otro email", "error");
+      }
+      else{
+        
+      }
+    });*/
+
     this.serviceUser.update(this.theUser).subscribe(data=>{
       this.service.update(this.theEmployee).subscribe(data=>{
       
