@@ -1,0 +1,121 @@
+/* manage-message.component.scss */
+.chat-app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .chat-app .chat {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .chat-app .chat-header {
+    padding: 20px;
+    border-bottom: 1px solid #eaeaea;
+    background: #f8f8f8;
+  }
+  
+  .chat-app .chat-history {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background: #ffffff;
+  }
+  
+  .chat-app .chat-message {
+    padding: 20px;
+    border-top: 1px solid #eaeaea;
+    background: #f8f8f8;
+  }
+  
+  .chat-app .message {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .chat-app .my-message {
+    background: #dfe7fd;
+    padding: 10px 20px;
+    border-radius: 10px;
+    align-self: flex-end;
+    max-width: 60%;
+    word-wrap: break-word;
+  }
+  
+  .chat-app .other-message {
+    background: #ffffff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: 1px solid #dfe7fd;
+    max-width: 60%;
+    word-wrap: break-word;
+  }
+  
+  .message-data {
+    display: flex;
+    align-items: center;
+  }
+  
+  .message-data-time {
+    display: block;
+    color: #999;
+    font-size: 0.85em;
+    margin: 0 10px;
+  }
+  
+  .chat-app .message-data img {
+    border-radius: 50%;
+    width: 40px;
+  }
+  
+  .input-group {
+    display: flex;
+    align-items: center;
+  }
+  
+  .input-group-prepend {
+    margin-right: 10px;
+  }
+  
+  .input-group-text {
+    background: #e9ecef;
+    border: 1px solid #ced4da;
+  }
+  
+  .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+  }
+  
+  .btn-outline-secondary, 
+  .btn-outline-primary, 
+  .btn-outline-info, 
+  .btn-outline-warning {
+    border-radius: 50%;
+    padding: 10px;
+    margin-left: 10px;
+  }
+  
+  .hidden-sm {
+    display: none;
+  }
+  
+  @media (min-width: 576px) {
+    .hidden-sm {
+      display: block;
+    }
+  }
+
+  /* Estilo específico para aumentar el tamaño del nombre del usuario */
+.chat-about h6 {
+    font-size: 24px; /* Ajusta el tamaño según lo necesites */
+  }
+  
+  /* Estilo para resaltar el nombre del usuario */
+.user-name {
+    font-weight: bold;
+    color: #004a99; /* Puedes cambiar el color a tu preferencia */
+  }
