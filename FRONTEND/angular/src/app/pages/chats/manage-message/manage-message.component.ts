@@ -1,36 +1,43 @@
+import { DatePipe } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { Message } from "src/app/models/message.model";
 import { User } from "src/app/models/user.model";
 import { LocalStorageServiceService } from "src/app/services/local-storage-service.service";
+import { UserService } from "src/app/services/user.service";
 import { WebSocketService } from "src/app/services/web-socket.service";
 
 @Component({
   selector: "app-manage-message",
   templateUrl: "./manage-message.component.html",
   styleUrls: ["./manage-message.component.scss"],
+  providers: [DatePipe], // Añade DatePipe como provider
 })
 export class ManageMessageComponent implements OnInit, OnDestroy {
   chatId: number;
   messages: Message[];
   message: Message;
   userData: User;
+  users: User[];
   newMessage: string;
 
   constructor(
     private webSocketService: WebSocketService,
     private route: ActivatedRoute,
-    private localStorageService: LocalStorageServiceService
+    private localStorageService: LocalStorageServiceService,
+    private datePipe: DatePipe, // Inyecta DatePipe
+    private userService: UserService // Inyecta el servicio de usuario
   ) {
     this.chatId = 0;
     this.messages = [];
+    this.users = [];
     this.newMessage = "";
-    this.message={
+    this.message = {
       id: 0,
       information: "",
       chat_id: null,
-      user_id: null
-    }
+      user_id: null,
+    };
   }
 
   ngOnInit() {
@@ -59,11 +66,12 @@ export class ManageMessageComponent implements OnInit, OnDestroy {
       this.messages = this.messages.filter((m) => m.id !== message.id);
     });
 
-    this.webSocketService.viewChat(this.chatId).subscribe(response=>{
+    this.webSocketService.viewChat(this.chatId).subscribe((response) => {
       console.log(JSON.stringify(response["messages"]));
       this.messages = response["messages"];
-      
-    })
+    });
+
+    this.loadUsers();
   }
 
   ngOnDestroy() {
@@ -86,13 +94,34 @@ export class ManageMessageComponent implements OnInit, OnDestroy {
     }
   }
 
-  storeMessage(){
+  loadUsers() {
+    this.userService.list().subscribe((data) => {
+      this.users = data;
+      console.log(JSON.stringify(this.users));
+    });
+  }
+
+  storeMessage() {
     this.message.information = this.newMessage;
     this.message.chat_id = this.chatId;
     this.message.user_id = this.userData._id;
 
-    this.webSocketService.create(this.message).subscribe(response =>{
-      
-    })
+    this.webSocketService.create(this.message).subscribe((response) => {});
+  }
+
+  // Método para formatear la fecha
+  formatMessageTime(time: string): string {
+    return this.datePipe.transform(time, "short"); // 'short' podría ser 'medium', 'long', 'full' según tus preferencias
+  }
+
+  // Método para obtener el nombre del usuario según su ID
+  getUserName(userId: string): string {
+    if (!this.users) {
+      console.error("Lista de usuarios no cargada.");
+      return "Unknown User";
+    }
+
+    const user = this.users.find((u) => u._id === userId);
+    return user ? user.name : "Unknown User";
   }
 }
