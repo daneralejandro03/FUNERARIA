@@ -15,37 +15,39 @@
                     <button type="button" class="btn btn-success" (click)="create()">Crear</button>
                 </div>
                 <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Fecha de Inicio</th>
-                                <th>Estado</th>
-                                <th>Id del Incidente </th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let chat of chats">
-                                <td>{{ chat.id }}</td>
-                                <td>{{ chat.start_date }}</td>
-                                <td>{{ chat.state }}</td>
-                                <td>{{ chat.incident_id }}</td>
-                                <td>
-                                    <button type="button" class="btn btn-primary" (click)="view(chat.id)">Ver</button>
-                                    <button type="button" class="btn btn-warning"
-                                        (click)="update(chat.id)">Editar</button>
-                                    <button type="button" class="btn btn-danger"
-                                        (click)="delete(chat.id)">Eliminar</button>
-                                    <button type="button" class="btn btn-danger"
-                                        (click)="messages(chat.id)">Mensajes</button>
-                                </td>
-                            </tr>
-                            <tr *ngIf="chats.length === 0">
-                                <td colspan="4" class="text-center">No hay permisos para mostrar.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Fecha de Inicio</th>
+                                    <th>Estado</th>
+                                    <th>Id del Incidente </th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let chat of chats">
+                                    <td>{{ chat.id }}</td>
+                                    <td>{{ chat.start_date }}</td>
+                                    <td>{{ chat.state }}</td>
+                                    <td>{{ chat.incident_id }}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary" (click)="view(chat.id)">Ver</button>
+                                        <button type="button" class="btn btn-warning"
+                                            (click)="update(chat.id)">Editar</button>
+                                        <button type="button" class="btn btn-danger"
+                                            (click)="delete(chat.id)">Eliminar</button>
+                                        <button type="button" class="btn btn-danger"
+                                            (click)="messages(chat.id)">Mensajes</button>
+                                    </td>
+                                </tr>
+                                <tr *ngIf="chats.length === 0">
+                                    <td colspan="4" class="text-center">No hay permisos para mostrar.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

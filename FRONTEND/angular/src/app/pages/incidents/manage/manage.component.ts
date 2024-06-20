@@ -37,8 +37,7 @@ export class ManageComponent implements OnInit {
     this.theFormGroup = this.theFormBuilder.group({
       date_decease: ["", [Validators.required]],
       place_decease: ["", [Validators.required]],
-      cause_decease: ["", [Validators.required]],
-      idChat: [null, [Validators.required]],
+      cause_decease: ["", [Validators.required]]
     });
   }
 

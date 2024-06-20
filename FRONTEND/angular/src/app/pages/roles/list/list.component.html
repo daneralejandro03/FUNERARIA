@@ -15,31 +15,33 @@
           <button type="button" class="btn btn-success" (click)="create()">Crear</button>
         </div>
         <div class="card-body">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>NOMBRE</th>
-                <th>DESCRIPCIÓN</th>
-                <th>ACCIONES</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let role of roles">
-                <td>{{ role._id }}</td>
-                <td>{{ role.name }}</td>
-                <td>{{ role.description }}</td>
-                <td>
-                  <button type="button" class="btn btn-primary" (click)="view(role._id)">Ver</button>
-                  <button type="button" class="btn btn-warning" (click)="update(role._id)">Editar</button>
-                  <button type="button" class="btn btn-danger" (click)="delete(role._id)">Eliminar</button>
-                </td>
-              </tr>
-              <tr *ngIf="roles.length === 0">
-                <td colspan="4" class="text-center">No hay Roles para mostrar.</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>NOMBRE</th>
+                  <th>DESCRIPCIÓN</th>
+                  <th>ACCIONES</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let role of roles">
+                  <td>{{ role._id }}</td>
+                  <td>{{ role.name }}</td>
+                  <td>{{ role.description }}</td>
+                  <td>
+                    <button type="button" class="btn btn-primary" (click)="view(role._id)">Ver</button>
+                    <button type="button" class="btn btn-warning" (click)="update(role._id)">Editar</button>
+                    <button type="button" class="btn btn-danger" (click)="delete(role._id)">Eliminar</button>
+                  </td>
+                </tr>
+                <tr *ngIf="roles.length === 0">
+                  <td colspan="4" class="text-center">No hay Roles para mostrar.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

@@ -98,6 +98,12 @@ export const ROUTES: RouteInfo[] = [
     icon: "ni-chat-round text-blue",
     class: "1",
   },
+  {
+    path: "/users/list",
+    title: "Users",
+    icon: "ni-single-02 text-primary",
+    class: "1",
+  },
 ];
 
 @Component({
